@@ -1,7 +1,7 @@
 package org.example.modelo;
 
-import excepciones.CampoVacioExcepcion;
-import modelo.dao.helper.Entidades;
+import org.example.excepciones.CampoVacioExcepcion;
+import org.example.modelo.dao.helper.Entidades;
 
 /**
  * Esta clase (POJO) será una representación de la tabla libro

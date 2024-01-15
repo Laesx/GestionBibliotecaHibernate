@@ -1,6 +1,6 @@
 package org.example.modelo;
 
-import modelo.dao.helper.Entidades;
+import org.example.modelo.dao.helper.Entidades;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

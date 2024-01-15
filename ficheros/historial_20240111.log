@@ -1,0 +1,78 @@
+Usuario conectado: root a jdbc:mysql://127.0.0.1:3306/BIBLIOTECA (18:13:11)
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:13:11,Usuario conectado: root a jdbc:mysql://127.0.0.1:3306/BIBLIOTECA (18:13:11))
+SELECT * FROM libro
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:13:14,SELECT * FROM libro)
+SELECT id,nombre,apellidos FROM usuario
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:13:23,SELECT id,nombre,apellidos FROM usuario)
+SELECT * FROM libro
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:13:27,SELECT * FROM libro)
+Usuario actual desconectado a las 18:15:12
+Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (18:16:46)
+Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (18:18:00)
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:00,Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (18:18:00))
+SELECT * FROM libro
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:04,SELECT * FROM libro)
+SELECT id,nombre,apellidos FROM usuario
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:07,SELECT id,nombre,apellidos FROM usuario)
+SELECT id,categoria FROM categoria
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:09,SELECT id,categoria FROM categoria)
+SELECT id,nombre,autor,editorial,categoria FROM libro
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT id,nombre,autor,editorial,categoria FROM libro)
+SELECT * FROM categoria WHERE id = 3
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 3)
+SELECT * FROM categoria WHERE id = 2
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 2)
+SELECT * FROM categoria WHERE id = 5
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 5)
+SELECT * FROM categoria WHERE id = 7
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 7)
+SELECT * FROM categoria WHERE id = 8
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 8)
+SELECT * FROM categoria WHERE id = 1
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 1)
+SELECT * FROM categoria WHERE id = 8
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 8)
+SELECT * FROM categoria WHERE id = 6
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 6)
+SELECT * FROM categoria WHERE id = 2
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 2)
+SELECT * FROM categoria WHERE id = 2
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 2)
+SELECT * FROM categoria WHERE id = 1
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 1)
+SELECT * FROM categoria WHERE id = 3
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 3)
+SELECT * FROM categoria WHERE id = 2
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 2)
+SELECT * FROM categoria WHERE id = 4
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 4)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
+SELECT id,nombre,apellidos FROM usuario WHERE id = 2
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,apellidos FROM usuario WHERE id = 2)
+SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 6
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 6)
+SELECT id,nombre,apellidos FROM usuario WHERE id = 4
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,apellidos FROM usuario WHERE id = 4)
+SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 7
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 7)
+SELECT id,nombre,apellidos FROM usuario WHERE id = 5
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,apellidos FROM usuario WHERE id = 5)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
+SELECT id,nombre,apellidos FROM usuario WHERE id = 2
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,apellidos FROM usuario WHERE id = 2)
+SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 6
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 6)
+SELECT id,nombre,apellidos FROM usuario WHERE id = 4
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,apellidos FROM usuario WHERE id = 4)
+SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 7
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 7)
+SELECT id,nombre,apellidos FROM usuario WHERE id = 5
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,apellidos FROM usuario WHERE id = 5)
+Usuario actual desconectado a las 18:41:03
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:41:03,Usuario actual desconectado a las 18:41:03)

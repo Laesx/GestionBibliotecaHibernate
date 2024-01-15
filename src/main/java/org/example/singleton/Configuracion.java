@@ -1,12 +1,14 @@
 package org.example.singleton;
 
-import org.example.helper.Aux;
 import org.example.helper.EncriptacionDesencriptacion;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
+
+import static org.example.helper.Auxiliar.dameFechaActual;
+
 /**
  * Esta clase solo permitira la instanciación de un único objeto
  * para definir y mantener la configuración de una aplicación,
@@ -119,7 +121,7 @@ public class Configuracion {
                 p.setProperty("user", conf.user);
                 try {
                     p.setProperty("password", EncriptacionDesencriptacion.encriptar(conf.password, claveSecreta));
-                    p.store(new FileWriter(FILE_CONF), String.format("Actualizado el %s", Aux.dameFechaActual()));
+                    p.store(new FileWriter(FILE_CONF), String.format("Actualizado el %s", dameFechaActual()));
                     conf = null;
                 } catch (Exception e) {
                     throw new RuntimeException(e);

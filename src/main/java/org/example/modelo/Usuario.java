@@ -1,5 +1,5 @@
 package org.example.modelo;
-import excepciones.CampoVacioExcepcion;
+import org.example.excepciones.CampoVacioExcepcion;
 
 /**
  * Esta clase (POJO) será una representación de la tabla usuario

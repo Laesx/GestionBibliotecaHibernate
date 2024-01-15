@@ -1,5 +1,6 @@
 package org.example.vista;
 
+import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
 import org.example.presentador.PresentadorLibro;
@@ -293,7 +294,11 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getComponent().equals(eTitulo)) {
-            getLibro().setNombre(eTitulo.getText());
+            try {
+                getLibro().setNombre(eTitulo.getText());
+            } catch (CampoVacioExcepcion campoVacioExcepcion) {
+                SwgAuxiliar.msgExcepcion(campoVacioExcepcion);
+            }
         }
         else if (e.getComponent().equals(eAutor))
             getLibro().setAutor(eAutor.getText());
