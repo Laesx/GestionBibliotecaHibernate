@@ -1,7 +1,6 @@
 package org.example.modeloJPA;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Categoria {
@@ -12,8 +11,6 @@ public class Categoria {
     @Basic
     @Column(name = "categoria", nullable = true, length = -1)
     private String categoria;
-    @OneToMany(mappedBy = "categoria")
-    private Collection<Libro> libros;
 
     public int getId() {
         return id;
@@ -49,13 +46,5 @@ public class Categoria {
         int result = id;
         result = 31 * result + (categoria != null ? categoria.hashCode() : 0);
         return result;
-    }
-
-    public Collection<Libro> getLibros() {
-        return libros;
-    }
-
-    public void setLibros(Collection<Libro> libros) {
-        this.libros = libros;
     }
 }

@@ -8,11 +8,11 @@
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="connection.username">root</property>
     <property name="connection.password">admin1234</property>
-    <mapping class="org.example.Categoria"/>
-    <mapping class="org.example.Historico"/>
-    <mapping class="org.example.Libro"/>
-    <mapping class="org.example.Prestamos"/>
-    <mapping class="org.example.Usuario"/>
+    <mapping class="org.example.modeloJPA.Categoria"/>
+    <mapping class="org.example.modeloJPA.Historico"/>
+    <mapping class="org.example.modeloJPA.Libro"/>
+    <mapping class="org.example.modeloJPA.Prestamos"/>
+    <mapping class="org.example.modeloJPA.Usuario"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

@@ -1,7 +1,6 @@
 package org.example.modeloJPA;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Libro {
@@ -18,11 +17,9 @@ public class Libro {
     @Basic
     @Column(name = "editorial", nullable = true, length = -1)
     private String editorial;
-    @Basic
-    @Column(name = "categoria", nullable = true)
-    private Integer categoria;
-    @OneToMany(mappedBy = "libro")
-    private Collection<Prestamos> prestamos;
+    @ManyToOne
+    @JoinColumn(name = "categoria", referencedColumnName = "id")
+    private Categoria categoria;
 
     public int getId() {
         return id;
@@ -56,14 +53,6 @@ public class Libro {
         this.editorial = editorial;
     }
 
-    public Integer getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Integer categoria) {
-        this.categoria = categoria;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,7 +64,6 @@ public class Libro {
         if (nombre != null ? !nombre.equals(libro.nombre) : libro.nombre != null) return false;
         if (autor != null ? !autor.equals(libro.autor) : libro.autor != null) return false;
         if (editorial != null ? !editorial.equals(libro.editorial) : libro.editorial != null) return false;
-        if (categoria != null ? !categoria.equals(libro.categoria) : libro.categoria != null) return false;
 
         return true;
     }
@@ -86,15 +74,14 @@ public class Libro {
         result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
         result = 31 * result + (autor != null ? autor.hashCode() : 0);
         result = 31 * result + (editorial != null ? editorial.hashCode() : 0);
-        result = 31 * result + (categoria != null ? categoria.hashCode() : 0);
         return result;
     }
 
-    public Collection<Prestamos> getPrestamos() {
-        return prestamos;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setPrestamos(Collection<Prestamos> prestamos) {
-        this.prestamos = prestamos;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
