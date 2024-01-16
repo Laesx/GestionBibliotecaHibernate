@@ -4,6 +4,12 @@ import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.singleton.ConexionMySQL;
 import org.example.modelo.Categoria;
+import org.example.singleton.HibernateUtilJPA;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +22,17 @@ import java.util.List;
  */
 public class CategoriaDAOImpl implements CategoriaDAO {
 
-    private final Connection con;
+    //private final Connection con;
     private static final String sqlINSERT="INSERT INTO categoria (categoria) VALUES (?)";
     private static final String sqlUPDATE="UPDATE categoria SET categoria=? WHERE id = ?";
     private static final String sqlDELETE="DELETE FROM categoria WHERE id = ?";
     public CategoriaDAOImpl() throws Exception {
-        con = ConexionMySQL.getInstance().getConexion();
+        //con = ConexionMySQL.getInstance().getConexion();
     }
 
     @Override
     public boolean inserta(Categoria categoria) throws Exception {
+        /*
         boolean insertado;
         try (PreparedStatement pstmt = con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
             pstmt.setString(1,categoria.getCategoria());
@@ -39,10 +46,34 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         }
         LogFile.saveLOG(sqlINSERT.replace("?",categoria.getCategoria()));
         return insertado;
+        */
+
+        boolean insertado = false;
+        EntityTransaction transaction = null;
+
+        try{
+            EntityManager em = HibernateUtilJPA.getEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            em.persist(categoria);
+
+            transaction.commit();
+            insertado = true;
+
+        }catch (Exception e){
+            e.printStackTrace(System.err);
+
+            if(transaction!=null)
+                transaction.rollback();
+        }
+        LogFile.saveLOG(sqlINSERT.replace("?",categoria.getCategoria()));
+        return insertado;
     }
 
     @Override
     public boolean modificar(Categoria categoria) throws Exception {
+        /*
         boolean actualizado;
         try (PreparedStatement pstmt = con.prepareStatement(sqlUPDATE)) {
             pstmt.setString(1,categoria.getCategoria());
@@ -53,16 +84,70 @@ public class CategoriaDAOImpl implements CategoriaDAO {
                 categoria.getCategoria());
         LogFile.saveLOG(sql.replace("?",String.valueOf(categoria.getId())));
         return actualizado;
+
+         */
+
+        boolean modificado = false;
+
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+
+        try {
+            transaction.begin();
+            Categoria categoria1 = em.find(Categoria.class, categoria.getId());
+            categoria1.setCategoria(categoria.getCategoria());
+
+            em.merge(categoria1);
+            transaction.commit();
+            modificado = true;
+
+        }catch (Exception e){
+            if(transaction.isActive())
+                transaction.rollback();
+
+            throw e;
+        } finally {
+            em.close();
+        }
+
+        return modificado;
     }
 
     @Override
     public boolean borrar(int id) throws Exception {
+        /*
         boolean borrado=false;
         try (PreparedStatement pstmt = con.prepareStatement(sqlDELETE)) {
             pstmt.setInt(1,id);
             borrado=pstmt.executeUpdate()==1;
         }
         LogFile.saveLOG(sqlDELETE.replace("?",String.valueOf(id)));
+        return borrado;
+        */
+
+
+        boolean borrado = false;
+
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try{
+            transaction.begin();
+            Categoria categoria = em.find(Categoria.class, id);
+
+            if(categoria != null){
+                em.remove(categoria);
+                transaction.commit();
+                borrado = true;
+            }
+        }catch (Exception e) {
+            e.printStackTrace(System.err);
+            if(transaction!= null){
+                transaction.rollback();
+            }
+        }
+
         return borrado;
     }
     /**
@@ -90,6 +175,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
      * @throws Exception cualquier error asociado a la consulta sql
      */
     public static int minimaId() throws Exception {
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        String sql = "SELECT MIN(id) AS min_id FROM categoria";
+
+        try{
+
+        }
+
+        /*
         Connection con = ConexionMySQL.getInstance().getConexion();
         int minimo= 0;
         String sql = "SELECT MIN(id) AS min_id FROM categoria";
@@ -101,6 +194,8 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             }
         }
         return minimo;
+
+         */
     }
 
     /**
@@ -111,8 +206,9 @@ public class CategoriaDAOImpl implements CategoriaDAO {
      */
     @Override
     public Categoria categoria(int id) throws Exception {
-        Categoria categoria=null;
-        String sql="SELECT * FROM categoria WHERE id = ?";
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        return em.find(Categoria.class, id);
+        /*
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1,id);
             ResultSet rs = pstmt.executeQuery();
@@ -123,7 +219,8 @@ public class CategoriaDAOImpl implements CategoriaDAO {
                 categoria.setCategoria(rs.getString("Categoria"));
             }
         }
-        return categoria;
+
+         */
     }
 
 
@@ -136,8 +233,10 @@ public class CategoriaDAOImpl implements CategoriaDAO {
      * @throws CampoVacioExcepcion en el caso que contenga una categoria con categoria a null
      */
     public List<Categoria> leerAllCategorias() throws Exception {
+        /*
         List<Categoria> lista = null;
         String sql = "SELECT id,categoria FROM categoria";
+
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             LogFile.saveLOG(sql);
@@ -150,6 +249,12 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             }
         }
         return lista;
+
+         */
+
+        return (List<Categoria>) MetodosGenerales.obtenerLista("FROM Categoria");
     }
+
+
 
 }
