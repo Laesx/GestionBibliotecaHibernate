@@ -6,10 +6,7 @@ import org.example.singleton.ConexionMySQL;
 import org.example.modelo.Categoria;
 import org.example.singleton.HibernateUtilJPA;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +21,6 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
     //private final Connection con;
     private static final String sqlINSERT="INSERT INTO categoria (categoria) VALUES (?)";
-    private static final String sqlUPDATE="UPDATE categoria SET categoria=? WHERE id = ?";
-    private static final String sqlDELETE="DELETE FROM categoria WHERE id = ?";
     public CategoriaDAOImpl() throws Exception {
         //con = ConexionMySQL.getInstance().getConexion();
     }
@@ -156,6 +151,25 @@ public class CategoriaDAOImpl implements CategoriaDAO {
      * @throws Exception cualquier error asociado a la consulta sql
      */
     public static int maximaId() throws Exception {
+
+        int maximo = 0;
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+
+        try{
+            String sql = "SELECT MAX(id) FROM Categoria ";
+            Query query = em.createQuery(sql);
+
+            Object resultado = query.getSingleResult();
+
+            if(resultado != null){
+                maximo = ((Number) resultado).intValue();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        /*
         Connection con = ConexionMySQL.getInstance().getConexion();
         int maximo= 0;
         String sql = "SELECT MAX(id) AS max_id FROM categoria";
@@ -166,7 +180,11 @@ public class CategoriaDAOImpl implements CategoriaDAO {
                 maximo= rs.getInt("max_id");
             }
         }
+
+         */
         return maximo;
+
+
     }
 
     /**
@@ -175,12 +193,22 @@ public class CategoriaDAOImpl implements CategoriaDAO {
      * @throws Exception cualquier error asociado a la consulta sql
      */
     public static int minimaId() throws Exception {
+        int minimo = 0;
         EntityManager em = HibernateUtilJPA.getEntityManager();
-        String sql = "SELECT MIN(id) AS min_id FROM categoria";
 
         try{
+            String sql = "SELECT MIN(id) FROM Categoria ";
+            Query query = em.createQuery(sql);
 
+            Object resultado = query.getSingleResult();
+
+            if(resultado != null){
+                minimo = ((Number) resultado).intValue();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         /*
         Connection con = ConexionMySQL.getInstance().getConexion();
@@ -196,6 +224,8 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         return minimo;
 
          */
+
+        return minimo;
     }
 
     /**

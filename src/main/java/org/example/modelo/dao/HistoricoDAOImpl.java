@@ -4,7 +4,10 @@ import org.example.modelo.Historico;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.singleton.ConexionMySQL;
 import org.example.singleton.Configuracion;
+import org.example.singleton.HibernateUtilJPA;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,7 +41,28 @@ public class HistoricoDAOImpl implements HistoricoDAO {
 
     @Override
     public boolean insertar() throws SQLException, IOException {
-        boolean insertado;
+        boolean insertado = false;
+
+        EntityTransaction transaction = null;
+
+        try{
+            EntityManager em = HibernateUtilJPA.getEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            em.persist(historico);
+
+            transaction.commit();
+            insertado = true;
+
+        }catch (Exception e){
+            e.printStackTrace(System.err);
+
+            if(transaction!=null)
+                transaction.rollback();
+        }
+
+        /*
         try (PreparedStatement pstmt = con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, historico.getUser());
             pstmt.setString(2, historico.getFecha().format(formatter));
@@ -50,6 +74,8 @@ public class HistoricoDAOImpl implements HistoricoDAO {
                     historico.setIdHistorico(rs.getInt(1));
             }
         }
+
+         */
         grabaEnLogIns(sqlINSERT);
         return insertado;
     }

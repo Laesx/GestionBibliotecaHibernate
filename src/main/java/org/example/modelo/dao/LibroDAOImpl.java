@@ -1,11 +1,15 @@
 package org.example.modelo.dao;
 
 import org.example.excepciones.CampoVacioExcepcion;
+import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
 import org.example.singleton.ConexionMySQL;
+import org.example.singleton.HibernateUtilJPA;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +24,35 @@ public class LibroDAOImpl implements LibroDAO {
     private final Connection con;
     private static final String sqlINSERT="INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (?,?,?,?)";
     private static final String sqlUPDATE="UPDATE libro SET nombre=?, autor=?, editorial=?, categoria=? WHERE id = ?";
-    private static final String sqlDELETE="DELETE FROM libro WHERE id = ?";
     public LibroDAOImpl() throws Exception {
         con = ConexionMySQL.getInstance().getConexion();
     }
 
     @Override
     public boolean insertar(Libro libro) throws Exception {
-        boolean insertado;
+        boolean insertado = false;
+
+        EntityTransaction transaction = null;
+
+        try{
+            EntityManager em = HibernateUtilJPA.getEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            em.persist(libro);
+
+            transaction.commit();
+            insertado = true;
+
+        }catch (Exception e){
+            e.printStackTrace(System.err);
+
+            if(transaction!=null)
+                transaction.rollback();
+        }
+        grabaEnLogIns(libro,sqlINSERT);
+
+        /*
         try (PreparedStatement pstmt = con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
             pstmt.setString(1,libro.getNombre());
             pstmt.setString(2,libro.getAutor());
@@ -41,6 +66,8 @@ public class LibroDAOImpl implements LibroDAO {
             }
         }
         grabaEnLogIns(libro,sqlINSERT);
+
+         */
         return insertado;
     }
 
@@ -54,7 +81,35 @@ public class LibroDAOImpl implements LibroDAO {
 
     @Override
     public boolean modificar(Libro libro) throws Exception {
-        boolean actualizado;
+        boolean actualizado = false;
+
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+
+        try {
+            transaction.begin();
+            Libro libro1 = em.find(Libro.class, libro.getId());
+
+            libro1.setId(libro.getId());
+            libro1.setCategoria(libro.getCategoria());
+            libro1.setNombre(libro.getNombre());
+            libro1.setAutor(libro.getAutor());
+            libro1.setEditorial(libro.getEditorial());
+
+            em.merge(libro1);
+            transaction.commit();
+            actualizado = true;
+
+        }catch (Exception e){
+            if(transaction.isActive())
+                transaction.rollback();
+
+            throw e;
+        } finally {
+            em.close();
+        }
+        /*
         try (PreparedStatement pstmt = con.prepareStatement(sqlUPDATE)){
             pstmt.setString(1,libro.getNombre());
             pstmt.setString(2,libro.getAutor());
@@ -63,6 +118,8 @@ public class LibroDAOImpl implements LibroDAO {
             pstmt.setInt(5, libro.getId());
             actualizado=pstmt.executeUpdate()==1;
         }
+
+         */
         grabaEnLogUpd(libro,sqlUPDATE);
         return actualizado;
     }
@@ -80,6 +137,27 @@ public class LibroDAOImpl implements LibroDAO {
     }
     @Override
     public boolean borrar(int id) throws Exception {
+        boolean borrado = false;
+
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try{
+            transaction.begin();
+            Libro libro = em.find(Libro.class, id);
+
+            if(libro != null){
+                em.remove(libro);
+                transaction.commit();
+                borrado = true;
+            }
+        }catch (Exception e) {
+            e.printStackTrace(System.err);
+            if(transaction!= null){
+                transaction.rollback();
+            }
+        }
+        /*
         boolean borrado=false;
         try (PreparedStatement pstmt = con.prepareStatement(sqlDELETE)){
             pstmt.setInt(1, id);
@@ -87,6 +165,10 @@ public class LibroDAOImpl implements LibroDAO {
         }
         grabaEnLogDel(id,sqlDELETE);
         return borrado;
+
+         */
+
+        return true;
     }
 
     /**
@@ -99,6 +181,7 @@ public class LibroDAOImpl implements LibroDAO {
      */
     @Override
     public List<Libro> leerAllLibros() throws Exception {
+        /*
         List<Libro> lista = null;
         String sql="SELECT id,nombre,autor,editorial,categoria FROM libro";
         try (Statement stmt = con.createStatement()) {
@@ -116,8 +199,14 @@ public class LibroDAOImpl implements LibroDAO {
             }
         }
         return lista;
+
+         */
+
+        return (List<Libro>) MetodosGenerales.obtenerLista("FROM Libro");
+
     }
 
+    //TODO cambiar a Hibernate
     /**
     * Este método estático devuelve todos los libros de la BD,
     * que cumplan la condición según los parametros
@@ -205,6 +294,9 @@ public class LibroDAOImpl implements LibroDAO {
      */
     @Override
     public Libro getLibro(int id) throws Exception {
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        return em.find(Libro.class, id);
+        /*
         Libro libro=null;
         String sql="SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -221,5 +313,7 @@ public class LibroDAOImpl implements LibroDAO {
             }
         }
         return libro;
+
+         */
     }
 }

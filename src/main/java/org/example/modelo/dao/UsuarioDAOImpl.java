@@ -3,10 +3,16 @@ package org.example.modelo.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
 import org.example.modelo.Usuario;
 import org.example.singleton.ConexionMySQL;
+import org.example.singleton.HibernateUtilJPA;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 /**
  * Aquí implementaremos las reglas de negocio definidas
@@ -26,7 +32,26 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     }
     @Override
     public boolean insertar(Usuario usuario) throws Exception {
-        boolean bInsertado;
+        boolean insertado = false;
+        EntityTransaction transaction = null;
+
+        try{
+            EntityManager em = HibernateUtilJPA.getEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            em.persist(usuario);
+
+            transaction.commit();
+            insertado = true;
+
+        }catch (Exception e){
+            e.printStackTrace(System.err);
+
+            if(transaction!=null)
+                transaction.rollback();
+        }
+        /*
         try(PreparedStatement ps =con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
             ps.setString(1,usuario.getNombre());
             ps.setString(2,usuario.getApellidos());
@@ -37,8 +62,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
                     usuario.setId(rs.getInt(1));
             }
         }
+        
+         */
         grabaEnLogIns(usuario,sqlINSERT);
-        return bInsertado;
+        return insertado;
     }
 
     private void grabaEnLogIns(Usuario usuario,String sql) throws Exception {
@@ -48,13 +75,42 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     }
     @Override
     public boolean modificar(Usuario usuario) throws Exception {
-        boolean modificado;
+        boolean modificado = true;
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+
+        try {
+            transaction.begin();
+            Libro usuario1 = em.find(Libro.class, usuario.getId());
+
+            usuario1.setId(usuario.getId());
+            usuario1.setCategoria(libro.getCategoria());
+            usuario1.setNombre(libro.getNombre());
+            usuario1.setAutor(libro.getAutor());
+            usuario1.setEditorial(libro.getEditorial());
+
+            em.merge(usuario1);
+            transaction.commit();
+            actualizado = true;
+
+        }catch (Exception e){
+            if(transaction.isActive())
+                transaction.rollback();
+
+            throw e;
+        } finally {
+            em.close();
+        }
+        /*
         try (PreparedStatement ps =con.prepareStatement(sqlUPDATE)) {
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getApellidos());
             ps.setInt(3, usuario.getId());
             modificado = (ps.executeUpdate() == 1);
         }
+        
+         */
         grabaEnLogUpd(usuario,sqlUPDATE);
         return modificado;
     }
