@@ -9,11 +9,12 @@ public class Prestamos {
     @Id
     @Column(name = "idPrestamo", nullable = false)
     private int idPrestamo;
+    //TODO Decidir si usar la id de libro o el objeto libro como tal y lo mismo con el usuario
     @Basic
-    @Column(name = "idLibro", nullable = true)
+    @Column(name = "idLibro", nullable = true, insertable = false, updatable = false)
     private Integer idLibro;
     @Basic
-    @Column(name = "idUsuario", nullable = true)
+    @Column(name = "idUsuario", nullable = true, insertable = false, updatable = false)
     private Integer idUsuario;
     @Basic
     @Column(name = "fechaPrestamo", nullable = true)

@@ -1,10 +1,13 @@
 package org.example.singleton;
 
+import org.example.modelo.dao.helper.LogFile;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -27,14 +30,14 @@ public class HibernateUtilJPA {
 
     }
     private static EntityManagerFactory entityManagerFactory=null;
-    public static EntityManager getEntityManager(){
+    public static EntityManager getEntityManager() throws Exception {
         getEntityManagerFactory();
         EntityManager em=null;
         if (entityManagerFactory!=null)
             em=entityManagerFactory.createEntityManager();
         return em;
     }
-    public static EntityManagerFactory getEntityManagerFactory() {
+    public static EntityManagerFactory getEntityManagerFactory() throws Exception {
         if (entityManagerFactory == null) {
             entityManagerFactory = createEntityManagerFactory();
             Runtime.getRuntime().addShutdownHook(new ThreadOff());
@@ -42,11 +45,23 @@ public class HibernateUtilJPA {
         return entityManagerFactory;
     }
 
-    private static EntityManagerFactory createEntityManagerFactory() {
+    private static EntityManagerFactory createEntityManagerFactory() throws Exception {
         showLog();
         // por si no está configurado en persistence.xml
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect"); // Reemplaza con el dialecto de tu base de datos
+
+        // Aqui cogemos la configuración de la conexión a la BD de nuestro Singleton de configuración
+        Configuracion config=Configuracion.getInstance();
+        properties.put("hibernate.connection.driver_class", config.getDriver());
+        properties.put("hibernate.connection.url", config.getUrl());
+        properties.put("hibernate.connection.username", config.getUser());
+        properties.put("hibernate.connection.password", config.getPassword());
+
+        String msg=String.format("Usuario conectado: %s a %s (%s)",config.getUser(),config.getUrl(),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        LogFile.saveLOG(msg);
+
         // Puedes agregar más propiedades según tus necesidades
         return new HibernatePersistenceProvider()
                 .createEntityManagerFactory(PERSISTENCE_UNIT_NAME, properties);
