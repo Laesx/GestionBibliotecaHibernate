@@ -3,6 +3,7 @@ package org.example.modelo.dao;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
+import org.example.modelo.Usuario;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
 import org.example.singleton.ConexionMySQL;
@@ -10,6 +11,7 @@ import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -213,7 +215,7 @@ public class LibroDAOImpl implements LibroDAO {
     * este método tendremos en un futuro reimplmentarlo por rangos de x,
     * para que el rendimiento no decaiga cuando la tabla crezca
     * @param id código de libro a buscar
-    * @param titulo búsqueda de libros con dicho título
+    * @param nombre búsqueda de libros con dicho título
     * @param autor búsqueda de libros con dicho autor
     * @param editorial búsqueda de libros con dicha editorial
     * @param categoria búsqueda de libros con dicho de código de categoría
@@ -222,8 +224,71 @@ public class LibroDAOImpl implements LibroDAO {
     * @throws CampoVacioExcepcion en el caso que contenga una categoria con categoria a null
     * */
     @Override
-    public List<Libro> leerLibrosOR(int id, String titulo, String autor, String editorial, int categoria) throws Exception {
-        String sql="SELECT id,nombre,autor,editorial,categoria FROM libro";
+    public List<Libro> leerLibrosOR(int id, String nombre, String autor, String editorial, int categoria) throws Exception {
+        String sql="SELECT l.id, l.nombre, l.autor, l.editorial, l.categoria FROM Libro l";
+        String where="";
+        List<Libro> lista = null;
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+
+        String wId="";
+        if (id != 0) {
+            wId = "l.id = :idLibro";
+            where = Sql.rellenaWhereOR(where, wId);
+            // where = "id = ?"
+        }
+        String wNombre="";
+        if (!nombre.trim().isEmpty()) {
+            wNombre = "l.nombre LIKE :nombreLibro";
+            where = Sql.rellenaWhereOR(where, wNombre);
+            //where = id = ? OR nombre LIKE ?
+        }
+        String wAutor="";
+        if (!autor.trim().isEmpty()) {
+            wAutor = "l.autor LIKE :autorLibro";
+            where = Sql.rellenaWhereOR(where, wAutor);
+            //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
+        }
+
+        String wEditorial="";
+        if (!autor.trim().isEmpty()) {
+            wEditorial = "l.editorial LIKE :editorialLibro";
+            where = Sql.rellenaWhereOR(where, wEditorial);
+            //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
+        }
+
+        String wCategoria="";
+        if (!autor.trim().isEmpty()) {
+            wCategoria = "l.categoria = :categoriaLibro";
+            where = Sql.rellenaWhereOR(where, wCategoria);
+            //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
+        }
+
+
+
+        if (where.isEmpty())
+            return leerAllLibros();
+        else {
+            sql = sql + " WHERE "+where;
+            // sql = SELECT .... FROM usuario WHERE .......
+            TypedQuery<Libro> typedQuery = em.createQuery(sql, Libro.class);
+
+            if (!wId.isEmpty())
+                typedQuery.setParameter("idLibro", id);
+            if (!wNombre.isEmpty())
+                typedQuery.setParameter("nombreLibro", nombre);
+            if (!wAutor.isEmpty())
+                typedQuery.setParameter("autorLibro", autor);
+            if (!wEditorial.isEmpty())
+                typedQuery.setParameter("editorialLibro", editorial);
+            if (!wCategoria.isEmpty())
+                typedQuery.setParameter("categoriaLibro", categoria);
+
+            lista = typedQuery.getResultList();
+        }
+
+        return lista;
+
+        /*String sql="SELECT id,nombre,autor,editorial,categoria FROM libro";
         String where="";
         String wId="";
         if (id != 0) {
@@ -282,6 +347,8 @@ public class LibroDAOImpl implements LibroDAO {
             }
             return lista;
         }
+
+         */
     }
 
     /**
