@@ -1,7 +1,7 @@
 package org.example.vista;
 
 import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.Usuario;
+import org.example.modeloJPA.Usuario;
 import org.example.presentador.PresentadorUsuario;
 import org.example.presentador.VistaUsuario;
 import org.example.vista.helper.SwgAuxiliar;
@@ -241,18 +241,10 @@ public class FichaUsuario extends JInternalFrame implements VistaUsuario, Action
     @Override
     public void focusLost(FocusEvent e) {
             if (e.getComponent().equals(eNombre)) {
-                try {
-                    getUsuario().setNombre(eNombre.getText());
-                } catch (CampoVacioExcepcion campoVacioExcepcion) {
-                    SwgAuxiliar.msgExcepcion(campoVacioExcepcion);
-                }
+                getUsuario().setNombre(eNombre.getText());
             }
             else if (e.getComponent().equals(eApellidos)) {
-                try {
-                    getUsuario().setApellidos(eApellidos.getText());
-                } catch (CampoVacioExcepcion campoVacioExcepcion) {
-                    SwgAuxiliar.msgExcepcion(campoVacioExcepcion);
-                }
+                getUsuario().setApellidos(eApellidos.getText());
             }
     }
 

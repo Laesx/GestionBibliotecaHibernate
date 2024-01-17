@@ -3,7 +3,7 @@ package org.example.modelo.dao;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.singleton.ConexionMySQL;
-import org.example.modelo.Categoria;
+import org.example.modeloJPA.Categoria;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.*;

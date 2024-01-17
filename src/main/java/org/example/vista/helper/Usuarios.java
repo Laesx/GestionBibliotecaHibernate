@@ -2,7 +2,7 @@ package org.example.vista.helper;
 
 
 import org.example.modelo.BusquedaUsuario;
-import org.example.modelo.Usuario;
+import org.example.modeloJPA.Usuario;
 import org.example.modelo.dao.UsuarioDAO;
 import org.example.modelo.dao.UsuarioDAOImpl;
 import org.example.presentador.PresentadorUsuario;

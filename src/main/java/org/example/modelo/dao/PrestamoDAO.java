@@ -1,6 +1,6 @@
 package org.example.modelo.dao;
 
-import org.example.modelo.Prestamo;
+import org.example.modeloJPA.Prestamos;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public interface PrestamoDAO {
      * @throws SQLException
      * @throws IOException
      */
-    boolean insertar(Prestamo prestamo) throws Exception;
+    boolean insertar(Prestamos prestamo) throws Exception;
 
     /**
      * Implementaremos las instrucciones necesarias para poder
@@ -30,7 +30,7 @@ public interface PrestamoDAO {
      * @throws SQLException
      * @throws IOException
      */
-    boolean modificar(Prestamo prestamo) throws Exception;
+    boolean modificar(Prestamos prestamo) throws Exception;
 
     /**
      * Implementaremos las instrucciones necesarias para poder
@@ -42,7 +42,7 @@ public interface PrestamoDAO {
      */
     boolean borrar(int id) throws Exception;
 
-    List<Prestamo> leerAllPrestamos() throws Exception;
+    List<Prestamos> leerAllPrestamos() throws Exception;
 
-    Prestamo getPrestamo(int id) throws Exception;
+    Prestamos getPrestamo(int id) throws Exception;
 }

@@ -66,7 +66,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
     }
 
     @Override
-    public Usuario getUsuario() {
+    public org.example.modeloJPA.Usuario getUsuario() {
         return usuarios.get(jTable.getSelectedRow());
     }
 

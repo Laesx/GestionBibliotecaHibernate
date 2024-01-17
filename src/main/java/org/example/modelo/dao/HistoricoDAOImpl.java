@@ -1,7 +1,7 @@
 package org.example.modelo.dao;
 
-import org.example.modelo.Historico;
-import org.example.modelo.dao.helper.LogFile;
+import org.example.modeloJPA.Historico;
+import org.example.modelo.dao.helper.LogFile; //MIRAR
 import org.example.singleton.ConexionMySQL;
 import org.example.singleton.Configuracion;
 import org.example.singleton.HibernateUtilJPA;
@@ -82,7 +82,7 @@ public class HistoricoDAOImpl implements HistoricoDAO {
 
     private void grabaEnLogIns(String sql) throws IOException {
         sql = sql.replaceFirst("\\?", String.valueOf(historico.getUser()));
-        sql = sql.replaceFirst("\\?", historico.getFecha().format(formatter));
+        sql = sql.replaceFirst("\\?", historico.getFecha().toString());
         sql = sql.replaceFirst("\\?", String.valueOf(historico.getInfo()));
         LogFile.saveLOGsinBD(sql);
     }

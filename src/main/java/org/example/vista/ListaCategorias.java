@@ -63,7 +63,7 @@ public class ListaCategorias extends JInternalFrame implements VistaCategorias,M
     }
 
     @Override
-    public Categoria getCategoria() {
+    public org.example.modeloJPA.Categoria getCategoria() {
         return categorias.get(jTable.getSelectedRow());
     }
     @Override

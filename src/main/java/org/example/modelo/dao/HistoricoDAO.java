@@ -1,6 +1,6 @@
 package org.example.modelo.dao;
 
-import org.example.modelo.Historico;
+import org.example.modeloJPA.Historico;
 
 import java.io.IOException;
 import java.sql.SQLException;

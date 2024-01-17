@@ -1,8 +1,7 @@
 package org.example.vista;
 
-import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.Categoria;
-import org.example.modelo.Libro;
+import org.example.modeloJPA.Categoria;
+import org.example.modeloJPA.Libro;
 import org.example.presentador.PresentadorLibro;
 import org.example.presentador.VistaLibro;
 import org.example.vista.helper.SwgAuxiliar;
@@ -131,16 +130,8 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
     public Libro getLibro(){
         return libro;
     }
-    @Override
-    public void lanzar() {
-        setVisible(true);
-    }
 
-    @Override
-    public void setPresentador(PresentadorLibro presentador) {
-        this.presentador=presentador;
-        presentador.listaAllCategorias();
-    }
+
 
     @Override
     public void setCategorias(List<Categoria> categorias) {
@@ -150,6 +141,17 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
                 cbCategoria.addItem(categoria);
             }
         }
+    }
+
+    @Override
+    public void lanzar() {
+        setVisible(true);
+    }
+
+    @Override
+    public void setPresentador(PresentadorLibro presentador) {
+        this.presentador=presentador;
+        presentador.listaAllCategorias();
     }
 
     public FichaLibro(Libro libro) {
@@ -294,11 +296,7 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getComponent().equals(eTitulo)) {
-            try {
-                getLibro().setNombre(eTitulo.getText());
-            } catch (CampoVacioExcepcion campoVacioExcepcion) {
-                SwgAuxiliar.msgExcepcion(campoVacioExcepcion);
-            }
+            getLibro().setNombre(eTitulo.getText());
         }
         else if (e.getComponent().equals(eAutor))
             getLibro().setAutor(eAutor.getText());

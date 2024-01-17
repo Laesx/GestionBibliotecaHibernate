@@ -1,10 +1,10 @@
 package org.example.vista;
 
 import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.Categoria;
-import org.example.modelo.Libro;
-import org.example.modelo.Prestamo;
-import org.example.modelo.Usuario;
+import org.example.modeloJPA.Categoria;
+import org.example.modeloJPA.Libro;
+import org.example.modeloJPA.Prestamos;
+import org.example.modeloJPA.Usuario;
 import org.example.modelo.dao.helper.Entidades;
 import org.example.vista.componentes.MiBarraDeEstado;
 import org.example.vista.helper.*;
@@ -284,7 +284,7 @@ public class FormMain extends JFrame implements ActionListener, FocusListener, W
         }
     }
     private void nuevoPrestamo(){
-        desktopPane.add(new FichaPrestamo(new Prestamo()));
+        desktopPane.add(new FichaPrestamo(new Prestamos()));
         desktopPane.selectFrame(false);
     }
 
@@ -372,7 +372,7 @@ public class FormMain extends JFrame implements ActionListener, FocusListener, W
                 ((ListaLibros) FormMain.getInstance().getDesktopPane().getComponent(i)).setLibros(libros);
     }
     public static void actualizaListaPrestamos() throws SQLException, CampoVacioExcepcion, IOException {
-        List<Prestamo> prestamos = Entidades.leerAllPrestamos();
+        List<Prestamos> prestamos = Entidades.leerAllPrestamos();
         for (int i=0;i< FormMain.getInstance().getDesktopPane().getComponentCount();i++)
             if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof  ListaPrestamos)
                 ((ListaPrestamos) FormMain.getInstance().getDesktopPane().getComponent(i)).setPrestamos(prestamos);

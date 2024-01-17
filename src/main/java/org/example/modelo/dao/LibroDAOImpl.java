@@ -2,7 +2,7 @@ package org.example.modelo.dao;
 
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
-import org.example.modelo.Libro;
+import org.example.modeloJPA.Libro;
 import org.example.modelo.Usuario;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;

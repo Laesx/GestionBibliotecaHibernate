@@ -2,7 +2,7 @@ package org.example.modelo.dao;
 
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
-import org.example.modelo.Prestamo;
+import org.example.modeloJPA.Prestamos;
 import org.example.singleton.ConexionMySQL;
 import org.example.singleton.HibernateUtilJPA;
 
@@ -32,7 +32,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         con = ConexionMySQL.getInstance().getConexion();
     }
     @Override
-    public boolean insertar(Prestamo prestamo) throws Exception {
+    public boolean insertar(Prestamos prestamo) throws Exception {
         boolean insertado=false;
         EntityTransaction transaction = null;
 
@@ -69,15 +69,15 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         grabaEnLogIns(prestamo,sqlINSERT);
         return insertado;
     }
-    private void grabaEnLogIns(Prestamo prestamo,String sql) throws Exception {
+    private void grabaEnLogIns(Prestamos prestamo,String sql) throws Exception {
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdLibro()));
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdUsuario()));
-        sql = sql.replaceFirst("\\?",prestamo.getFechaPrestamo().format(formatter));
+        sql = sql.replaceFirst("\\?",prestamo.getFechaPrestamo().toString());
         LogFile.saveLOG(sql);
     }
 
     @Override
-    public boolean modificar(Prestamo prestamo) throws Exception {
+    public boolean modificar(Prestamos prestamo) throws Exception {
         boolean actualizado;
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -85,7 +85,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
         try {
             transaction.begin();
-            Prestamo prestamo1 = em.find(Prestamo.class, prestamo.getId());
+            Prestamos prestamo1 = em.find(Prestamos.class, prestamo.getIdPrestamo());
             prestamo1.setFechaPrestamo(prestamo.getFechaPrestamo());
             prestamo1.setIdLibro(prestamo.getIdLibro());
             prestamo1.setIdUsuario(prestamo.getIdUsuario());
@@ -117,10 +117,10 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         grabaEnLogUpd(prestamo,sqlUPDATE); //Nose si hay que tocarlos ?
         return actualizado;
     }
-    private void grabaEnLogUpd(Prestamo prestamo,String sql) throws Exception {
+    private void grabaEnLogUpd(Prestamos prestamo,String sql) throws Exception {
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdLibro()));
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdUsuario()));
-        sql = sql.replaceFirst("\\?",prestamo.getFechaPrestamo().format(formatter));
+        sql = sql.replaceFirst("\\?",prestamo.getFechaPrestamo().toString());
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdPrestamo()));
         LogFile.saveLOG(sql);
     }
@@ -134,7 +134,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
         try{
             transaction.begin();
-            Prestamo prestamo = em.find(Prestamo.class, id);
+            Prestamos prestamo = em.find(Prestamos.class, id);
 
             if(prestamo != null){
                 em.remove(prestamo);
@@ -170,7 +170,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
      * @throws Exception cualquier error asociado a la consulta sql, grabar en fichero...
      */
     @Override
-    public List<Prestamo> leerAllPrestamos() throws Exception {
+    public List<Prestamos> leerAllPrestamos() throws Exception {
         return MetodosGenerales.obtenerLista("FROM Prestamo");
         /*
         List<Prestamo> lista = null;
@@ -200,9 +200,9 @@ public class PrestamoDAOImpl implements PrestamoDAO {
      * @throws Exception cualquier error asociado a la consulta sql, grabar en fichero, ...
      */
     @Override
-    public Prestamo getPrestamo(int id) throws Exception {
+    public Prestamos getPrestamo(int id) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();
-        return em.find(Prestamo.class, id);
+        return em.find(Prestamos.class, id);
         /*
         Prestamo prestamo =null;
         String sql="SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos WHERE idPrestamo = ?";

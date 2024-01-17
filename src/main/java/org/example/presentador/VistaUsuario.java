@@ -1,5 +1,6 @@
 package org.example.presentador;
-import org.example.modelo.Usuario;
+
+import org.example.modeloJPA.Usuario;
 
 public interface VistaUsuario {
     void lanzar();

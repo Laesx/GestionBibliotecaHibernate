@@ -56,7 +56,7 @@ public class SeleccionaLibro extends JDialog implements VistaLibros, FocusListen
     }
 
     @Override
-    public Libro getLibro() {
+    public org.example.modeloJPA.Libro getLibro() {
         return libros.get(jTable.getSelectedRow());
     }
 

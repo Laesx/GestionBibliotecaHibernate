@@ -1,6 +1,6 @@
 package org.example.vista.helper;
 
-import org.example.modelo.Categoria;
+import org.example.modeloJPA.Categoria;
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.CategoriaDAOImpl;
 import org.example.presentador.PresentadorCategoria;

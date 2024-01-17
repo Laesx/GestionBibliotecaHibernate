@@ -1,6 +1,6 @@
 package org.example.modelo.dao;
 
-import org.example.modelo.Categoria;
+import org.example.modeloJPA.Categoria;
 
 import java.io.IOException;
 import java.sql.SQLException;

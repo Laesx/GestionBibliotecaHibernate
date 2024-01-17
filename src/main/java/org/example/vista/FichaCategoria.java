@@ -1,7 +1,7 @@
 package org.example.vista;
 
 import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.Categoria;
+import org.example.modeloJPA.Categoria;
 import org.example.presentador.PresentadorCategoria;
 import org.example.presentador.VistaCategoria;
 import org.example.vista.helper.SwgAuxiliar;
@@ -212,13 +212,9 @@ public class FichaCategoria extends JInternalFrame implements VistaCategoria, Ke
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (e.getComponent().equals(eCategoria))
-            try {
-                getCategoria().setCategoria(eCategoria.getText());
-            } catch (CampoVacioExcepcion campoVacioExcepcion) {
-                eCategoria.requestFocus();
-                JOptionPane.showMessageDialog(this,campoVacioExcepcion.getMessage(),"Error: ",JOptionPane.ERROR_MESSAGE);
-            }
+        if (e.getComponent().equals(eCategoria)) {
+            getCategoria().setCategoria(eCategoria.getText());
+        }
     }
 
     @Override

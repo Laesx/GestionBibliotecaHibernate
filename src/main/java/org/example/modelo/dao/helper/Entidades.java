@@ -1,9 +1,9 @@
 package org.example.modelo.dao.helper;
 
-import org.example.modelo.Categoria;
-import org.example.modelo.Libro;
-import org.example.modelo.Prestamo;
-import org.example.modelo.Usuario;
+import org.example.modeloJPA.Categoria;
+import org.example.modeloJPA.Libro;
+import org.example.modeloJPA.Prestamos;
+import org.example.modeloJPA.Usuario;
 import org.example.modelo.dao.CategoriaDAOImpl;
 import org.example.modelo.dao.LibroDAOImpl;
 import org.example.modelo.dao.PrestamoDAOImpl;
@@ -77,14 +77,14 @@ public class Entidades {
         }
     }
 
-    public static Prestamo prestamo(int id){
+    public static Prestamos prestamo(int id){
         try {
             return new PrestamoDAOImpl().getPrestamo(id);
         } catch (Exception e)  {
             return null;
         }
     }
-    public static List<Prestamo> leerAllPrestamos(){
+    public static List<Prestamos> leerAllPrestamos(){
         try {
             return new PrestamoDAOImpl().leerAllPrestamos();
         } catch (Exception e)  {

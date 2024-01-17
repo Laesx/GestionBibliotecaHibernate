@@ -56,7 +56,7 @@ public class SeleccionaUsuario extends JDialog implements VistaUsuarios, FocusLi
     }
 
     @Override
-    public Usuario getUsuario() {
+    public org.example.modeloJPA.Usuario getUsuario() {
         return usuarios.get(jTable.getSelectedRow());
     }
 

@@ -63,7 +63,7 @@ public class ListaLibros extends JInternalFrame implements VistaLibros, MouseLis
     }
 
     @Override
-    public Libro getLibro() {
+    public org.example.modeloJPA.Libro getLibro() {
         return libros.get(jTable.getSelectedRow());
     }
     @Override

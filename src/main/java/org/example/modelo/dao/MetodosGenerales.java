@@ -12,15 +12,8 @@ import java.util.List;
 
 public class MetodosGenerales {
 
-    public static EntityManagerFactory entityManagerFactory(){
-        EntityManagerFactory em;
-        em = HibernateUtilJPA.getEntityManagerFactory();
-
-        return em;
-    }
-
     public static List obtenerLista(String query){
-        EntityManager em = entityManagerFactory().createEntityManager();
+        EntityManager em = HibernateUtilJPA.getEntityManager();
         List<Object> listaObjetos = null;
 
         try{

@@ -1,8 +1,7 @@
 package org.example.presentador;
 
 
-import org.example.modelo.Categoria;
-
+import org.example.modeloJPA.Categoria;
 
 public interface VistaCategoria {
     void lanzar();

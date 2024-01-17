@@ -9,7 +9,7 @@ import java.util.Map;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
-import org.example.modelo.Usuario;
+import org.example.modeloJPA.Usuario;
 import org.example.singleton.ConexionMySQL;
 import org.example.singleton.HibernateUtilJPA;
 

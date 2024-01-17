@@ -2,7 +2,7 @@ package org.example.vista.helper;
 
 
 import org.example.modelo.BusquedaLibro;
-import org.example.modelo.Libro;
+import org.example.modeloJPA.Libro;
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.CategoriaDAOImpl;
 import org.example.modelo.dao.LibroDAO;
