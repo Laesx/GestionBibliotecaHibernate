@@ -82,17 +82,14 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
         try {
             transaction.begin();
-            Libro usuario1 = em.find(Libro.class, usuario.getId());
+            Usuario usuario1 = em.find(Usuario.class, usuario.getId());
 
             usuario1.setId(usuario.getId());
-            usuario1.setCategoria(libro.getCategoria());
-            usuario1.setNombre(libro.getNombre());
-            usuario1.setAutor(libro.getAutor());
-            usuario1.setEditorial(libro.getEditorial());
-
+            usuario1.setNombre(usuario.getNombre());
+            usuario1.setApellidos(usuario.getApellidos());
             em.merge(usuario1);
             transaction.commit();
-            actualizado = true;
+            modificado = true;
 
         }catch (Exception e){
             if(transaction.isActive())
@@ -124,11 +121,33 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     @Override
     public boolean borrar(int id) throws Exception {
-        boolean borrado;
+        boolean borrado = false;
+
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try{
+            transaction.begin();
+            Usuario usuario = em.find(Usuario.class, id);
+
+            if(usuario != null){
+                em.remove(usuario);
+                transaction.commit();
+                borrado = true;
+            }
+        }catch (Exception e) {
+            e.printStackTrace(System.err);
+            if(transaction!= null){
+                transaction.rollback();
+            }
+        }
+        /*
         try (PreparedStatement ps = con.prepareStatement(sqlDELETE)){
             ps.setInt(1, id);
             borrado = (ps.executeUpdate() == 1);
         }
+
+         */
         grabaEnLogDel(id,sqlDELETE);
         return borrado;
     }
@@ -139,6 +158,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     @Override
     public List<Usuario> leerAllUsuarios() throws Exception {
+
+        /*
         List<Usuario> lista = null;
         String sql="SELECT id,nombre,apellidos FROM usuario";
         try (Statement stmt = con.createStatement()) {
@@ -154,6 +175,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             }
         }
         return lista;
+
+         */
+        return (List<Usuario>) MetodosGenerales.obtenerLista("FROM Usuario");
+
     }
 
     @Override
@@ -207,6 +232,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     @Override
     public Usuario getUsuario(int id) throws Exception {
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        return em.find(Usuario.class, id);
+        /*
         Usuario usuario=null;
         String sql="SELECT id,nombre,apellidos FROM usuario WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -221,5 +249,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             }
         }
         return usuario;
+
+         */
     }
 }
