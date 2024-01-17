@@ -13,8 +13,6 @@
     <mapping class="org.example.modeloJPA.Libro"/>
     <mapping class="org.example.modeloJPA.Prestamos"/>
     <mapping class="org.example.modeloJPA.Usuario"/>
-    <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

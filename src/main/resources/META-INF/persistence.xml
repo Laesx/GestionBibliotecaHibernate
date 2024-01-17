@@ -8,10 +8,11 @@
     <class>org.example.modeloJPA.Usuario</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:6033/BIBLIOTECA"/>
+      <!-- Esto no hace falta ya que se configura en HibernateUtilJPA
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:6033/BIBLIOTECA"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
       <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.password" value="admin1234"/>
+      <property name="hibernate.connection.password" value="admin1234"/> -->
     </properties>
   </persistence-unit>
 </persistence>

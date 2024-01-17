@@ -46,11 +46,12 @@ public class Configuracion {
         url = p.getProperty("url");
         user = p.getProperty("user");
         password = p.getProperty("password");
-        modificarConfigHibernate();
+        //modificarConfigHibernate();
     }
 
     /**
      * para modificar las propiedades del fichero de configuración xml de JPA/Hibernate
+     * TODO Borrar, no sirve para nada al final xd
      */
     private void modificarConfigHibernate() throws Exception{
         File inputFile = new File("src/main/resources/META-INF/persistence.xml");
@@ -135,12 +136,6 @@ public class Configuracion {
      */
     public void setUser(String user) {
         this.user = user;
-        try {
-            modificarConfigHibernate();
-        } catch (Exception e) {
-            // TODO Provisional
-            throw new RuntimeException(e);
-        }
     }
     /**
      * para obtener la contraseña de la bd asociada a un usario
@@ -155,12 +150,13 @@ public class Configuracion {
      */
     public void setPassword(String password) throws Exception {
         this.password = EncriptacionDesencriptacion.encriptar(password,claveSecreta);
+        /*
         try {
             modificarConfigHibernate();
         } catch (Exception e) {
             // TODO Provisional
             throw new RuntimeException(e);
-        }
+        }*/
     }
     /**
      * implentación del patrón de diseño Singleton para esta clase
@@ -187,8 +183,8 @@ public class Configuracion {
                     //p.setProperty("password", EncriptacionDesencriptacion.encriptar(conf.password, claveSecreta));
                     p.setProperty("password", conf.password);
                     p.store(new FileWriter(FILE_CONF), String.format("Actualizado el %s", dameFechaActual()));
+                    //conf.modificarConfigHibernate();
                     conf = null;
-                    conf.modificarConfigHibernate();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
