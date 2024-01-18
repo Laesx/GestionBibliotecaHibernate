@@ -6,18 +6,21 @@ import org.example.presentador.VistaUsuarios;
 import org.example.vista.componentes.TablaUsuarios;
 import org.example.vista.helper.SwgAuxiliar;
 import org.example.vista.helper.Usuarios;
+import org.example.vista.observer.Observer;
+import org.example.vista.observer.Subject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
+
 /**
  * Formulario que muestra lista todos los registros asociados a una consulta relacionada con la tabla usuario
  * @author AGE
  * @version 2
  */
 
-public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, MouseListener, FocusListener, KeyListener,ActionListener {
+public class ListaUsuarios extends JInternalFrame implements Observer, VistaUsuarios, MouseListener, FocusListener, KeyListener,ActionListener {
     private static final int WIDTH = 625;
     private static final int HEIGHT = 500;
     private List<Usuario> usuarios;
@@ -194,4 +197,18 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
             borrar(getUsuario());
     }
 
+
+    private PresentadorUsuario subject;
+
+    @Override
+    public void update() throws Exception {
+        presentador.listaAllUsuarios();
+    }
+
+    @Override
+    public void setSubject(Subject sub) {
+        presentador = (PresentadorUsuario) sub;
+        //subject.listaAllUsuarios();
+        //this.presentador=presentador;
+    }
 }
