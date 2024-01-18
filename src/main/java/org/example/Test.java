@@ -11,6 +11,10 @@ public class Test {
 
             HibernateUtilJPA.getEntityManager();
 
+            //LibroDAOImpl lib = new LibroDAOImpl();
+            //List<Libro> libros = lib.leerAllLibros();
+            //System.out.println(libros);
+
             //System.out.println(EncriptacionDesencriptacion.desencriptar("jL9QzuscGoBRMiEjVD0vHserm2Vm9F+3be04HP9Q7aZiYE1HRHXnKd8wMje+KXvX","asdf234fsdva%l9asdnklfa@f4f_adfafaAAaad;"));
 
         } catch (Exception e) {
