@@ -3,21 +3,20 @@ package org.example.modelo;
 import org.example.modelo.dao.helper.Entidades;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
+@Table(name = "prestamos", schema = "BIBLIOTECA")
 public class Prestamo extends Entidad{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idPrestamo", nullable = false)
     private int idPrestamo;
     @Basic
-    @Column(name = "idLibro", nullable = true)
+    @Column(name = "idLibro", nullable = true, insertable = false, updatable = false)
     private Integer idLibro;
     @Basic
-    @Column(name = "idUsuario", nullable = true)
+    @Column(name = "idUsuario", nullable = true, insertable = false, updatable = false)
     private Integer idUsuario;
     @Basic
     @Column(name = "fechaPrestamo", nullable = true)
@@ -66,12 +65,12 @@ public class Prestamo extends Entidad{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Prestamo prestamos = (Prestamo) o;
+        Prestamo prestamo = (Prestamo) o;
 
-        if (idPrestamo != prestamos.idPrestamo) return false;
-        if (idLibro != null ? !idLibro.equals(prestamos.idLibro) : prestamos.idLibro != null) return false;
-        if (idUsuario != null ? !idUsuario.equals(prestamos.idUsuario) : prestamos.idUsuario != null) return false;
-        if (fechaPrestamo != null ? !fechaPrestamo.equals(prestamos.fechaPrestamo) : prestamos.fechaPrestamo != null)
+        if (idPrestamo != prestamo.idPrestamo) return false;
+        if (idLibro != null ? !idLibro.equals(prestamo.idLibro) : prestamo.idLibro != null) return false;
+        if (idUsuario != null ? !idUsuario.equals(prestamo.idUsuario) : prestamo.idUsuario != null) return false;
+        if (fechaPrestamo != null ? !fechaPrestamo.equals(prestamo.fechaPrestamo) : prestamo.fechaPrestamo != null)
             return false;
 
         return true;

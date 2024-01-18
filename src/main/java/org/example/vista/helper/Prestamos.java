@@ -1,7 +1,6 @@
 package org.example.vista.helper;
 
 
-import org.example.modelo.Entidad;
 import org.example.modelo.Prestamo;
 import org.example.modelo.dao.*;
 import org.example.presentador.PresentadorPrestamo;

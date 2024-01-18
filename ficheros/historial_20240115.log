@@ -36,8 +36,8 @@ SELECT * FROM categoria WHERE id = 2
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:10:17,SELECT * FROM categoria WHERE id = 2)
 SELECT * FROM categoria WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:10:17,SELECT * FROM categoria WHERE id = 4)
-SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
-INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:10:21,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:10:21,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo)
 SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:10:21,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
 SELECT id,nombre,apellidos FROM usuario WHERE id = 2
@@ -62,8 +62,8 @@ Usuario actual desconectado a las 20:29:42
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:29:42,Usuario actual desconectado a las 20:29:42)
 Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (20:30:06)
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:30:06,Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (20:30:06))
-SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
-INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:30:08,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:30:08,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo)
 SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:30:08,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
 SELECT id,nombre,apellidos FROM usuario WHERE id = 2
@@ -100,8 +100,8 @@ Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (20:41:06)
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:41:07,Usuario conectado: root a jdbc:mysql://127.0.0.1:6033/BIBLIOTECA (20:41:06))
 SELECT id,nombre,apellidos FROM usuario
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:41:56,SELECT id,nombre,apellidos FROM usuario)
-SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
-INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:42:24,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:42:24,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo)
 SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-15 20:42:24,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
 SELECT id,nombre,apellidos FROM usuario WHERE id = 2

@@ -234,7 +234,7 @@ public class FichaPrestamo extends JInternalFrame implements VistaPrestamo, Acti
         }
     }
     public FichaPrestamo(Prestamo prestamo)  {
-        this.prestamo=prestamo;
+        this.prestamo = prestamo;
         setVentana();
         setContenedores();
         actualizaformulario();
@@ -260,7 +260,7 @@ public class FichaPrestamo extends JInternalFrame implements VistaPrestamo, Acti
     }
 
     private void actualizaformulario() {
-        Libro libro=prestamo.getObjLibro();
+        Libro libro= prestamo.getObjLibro();
         if (libro!=null)
             eLibro.setText(libro.toString());
 

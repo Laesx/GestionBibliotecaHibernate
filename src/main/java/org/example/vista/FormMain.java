@@ -277,7 +277,7 @@ public class FormMain extends JFrame implements ActionListener, FocusListener, W
     }
     private void muestraPrestamos() {
         try {
-            desktopPane.add(Prestamos.listaPrestamos());
+            desktopPane.add(org.example.vista.helper.Prestamos.listaPrestamos());
             desktopPane.selectFrame(false);
         } catch (Exception e) {
             SwgAuxiliar.msgExcepcion(e);

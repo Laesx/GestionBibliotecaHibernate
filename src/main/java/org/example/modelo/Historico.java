@@ -1,10 +1,10 @@
 package org.example.modelo;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "historico", schema = "BIBLIOTECA")
 public class Historico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
