@@ -9,6 +9,7 @@ import org.example.modelo.dao.LibroDAO;
 import org.example.modelo.dao.LibroDAOImpl;
 import org.example.presentador.PresentadorLibro;
 import org.example.vista.FichaLibro;
+import org.example.vista.FormMain;
 import org.example.vista.ListaLibros;
 import org.example.vista.SeleccionaLibro;
 
@@ -20,6 +21,10 @@ public class Libros {
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         ListaLibros listaLibros=new ListaLibros();
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,listaLibros);
+
+        // PARTE DEL OBSERVER
+        presentadorLibro.register(FormMain.getInstance());
+
         listaLibros.setPresentador(presentadorLibro);
         listaLibros.lanzar();
         return listaLibros;
@@ -30,6 +35,8 @@ public class Libros {
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         SeleccionaLibro seleccionaLibro=new SeleccionaLibro(owner,title,modal,busquedaLibro);
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,seleccionaLibro);
+        // PARTE DEL OBSERVER
+        presentadorLibro.register(FormMain.getInstance());
         seleccionaLibro.setPresentador(presentadorLibro);
         seleccionaLibro.lanzar();
         return seleccionaLibro;
@@ -40,6 +47,8 @@ public class Libros {
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         FichaLibro fichaLibro=new FichaLibro(libro);
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,fichaLibro);
+        // PARTE DEL OBSERVER
+        presentadorLibro.register(FormMain.getInstance());
         fichaLibro.setPresentador(presentadorLibro);
         fichaLibro.lanzar();
         return fichaLibro;

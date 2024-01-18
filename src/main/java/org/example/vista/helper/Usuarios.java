@@ -7,6 +7,7 @@ import org.example.modelo.dao.UsuarioDAO;
 import org.example.modelo.dao.UsuarioDAOImpl;
 import org.example.presentador.PresentadorUsuario;
 import org.example.vista.FichaUsuario;
+import org.example.vista.FormMain;
 import org.example.vista.ListaUsuarios;
 import org.example.vista.SeleccionaUsuario;
 
@@ -17,6 +18,10 @@ public class Usuarios {
         UsuarioDAO usuarioDAO=new UsuarioDAOImpl();
         ListaUsuarios listaUsuarios=new ListaUsuarios();
         PresentadorUsuario presentadorUsuario=new PresentadorUsuario(usuarioDAO,listaUsuarios);
+
+        // PARTE DEL OBSERVER
+        presentadorUsuario.register(FormMain.getInstance());
+
         listaUsuarios.setPresentador(presentadorUsuario);
         listaUsuarios.lanzar();
         return listaUsuarios;
