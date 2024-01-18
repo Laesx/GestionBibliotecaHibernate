@@ -1,4 +1,4 @@
-package org.example.vista.observer;
+package org.example.observer;
 
 public interface Observer {
     //method to update the observer, used by subject

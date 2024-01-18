@@ -1,4 +1,4 @@
-package org.example.vista.observer;
+package org.example.observer;
 
 public interface Subject {
     //methods to register and unregister observers

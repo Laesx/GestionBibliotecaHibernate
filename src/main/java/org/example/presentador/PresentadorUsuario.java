@@ -1,8 +1,8 @@
 package org.example.presentador;
 
 import org.example.modelo.dao.UsuarioDAO;
-import org.example.vista.observer.Observer;
-import org.example.vista.observer.Subject;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 
 
 public class PresentadorUsuario implements Subject {
@@ -58,8 +58,6 @@ public class PresentadorUsuario implements Subject {
     public void notifyObservers() throws Exception {
         if (observer!=null){
             observer.update(this);
-        } else {
-            throw new Exception("Observer not found");
         }
     }
 

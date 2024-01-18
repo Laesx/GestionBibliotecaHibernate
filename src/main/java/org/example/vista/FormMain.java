@@ -9,8 +9,8 @@ import org.example.presentador.PresentadorPrestamo;
 import org.example.presentador.PresentadorUsuario;
 import org.example.vista.componentes.MiBarraDeEstado;
 import org.example.vista.helper.*;
-import org.example.vista.observer.Observer;
-import org.example.vista.observer.Subject;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 
 import javax.swing.*;
 import java.awt.*;

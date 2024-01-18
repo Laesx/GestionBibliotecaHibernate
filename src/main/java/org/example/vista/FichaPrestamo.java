@@ -364,7 +364,7 @@ public class FichaPrestamo extends JInternalFrame implements VistaPrestamo, Acti
                 actualizaformulario();
             }
             else presentador.modifica();
-            FormMain.actualizaListaPrestamos();
+            //FormMain.actualizaListaPrestamos();
             JOptionPane.showMessageDialog(this,"Grabado correctamente!!");
             dispose();
         } catch (Exception e) {
@@ -379,7 +379,7 @@ public class FichaPrestamo extends JInternalFrame implements VistaPrestamo, Acti
                 JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             try {
                 presentador.borra();
-                FormMain.actualizaListaPrestamos();
+               // FormMain.actualizaListaPrestamos();
                 JOptionPane.showMessageDialog(this, "Prestamo borrado con éxito!!");
                 dispose();
             } catch (Exception e) {
