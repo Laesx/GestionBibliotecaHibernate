@@ -16,7 +16,7 @@ public class Usuario {
     @Column(name = "apellidos", nullable = true, length = -1)
     private String apellidos;
     @OneToMany(mappedBy = "usuario")
-    private Collection<Prestamos> prestamos;
+    private Collection<Prestamo> prestamos;
 
     public int getId() {
         return id;
@@ -64,11 +64,11 @@ public class Usuario {
         return result;
     }
 
-    public Collection<Prestamos> getPrestamos() {
+    public Collection<Prestamo> getPrestamos() {
         return prestamos;
     }
 
-    public void setPrestamos(Collection<Prestamos> prestamos) {
+    public void setPrestamos(Collection<Prestamo> prestamos) {
         this.prestamos = prestamos;
     }
 }

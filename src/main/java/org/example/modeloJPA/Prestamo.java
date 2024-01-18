@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class Prestamos {
+public class Prestamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idPrestamo", nullable = false)
@@ -62,7 +62,7 @@ public class Prestamos {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Prestamos prestamos = (Prestamos) o;
+        Prestamo prestamos = (Prestamo) o;
 
         if (idPrestamo != prestamos.idPrestamo) return false;
         if (idLibro != null ? !idLibro.equals(prestamos.idLibro) : prestamos.idLibro != null) return false;

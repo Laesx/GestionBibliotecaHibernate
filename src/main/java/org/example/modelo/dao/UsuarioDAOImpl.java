@@ -13,6 +13,7 @@ import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 /**
  * Aquí implementaremos las reglas de negocio definidas
@@ -183,6 +184,51 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     @Override
     public List<Usuario> leerUsuariosOR(int id, String nombre, String apellidos) throws Exception {
+
+        String sql="SELECT u.id, u.nombre, u.apellidos FROM Usuario u";
+        String where="";
+        List<Usuario> lista = null;
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+
+        String wId="";
+        if (id != 0) {
+            wId = "u.id = :idUsuario";
+            where = Sql.rellenaWhereOR(where, wId);
+            // where = "id = ?"
+        }
+        String wNombre="";
+        if (!nombre.trim().isEmpty()) {
+            wNombre = "u.nombre LIKE :nombreUsuario";
+            where = Sql.rellenaWhereOR(where, wNombre);
+            //where = id = ? OR nombre LIKE ?
+        }
+        String wApellidos="";
+        if (!apellidos.trim().isEmpty()) {
+            wApellidos = "u.apellidos LIKE :apellidoUsuario";
+            where = Sql.rellenaWhereOR(where, wApellidos);
+            //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
+        }
+
+        if (where.isEmpty())
+            return leerAllUsuarios();
+        else {
+            sql = sql + " WHERE "+where;
+            // sql = SELECT .... FROM usuario WHERE .......
+            TypedQuery<Usuario> typedQuery = em.createQuery(sql, Usuario.class);
+
+            if (!wId.isEmpty())
+                typedQuery.setParameter("idUsuario", id);
+            if (!wNombre.isEmpty())
+                typedQuery.setParameter("nombreUsuario", nombre);
+            if (!wApellidos.isEmpty())
+                typedQuery.setParameter("apellidoUsuario", apellidos);
+
+            lista = typedQuery.getResultList();
+        }
+
+        return lista;
+
+        /*
         String sql="SELECT id,nombre,apellidos FROM usuario";
         String where="";
         String wId="";
@@ -226,6 +272,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             }
             return lista;
         }
+
+         */
     }
 
 

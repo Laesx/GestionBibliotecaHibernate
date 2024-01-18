@@ -8,7 +8,7 @@
     <class>org.example.modeloJPA.Categoria</class>
     <class>org.example.modeloJPA.Historico</class>
     <class>org.example.modeloJPA.Libro</class>
-    <class>org.example.modeloJPA.Prestamos</class>
+    <class>org.example.modeloJPA.Prestamo</class>
     <class>org.example.modeloJPA.Usuario</class>
     <properties>
       <!--
