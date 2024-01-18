@@ -5,7 +5,6 @@ import org.example.modelo.Prestamo;
 import org.example.presentador.PresentadorPrestamo;
 import org.example.presentador.VistaPrestamos;
 import org.example.vista.componentes.MiModeloDatosSoloLectura;
-import org.example.vista.helper.Prestamos;
 import org.example.vista.helper.SwgAuxiliar;
 
 import javax.swing.*;
@@ -114,7 +113,7 @@ public class ListaPrestamos extends JInternalFrame implements VistaPrestamos, Mo
         String[] nombreColumnas = {"Código", "Libro", "Usuario", "Fecha"};
         Object datos[][] = new Object[prestamos.size()][nombreColumnas.length];
         int i = 0;
-        for (Prestamo prestamo : prestamos) {
+        for (Prestamo prestamo : this.prestamos) {
             datos[i][0] = prestamo.getIdPrestamo();
             datos[i][1] = prestamo.getObjLibro();
             datos[i][2] = prestamo.getObjUsuario();
@@ -137,7 +136,7 @@ public class ListaPrestamos extends JInternalFrame implements VistaPrestamos, Mo
 
     private void muestraFicha(Prestamo prestamo) {
         try {
-            FormMain.getInstance().getDesktopPane().add(Prestamos.fichaPrestamo(prestamo));
+            FormMain.getInstance().getDesktopPane().add(org.example.vista.helper.Prestamos.fichaPrestamo(prestamo));
         } catch (Exception e) {
             SwgAuxiliar.msgExcepcion(e);
         }

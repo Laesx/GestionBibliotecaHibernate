@@ -209,7 +209,7 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
             getLibro().setEditorial(eEditorial.getText());
             Categoria categoria=(Categoria) cbCategoria.getSelectedItem();
             if (categoria!=null)
-                getLibro().setCategoria(categoria.getId());
+                getLibro().setCategoria(categoria.devolverCategoria());
             if (getLibro().getId()==0) {
                 presentador.inserta();
                 actualizaformulario();
@@ -294,11 +294,7 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getComponent().equals(eTitulo)) {
-            try {
-                getLibro().setNombre(eTitulo.getText());
-            } catch (CampoVacioExcepcion campoVacioExcepcion) {
-                SwgAuxiliar.msgExcepcion(campoVacioExcepcion);
-            }
+            getLibro().setNombre(eTitulo.getText());
         }
         else if (e.getComponent().equals(eAutor))
             getLibro().setAutor(eAutor.getText());

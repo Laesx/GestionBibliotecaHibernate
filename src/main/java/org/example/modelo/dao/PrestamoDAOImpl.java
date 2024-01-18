@@ -1,17 +1,14 @@
 package org.example.modelo.dao;
 
-import org.example.modelo.Libro;
-import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.Prestamo;
+import org.example.modelo.dao.helper.LogFile;
 import org.example.singleton.ConexionMySQL;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,10 +66,10 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         grabaEnLogIns(prestamo,sqlINSERT);
         return insertado;
     }
-    private void grabaEnLogIns(Prestamo prestamo,String sql) throws Exception {
+    private void grabaEnLogIns(Prestamo prestamo, String sql) throws Exception {
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdLibro()));
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdUsuario()));
-        sql = sql.replaceFirst("\\?",prestamo.getFechaPrestamo().format(formatter));
+        sql = sql.replaceFirst("\\?", prestamo.getFechaPrestamo().format(formatter));
         LogFile.saveLOG(sql);
     }
 
@@ -117,10 +114,10 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         grabaEnLogUpd(prestamo,sqlUPDATE); //Nose si hay que tocarlos ?
         return actualizado;
     }
-    private void grabaEnLogUpd(Prestamo prestamo,String sql) throws Exception {
+    private void grabaEnLogUpd(Prestamo prestamo, String sql) throws Exception {
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdLibro()));
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdUsuario()));
-        sql = sql.replaceFirst("\\?",prestamo.getFechaPrestamo().format(formatter));
+        sql = sql.replaceFirst("\\?", prestamo.getFechaPrestamo().format(formatter));
         sql = sql.replaceFirst("\\?",String.valueOf(prestamo.getIdPrestamo()));
         LogFile.saveLOG(sql);
     }

@@ -3,7 +3,6 @@ package org.example.modelo.dao;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
-import org.example.modelo.Usuario;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
 import org.example.singleton.ConexionMySQL;
@@ -288,6 +287,7 @@ public class LibroDAOImpl implements LibroDAO {
 
         return lista;
 
+
         /*String sql="SELECT id,nombre,autor,editorial,categoria FROM libro";
         String where="";
         String wId="";
@@ -346,9 +346,9 @@ public class LibroDAOImpl implements LibroDAO {
                 }
             }
             return lista;
-        }
 
          */
+
     }
 
     /**

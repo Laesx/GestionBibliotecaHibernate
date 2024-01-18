@@ -29,7 +29,7 @@ public class TablaLibros extends JTable  {
             datos[i][1] = libro.getNombre();
             datos[i][2] = libro.getAutor();
             datos[i][3] = libro.getEditorial();
-            datos[i][4] = libro.getCategoriaDescr();
+            datos[i][4] = libro.getCategoria();
             i++;
         }
         setModel(new MiModeloDatosSoloLectura(datos, nombreColumnas));

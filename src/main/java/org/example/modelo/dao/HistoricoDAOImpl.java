@@ -10,8 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
@@ -76,7 +74,7 @@ public class HistoricoDAOImpl implements HistoricoDAO {
         }
 
          */
-        grabaEnLogIns(sqlINSERT);
+        //grabaEnLogIns(sqlINSERT);
         return insertado;
     }
 

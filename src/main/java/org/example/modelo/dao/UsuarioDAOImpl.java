@@ -2,9 +2,7 @@ package org.example.modelo.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
@@ -132,6 +130,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
         try{
             transaction.begin();
             Usuario usuario = em.find(Usuario.class, id);
+
             if(usuario != null){
                 em.remove(usuario);
                 transaction.commit();
@@ -229,11 +228,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
         return lista;
 
-
         /*
         String sql="SELECT id,nombre,apellidos FROM usuario";
         String where="";
-
         String wId="";
         if (id != 0) {
             wId = "id = ?";
@@ -249,7 +246,6 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             wApellidos = "apellidos LIKE ?";
             where = Sql.rellenaWhereOR(where, wApellidos);
         }
-
         if (where.equals(""))
             return leerAllUsuarios();
         else {
@@ -265,7 +261,6 @@ public class UsuarioDAOImpl implements UsuarioDAO{
                     pstmt.setString(i++, apellidos);
                 ResultSet rs = pstmt.executeQuery();
                 LogFile.saveLOG(sql);
-
                 lista=new ArrayList<>();
                 while (rs.next()){
                     Usuario usuario=new Usuario();
@@ -276,11 +271,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
                 }
             }
             return lista;
+        }
 
          */
-
-
-
     }
 
 

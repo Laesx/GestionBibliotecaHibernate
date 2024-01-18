@@ -24,8 +24,8 @@ CREATE TABLE usuario (
         apellidos TEXT
 );
 
-DROP TABLE IF EXISTS prestamos;
-CREATE TABLE prestamos (
+DROP TABLE IF EXISTS prestamo;
+CREATE TABLE prestamo (
         idPrestamo INTEGER PRIMARY KEY AUTO_INCREMENT,
         idLibro INTEGER,
         idUsuario INTEGER,

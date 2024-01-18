@@ -46,8 +46,8 @@ SELECT * FROM categoria WHERE id = 2
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 2)
 SELECT * FROM categoria WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:15,SELECT * FROM categoria WHERE id = 4)
-SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
-INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo)
 SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
 SELECT id,nombre,apellidos FROM usuario WHERE id = 2
@@ -60,8 +60,8 @@ SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 7
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 7)
 SELECT id,nombre,apellidos FROM usuario WHERE id = 5
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:18:20,SELECT id,nombre,apellidos FROM usuario WHERE id = 5)
-SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos
-INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos)
+SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo
+INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamo)
 SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4
 INSERT INTO historico (user,fecha,info) VALUES (root,2024-01-11 18:40:48,SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = 4)
 SELECT id,nombre,apellidos FROM usuario WHERE id = 2
