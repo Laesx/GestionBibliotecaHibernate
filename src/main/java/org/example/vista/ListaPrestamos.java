@@ -151,7 +151,7 @@ public class ListaPrestamos extends JInternalFrame implements VistaPrestamos, Mo
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
                 presentador.borra();
-                FormMain.actualizaListaPrestamos();
+                //FormMain.actualizaListaPrestamos();
             } catch (Exception e) {
                 SwgAuxiliar.msgExcepcion(e);
             }

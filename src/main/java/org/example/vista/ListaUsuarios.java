@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
+
 /**
  * Formulario que muestra lista todos los registros asociados a una consulta relacionada con la tabla usuario
  * @author AGE
@@ -21,7 +22,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
     private static final int WIDTH = 625;
     private static final int HEIGHT = 500;
     private List<Usuario> usuarios;
-    PresentadorUsuario presentador;
+    private PresentadorUsuario presentador;
 
     private TablaUsuarios jTable;{
         jTable=new TablaUsuarios();
@@ -127,7 +128,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
                 JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             try {
                 presentador.borra();
-                FormMain.actualizaListaUsuarios();
+                //FormMain.actualizaListaUsuarios();
             } catch (Exception e) {
                 SwgAuxiliar.msgExcepcion(e);
             }
@@ -193,5 +194,6 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
         else if (e.getSource().equals(miBorra))
             borrar(getUsuario());
     }
+
 
 }

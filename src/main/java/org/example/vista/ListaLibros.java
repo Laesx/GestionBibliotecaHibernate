@@ -145,7 +145,7 @@ public class ListaLibros extends JInternalFrame implements VistaLibros, MouseLis
                 JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             try {
                 presentador.borra();
-                FormMain.actualizaListaLibros();
+                //FormMain.actualizaListaLibros();
             } catch (Exception e) {
                 SwgAuxiliar.msgExcepcion(e);
             }
@@ -201,7 +201,4 @@ public class ListaLibros extends JInternalFrame implements VistaLibros, MouseLis
         else if (e.getSource().equals(miBorra))
             borrar(getLibro());
     }
-
-
-
 }

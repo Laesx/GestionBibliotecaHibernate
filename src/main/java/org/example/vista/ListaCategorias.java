@@ -139,7 +139,7 @@ public class ListaCategorias extends JInternalFrame implements VistaCategorias,M
                 JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
             try {
                 presentador.borra();
-                FormMain.actualizaListaCategorias();
+               // FormMain.actualizaListaCategorias();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,e.getMessage(),"Error: ",JOptionPane.ERROR_MESSAGE);
             }
