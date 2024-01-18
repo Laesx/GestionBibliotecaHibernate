@@ -2,8 +2,8 @@ package org.example.presentador;
 
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.LibroDAO;
-import org.example.vista.observer.Observer;
-import org.example.vista.observer.Subject;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 
 public class PresentadorLibro implements Subject {
     private LibroDAO libroDAO;
