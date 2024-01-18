@@ -1,99 +1,78 @@
 package org.example.modelo;
 
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-/**
- * Esta clase (POJO) será una representación de la tabla historico
- * @author AGE
- * @version 2
- */
-public class Historico extends Entidad {
+@Entity
+public class Historico {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idHistorico", nullable = false)
     private int idHistorico;
+    @Basic
+    @Column(name = "user", nullable = true, length = -1)
     private String user;
+    @Basic
+    @Column(name = "fecha", nullable = true)
     private LocalDateTime fecha=LocalDateTime.now();
+    @Basic
+    @Column(name = "info", nullable = true, length = -1)
     private String info;
 
-    /**
-     * Getter para atributo id que procede de la herencia
-     * @return el valor del atributo idHistorico
-     */
-    @Override
-    public int getId() {
-        return idHistorico;
-    }
-    /**
-     * Getter para atributo idHistorico
-     * @return el valor del atributo idHistorico
-     */
     public int getIdHistorico() {
         return idHistorico;
     }
 
-    /**
-     * Setter para asignar un codigo nuevo;
-     * @param idHistorico nuevo valor para el atributo id
-     */
     public void setIdHistorico(int idHistorico) {
         this.idHistorico = idHistorico;
     }
 
-    /**
-     * Getter para atributo user
-     * @return el valor del atributo user
-     */
     public String getUser() {
         return user;
     }
 
-    /**
-     * Setter para asignar un usuario nuevo;
-     * @param user nuevo valor para el atributo user
-     */
-    public void setUser(String user){
+    public void setUser(String user) {
         this.user = user;
     }
-    /**
-     * Getter para atributo fecha
-     * @return el valor del atributo fecha
-     */
+
     public LocalDateTime getFecha() {
         return fecha;
     }
-    /**
-     * Getter para atributo fecha
-     * @return el valor del atributo fecha en formato cadena
-     */
-    public String getFechaCad(){
-        return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
-    }
-    /**
-     * Setter para asignar una fecha de prestamo nueva;
-     * @param fecha nuevo valor para el atributo fecha
-     */
+
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
-    /**
-     * Getter para atributo info
-     * @return el valor del atributo info
-     */
     public String getInfo() {
         return info;
     }
 
-    /**
-     * Setter para asignar un usuario nuevo;
-     * @param info nuevo valor para el atributo info
-     */
-    public void setInfo(String info){
+    public void setInfo(String info) {
         this.info = info;
     }
 
     @Override
-    public String toString() {
-        return String.format("%d, %s, %s, %s ", idHistorico, user,getFechaCad(),info);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Historico historico = (Historico) o;
+
+        if (idHistorico != historico.idHistorico) return false;
+        if (user != null ? !user.equals(historico.user) : historico.user != null) return false;
+        if (fecha != null ? !fecha.equals(historico.fecha) : historico.fecha != null) return false;
+        if (info != null ? !info.equals(historico.info) : historico.info != null) return false;
+
+        return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = idHistorico;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (fecha != null ? fecha.hashCode() : 0);
+        result = 31 * result + (info != null ? info.hashCode() : 0);
+        return result;
+    }
 }

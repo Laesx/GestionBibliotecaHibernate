@@ -5,11 +5,11 @@
              version="3.0">
   <persistence-unit name="biblioteca">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>org.example.modeloJPA.Categoria</class>
-    <class>org.example.modeloJPA.Historico</class>
-    <class>org.example.modeloJPA.Libro</class>
-    <class>org.example.modeloJPA.Prestamo</class>
-    <class>org.example.modeloJPA.Usuario</class>
+    <class>org.example.modelo.Categoria</class>
+    <class>org.example.modelo.Historico</class>
+    <class>org.example.modelo.Libro</class>
+    <class>org.example.modelo.Prestamo</class>
+    <class>org.example.modelo.Usuario</class>
     <properties>
       <!--
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
