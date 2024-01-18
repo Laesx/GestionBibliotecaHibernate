@@ -8904,3 +8904,12 @@ Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:25:52)
 Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:25:58)
 INSERT INTO usuario (nombre,apellidos) VALUES (>PGiujdh,fpijghd)
 Usuario actual desconectado a las 22:29:39
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:34:14)
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:34:29)
+DELETE usuario WHERE id = 6
+UPDATE prestamos SET idLibro=0, idUsuario=4, fechaPrestamo=2021-04-17 18:02:50 WHERE idPrestamo = 1
+Usuario actual desconectado a las 22:43:05
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:43:11)
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:43:17)
+UPDATE prestamos SET idLibro=4, idUsuario=4, fechaPrestamo=2021-04-17 18:02:50 WHERE idPrestamo = 1
+Usuario actual desconectado a las 22:44:26

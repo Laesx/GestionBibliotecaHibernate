@@ -18,10 +18,8 @@ public class Usuarios {
         UsuarioDAO usuarioDAO=new UsuarioDAOImpl();
         ListaUsuarios listaUsuarios=new ListaUsuarios();
         PresentadorUsuario presentadorUsuario=new PresentadorUsuario(usuarioDAO,listaUsuarios);
-
         // PARTE DEL OBSERVER
         presentadorUsuario.register(FormMain.getInstance());
-
         listaUsuarios.setPresentador(presentadorUsuario);
         listaUsuarios.lanzar();
         return listaUsuarios;
@@ -32,6 +30,8 @@ public class Usuarios {
         SeleccionaUsuario seleccionaUsuario=new SeleccionaUsuario(owner, title, modal,busquedaUsuario);
         PresentadorUsuario presentadorUsuario=new PresentadorUsuario(usuarioDAO,seleccionaUsuario);
         seleccionaUsuario.setPresentador(presentadorUsuario);
+        // PARTE DEL OBSERVER
+        presentadorUsuario.register(FormMain.getInstance());
         seleccionaUsuario.lanzar();
         return seleccionaUsuario;
     }
@@ -41,6 +41,8 @@ public class Usuarios {
         FichaUsuario fichaUsuario=new FichaUsuario(usuario);
         PresentadorUsuario presentadorUsuario=new PresentadorUsuario(usuarioDAO,fichaUsuario);
         fichaUsuario.setPresentador(presentadorUsuario);
+        // PARTE DEL OBSERVER
+        presentadorUsuario.register(FormMain.getInstance());
         fichaUsuario.lanzar();
         return fichaUsuario;
 
