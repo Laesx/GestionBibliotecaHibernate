@@ -1,13 +1,16 @@
 package org.example.vista;
 
 import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.Categoria;
-import org.example.modelo.Libro;
-import org.example.modelo.Prestamo;
-import org.example.modelo.Usuario;
+import org.example.modelo.*;
 import org.example.modelo.dao.helper.Entidades;
+import org.example.presentador.PresentadorCategoria;
+import org.example.presentador.PresentadorLibro;
+import org.example.presentador.PresentadorPrestamo;
+import org.example.presentador.PresentadorUsuario;
 import org.example.vista.componentes.MiBarraDeEstado;
 import org.example.vista.helper.*;
+import org.example.vista.observer.Observer;
+import org.example.vista.observer.Subject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +25,7 @@ import java.util.List;
  * @author AGE
  * @version 2
  */
-public class FormMain extends JFrame implements ActionListener, FocusListener, WindowListener,KeyListener {
+public class FormMain extends JFrame implements Observer, ActionListener, FocusListener, WindowListener,KeyListener {
     private static FormMain main=null;
     private static final int WIDTH = 1024;
     private static final int HEIGHT = 756;
@@ -426,6 +429,19 @@ public class FormMain extends JFrame implements ActionListener, FocusListener, W
             } catch (Exception ex){
                 SwgAuxiliar.msgExcepcion(ex);
             }
+        }
+    }
+
+    @Override
+    public void update(Subject sub) throws Exception {
+        if (sub instanceof PresentadorUsuario){
+            actualizaListaUsuarios();
+        } else if (sub instanceof PresentadorCategoria){
+            actualizaListaCategorias();
+        } else if (sub instanceof PresentadorLibro){
+            actualizaListaLibros();
+        } else if (sub instanceof PresentadorPrestamo){
+            actualizaListaPrestamos();
         }
     }
 }

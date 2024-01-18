@@ -16,14 +16,17 @@ public class PresentadorUsuario implements Subject {
 
     public void borra() throws Exception {
         usuarioDAO.borrar(vistaUsuario.getUsuario().getId());
+        notifyObservers();
     }
 
     public void inserta() throws Exception {
         usuarioDAO.insertar(vistaUsuario.getUsuario());
+        notifyObservers();
     }
 
     public void modifica() throws Exception {
         usuarioDAO.modificar(vistaUsuario.getUsuario());
+        notifyObservers();
     }
 
     public void listaAllUsuarios() throws Exception {
@@ -39,42 +42,25 @@ public class PresentadorUsuario implements Subject {
     // Se puede implementar con una lista para poder tener varios Observer
     // Pero en el uso que le vamos a dar solo necesitamos un Observer
     private Observer observer;
-    private final Object MUTEX= new Object();
-    private boolean changed;
 
     @Override
-    public void register(Observer obj) {
+    public void register(Observer obj){
         if (obj == null) throw new NullPointerException("Null Observer");
-        synchronized (MUTEX){
-            observer=obj;
-        }
+        observer=obj;
     }
 
     @Override
     public void unregister(Observer obj) {
-        synchronized (MUTEX){
-            observer=null;
-        }
+        observer=null;
     }
 
     @Override
     public void notifyObservers() throws Exception {
-        Observer observerLocal=null;
-        //synchronization is used to make sure any observer registered after message is received is not notified
-        synchronized (MUTEX){
-            if (!changed)
-                return;
-            observerLocal=observer;
-            this.changed=false;
+        if (observer!=null){
+            observer.update(this);
+        } else {
+            throw new Exception("Observer not found");
         }
-        if (observerLocal!=null){
-            observerLocal.update();
-        }
-
     }
 
-    @Override
-    public Object getUpdate(Observer obj) {
-        return null;
-    }
 }
