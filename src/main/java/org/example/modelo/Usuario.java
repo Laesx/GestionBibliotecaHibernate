@@ -72,4 +72,9 @@ public class Usuario {
     public void setPrestamos(Collection<Prestamo> prestamos) {
         this.prestamos = prestamos;
     }
+
+    @Override
+    public String toString(){
+        return String.format("%d. %s %s",id,nombre,apellidos);
+    }
 }

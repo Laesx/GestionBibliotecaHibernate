@@ -8897,3 +8897,10 @@ Usuario actual desconectado a las 14:32:49
 Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:32:58)
 Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:33:02)
 INSERT INTO usuario (nombre,apellidos) VALUES (Tonto,Tonto)
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:05:01)
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:05:05)
+Usuario actual desconectado a las 22:15:06
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:25:52)
+Usuario conectado: root a jdbc:mysql://localhost:6033/BIBLIOTECA (22:25:58)
+INSERT INTO usuario (nombre,apellidos) VALUES (>PGiujdh,fpijghd)
+Usuario actual desconectado a las 22:29:39

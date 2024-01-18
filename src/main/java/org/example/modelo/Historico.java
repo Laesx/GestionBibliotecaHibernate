@@ -2,6 +2,7 @@ package org.example.modelo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "historico", schema = "BIBLIOTECA")
@@ -40,6 +41,14 @@ public class Historico {
         return fecha;
     }
 
+    /**
+     * Getter para atributo fecha
+     * @return el valor del atributo fecha en formato cadena
+     */
+    public String getFechaCad(){
+        return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+    }
+
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
@@ -74,5 +83,10 @@ public class Historico {
         result = 31 * result + (fecha != null ? fecha.hashCode() : 0);
         result = 31 * result + (info != null ? info.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d, %s, %s, %s ", idHistorico, user,getFechaCad(),info);
     }
 }

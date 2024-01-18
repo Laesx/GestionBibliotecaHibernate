@@ -85,4 +85,9 @@ public class Libro {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString(){
+        return String.format("%d. %s %s",id,nombre,editorial);
+    }
 }
