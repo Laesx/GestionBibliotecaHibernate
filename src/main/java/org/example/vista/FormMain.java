@@ -3,6 +3,7 @@ package org.example.vista;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.*;
 import org.example.modelo.dao.helper.Entidades;
+import org.example.modelo.dao.helper.LogFile;
 import org.example.presentador.PresentadorCategoria;
 import org.example.presentador.PresentadorLibro;
 import org.example.presentador.PresentadorPrestamo;
@@ -20,50 +21,66 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Formulario principal de la aplicación, en el se implementarán las opciones
  * de menú necesarias para poder utilizar la aplicación de BIBLIOTECA
+ *
  * @author AGE
  * @version 2
  */
-public class FormMain extends JFrame implements Observer, ActionListener, FocusListener, WindowListener,KeyListener {
-    private static FormMain main=null;
+public class FormMain extends JFrame implements Observer, ActionListener, FocusListener, WindowListener, KeyListener {
+    private static FormMain main = null;
     private static final int WIDTH = 1024;
     private static final int HEIGHT = 756;
     private JDesktopPane desktopPane = new JDesktopPane();
+    private static JTextArea textArea;
 
-    private JMenu mArchivo;{
-        mArchivo=new JMenu("Archivo");
+    private JMenu mArchivo;
+
+    {
+        mArchivo = new JMenu("Archivo");
         mArchivo.setMnemonic('A');
     }
 
-    private JMenuItem miAbrir;{
-        miAbrir=new JMenuItem("Abrir..");
+    private JMenuItem miAbrir;
+
+    {
+        miAbrir = new JMenuItem("Abrir..");
         miAbrir.setMnemonic('A');
         miAbrir.setFocusable(true);
         miAbrir.addActionListener(this);
         miAbrir.addFocusListener(this);
         //mArchivo.add(miAbrir); TODO pendiente de implementar
     }
-    private JMenuItem miGuardarLibro;{
-        miGuardarLibro =new JMenuItem("Guardar libros..");
+
+    private JMenuItem miGuardarLibro;
+
+    {
+        miGuardarLibro = new JMenuItem("Guardar libros..");
         miGuardarLibro.setMnemonic('G');
         miGuardarLibro.setFocusable(true);
         miGuardarLibro.addActionListener(this);
         miGuardarLibro.addFocusListener(this);
         mArchivo.add(miGuardarLibro);
     }
-    private JMenuItem miConexion;{
-        miConexion =new JMenuItem("Conectar");
+
+    private JMenuItem miConexion;
+
+    {
+        miConexion = new JMenuItem("Conectar");
         miConexion.setMnemonic('C');
         miConexion.addActionListener(this);
         mArchivo.addSeparator();
         mArchivo.add(miConexion);
     }
-    private JMenuItem miSalir;{
-        miSalir=new JMenuItem("Salir");
+
+    private JMenuItem miSalir;
+
+    {
+        miSalir = new JMenuItem("Salir");
         miSalir.setMnemonic('S');
         miSalir.setFocusable(true);
         miSalir.addActionListener(this);
@@ -71,14 +88,20 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mArchivo.addSeparator();
         mArchivo.add(miSalir);
     }
-    private JMenu mCategorias;{
-        mCategorias =new JMenu("Categorias");
+
+    private JMenu mCategorias;
+
+    {
+        mCategorias = new JMenu("Categorias");
         mCategorias.setMnemonic('U');
         mCategorias.setFocusable(true);
         mCategorias.addFocusListener(this);
     }
-    private JMenuItem miListaCategorias;{
-        miListaCategorias=new JMenuItem("Lista");
+
+    private JMenuItem miListaCategorias;
+
+    {
+        miListaCategorias = new JMenuItem("Lista");
         miListaCategorias.setMnemonic('L');
         miListaCategorias.setFocusable(true);
         miListaCategorias.addActionListener(this);
@@ -86,22 +109,31 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mCategorias.add(miListaCategorias);
 
     }
-    private JMenuItem miNuevaCategoria;{
-        miNuevaCategoria =new JMenuItem("Nuevo");
+
+    private JMenuItem miNuevaCategoria;
+
+    {
+        miNuevaCategoria = new JMenuItem("Nuevo");
         miNuevaCategoria.setMnemonic('N');
         miNuevaCategoria.setFocusable(true);
         miNuevaCategoria.addActionListener(this);
         miNuevaCategoria.addFocusListener(this);
         mCategorias.add(miNuevaCategoria);
     }
-    private JMenu mUsuarios;{
-        mUsuarios =new JMenu("Usuarios");
+
+    private JMenu mUsuarios;
+
+    {
+        mUsuarios = new JMenu("Usuarios");
         mUsuarios.setMnemonic('U');
         mUsuarios.setFocusable(true);
         mUsuarios.addFocusListener(this);
     }
-    private JMenuItem miListaUsuarios;{
-        miListaUsuarios=new JMenuItem("Lista");
+
+    private JMenuItem miListaUsuarios;
+
+    {
+        miListaUsuarios = new JMenuItem("Lista");
         miListaUsuarios.setMnemonic('L');
         miListaUsuarios.setFocusable(true);
         miListaUsuarios.addActionListener(this);
@@ -111,9 +143,10 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
 
+    private JMenuItem miNuevoUsuario;
 
-    private JMenuItem miNuevoUsuario;{
-        miNuevoUsuario=new JMenuItem("Nuevo");
+    {
+        miNuevoUsuario = new JMenuItem("Nuevo");
         miNuevoUsuario.setMnemonic('N');
         miNuevoUsuario.setFocusable(true);
         miNuevoUsuario.addActionListener(this);
@@ -121,22 +154,31 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mUsuarios.add(miNuevoUsuario);
 
     }
-    private JMenu mLibros;{
-        mLibros =new JMenu("Libros");
+
+    private JMenu mLibros;
+
+    {
+        mLibros = new JMenu("Libros");
         mLibros.setMnemonic('L');
         mLibros.setFocusable(true);
         mLibros.addFocusListener(this);
     }
-    private JMenuItem miListaLibros;{
-        miListaLibros=new JMenuItem("Lista");
+
+    private JMenuItem miListaLibros;
+
+    {
+        miListaLibros = new JMenuItem("Lista");
         miListaLibros.setMnemonic('L');
         miListaLibros.setFocusable(true);
         miListaLibros.addActionListener(this);
         miListaLibros.addFocusListener(this);
         mLibros.add(miListaLibros);
     }
-    private JMenuItem miNuevoLibro;{
-        miNuevoLibro=new JMenuItem("Nuevo");
+
+    private JMenuItem miNuevoLibro;
+
+    {
+        miNuevoLibro = new JMenuItem("Nuevo");
         miNuevoLibro.setMnemonic('N');
         miNuevoLibro.setFocusable(true);
         miNuevoLibro.addActionListener(this);
@@ -145,21 +187,29 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
 
-    private JMenu mPrestamos;{
-        mPrestamos =new JMenu("Préstamos");
+    private JMenu mPrestamos;
+
+    {
+        mPrestamos = new JMenu("Préstamos");
         mPrestamos.setMnemonic('P');
         mPrestamos.setFocusable(true);
         mPrestamos.addFocusListener(this);
     }
-    private JMenuItem miListaPrestamos;{
-        miListaPrestamos=new JMenuItem("Lista");
+
+    private JMenuItem miListaPrestamos;
+
+    {
+        miListaPrestamos = new JMenuItem("Lista");
         miListaPrestamos.setMnemonic('L');
         miListaPrestamos.setFocusable(true);
         miListaPrestamos.addActionListener(this);
         miListaPrestamos.addFocusListener(this);
         mPrestamos.add(miListaPrestamos);
     }
-    private JMenuItem miNuevoPrestamo;{
+
+    private JMenuItem miNuevoPrestamo;
+
+    {
         miNuevoPrestamo = new JMenuItem("Nuevo");
         miNuevoPrestamo.setMnemonic('N');
         miNuevoPrestamo.setFocusable(true);
@@ -168,15 +218,18 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mPrestamos.add(miNuevoPrestamo);
     }
 
-    private JMenu miHistorial;{
-        miHistorial =new JMenu("Historial");
+    private JMenu miHistorial;
+
+    {
+        miHistorial = new JMenu("Historial");
         mPrestamos.setMnemonic('P');
         mPrestamos.setFocusable(true);
         mPrestamos.addFocusListener(this);
     }
 
-    private JMenuItem miHistorialVer;{
-        miHistorialVer=new JMenuItem("Cargar Logs");
+    private JMenuItem miHistorialVer;
+    {
+        miHistorialVer = new JMenuItem("Cargar Logs");
         miHistorialVer.setMnemonic('L');
         miHistorialVer.setFocusable(true);
         miHistorialVer.addActionListener(this);
@@ -184,8 +237,10 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miHistorial.add(miHistorialVer);
     }
 
-    private JMenuItem miHistorialLogActual;{
-        miHistorialLogActual=new JMenuItem("Log sesion");
+    private JMenuItem miHistorialLogActual;
+
+    {
+        miHistorialLogActual = new JMenuItem("Log sesion Actual");
         miHistorialLogActual.setMnemonic('L');
         miHistorialLogActual.setFocusable(true);
         miHistorialLogActual.addActionListener(this);
@@ -194,8 +249,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
 
+    private JMenuBar jMenuBar;
 
-    private JMenuBar jMenuBar;{
+    {
         jMenuBar = new JMenuBar();
         jMenuBar.add(mArchivo);
         jMenuBar.add(mCategorias);
@@ -205,10 +261,14 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         jMenuBar.add(miHistorial);
         jMenuBar.addFocusListener(this);
     }
-    private MiBarraDeEstado miBarraDeEstado;{
-        miBarraDeEstado= MiBarraDeEstado.getInstance();
+
+    private MiBarraDeEstado miBarraDeEstado;
+
+    {
+        miBarraDeEstado = MiBarraDeEstado.getInstance();
     }
-    private FormMain(){
+
+    private FormMain() {
         setVentana();
         setContenedores();
         actualizaFormulario(false);
@@ -224,16 +284,16 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     private void setContenedores() {
         setLayout(new BorderLayout());
-        add(jMenuBar,BorderLayout.NORTH);
-        add(desktopPane,BorderLayout.CENTER);
-        add(miBarraDeEstado,BorderLayout.SOUTH);
+        add(jMenuBar, BorderLayout.NORTH);
+        add(desktopPane, BorderLayout.CENTER);
+        add(miBarraDeEstado, BorderLayout.SOUTH);
     }
 
     private void setVentana() {
         setTitle("Aplicación de gestión de una biblioteca: ");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setBounds(0,0,WIDTH,HEIGHT);
+        setBounds(0, 0, WIDTH, HEIGHT);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
@@ -254,12 +314,14 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mPrestamos.setEnabled(conectado);
         miHistorial.setEnabled(conectado);
     }
+
     /**
      * Método para la implementación del Singleton del formulario principal
+     *
      * @return el objeto global donde se instancia el formulario de la aplicación
      */
-    public static FormMain getInstance(){
-        if (main==null) {
+    public static FormMain getInstance() {
+        if (main == null) {
             main = new FormMain();
             main.loginPassword();
         }
@@ -274,6 +336,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             SwgAuxiliar.msgExcepcion(e);
         }
     }
+
     private void nuevaCategoria() {
         try {
             desktopPane.add(Categorias.fichaCategoria(new Categoria()));
@@ -292,11 +355,11 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         }
     }
 
-    private void cargaHistorial(){
+    private void cargaHistorial() throws IOException {
         // Crear un JFileChooser
         JFileChooser fileChooser = new JFileChooser();
         // Establecer la carpeta inicial del JFileChooser
-        String rutaCarpeta = "C:\\Users\\Usuario\\IdeaProjects\\GestionBibliotecaHibernate\\ficheros"; // Ruta de la carpeta que deseas
+        String rutaCarpeta = "GestionBibliotecaHibernate\\ficheros"; // Ruta de la carpeta que deseas
         File carpetaInicial = new File(rutaCarpeta);
         fileChooser.setCurrentDirectory(carpetaInicial);
         // Filtrar solo archivos de texto
@@ -314,44 +377,60 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         // Si se selecciona un archivo
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
-            nombreArchivoLog=archivo.getName();
-            try {
-                // Leer el archivo de texto
-                BufferedReader br = new BufferedReader(new FileReader(archivo));
-                StringBuilder sb = new StringBuilder();
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    sb.append(linea);
-                    sb.append("\n");
-                }
-                br.close();
-
-                // Mostrar el texto en un componente con scroll
-                JTextArea textArea = new JTextArea(sb.toString());
-                JScrollPane scrollPane = new JScrollPane(textArea);
-                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-                // Mostrar el componente en una ventana
-                JFrame frame = new JFrame("Historial archivo:"+nombreArchivoLog );
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLocationRelativeTo(FormMain.getInstance());
-                frame.add(scrollPane);
-                frame.pack();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
+            nombreArchivoLog = archivo.getName();
+            // Leer el archivo de texto
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            StringBuilder sb = new StringBuilder();
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                sb.append(linea);
+                sb.append("\n");
             }
+            br.close();
+
+            // Mostrar el texto en un componente con scroll
+            JTextArea textArea = new JTextArea(sb.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+            // Mostrar el componente en una ventana
+            JFrame frame = new JFrame("Historial archivo:" + nombreArchivoLog);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setLocationRelativeTo(FormMain.getInstance());
+            frame.add(scrollPane);
+            frame.pack();
+            frame.setVisible(true);
         }
     }
 
-    private void cargarlogSesion(){
+    private void SessionActualLog() {
+        ArrayList<String> listaComandos = LogFile.getListaComandosLogs();
+        textArea = new JTextArea();
+        for (String lineaComandos: listaComandos) {
+            textArea.append(lineaComandos+"\n");
+        }
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+        // Crear el JFrame y agregar el JScrollPane
+        JFrame frame = new JFrame("Session Actual");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(FormMain.getInstance());
+        frame.add(scrollPane);
+        frame.pack();
+        frame.setVisible(true);
 
-
+        // Actualizar el JTextArea con la información del log
+        //updateTextArea(listaComandos,textArea);
 
     }
 
+    public static void updateTextArea() {
+        String prueba1= " ajsjadkasjdkajsdkajs";
+       textArea.append(prueba1);
 
+    }
 
     private void nuevoUsuario() {
         try {
@@ -361,6 +440,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             SwgAuxiliar.msgExcepcion(e);
         }
     }
+
     private void muestraLibros() {
         try {
             desktopPane.add(Libros.listaLibros());
@@ -379,6 +459,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             SwgAuxiliar.msgExcepcion(e);
         }
     }
+
     private void muestraPrestamos() {
         try {
             desktopPane.add(org.example.vista.helper.Prestamos.listaPrestamos());
@@ -387,20 +468,21 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             SwgAuxiliar.msgExcepcion(e);
         }
     }
-    private void nuevoPrestamo(){
+
+    private void nuevoPrestamo() {
         desktopPane.add(new FichaPrestamo(new Prestamo()));
         desktopPane.selectFrame(false);
     }
 
     private void loginPassword() {
-        new LoginPass(this,"Conectar BD:",true).setVisible(true);
+        new LoginPass(this, "Conectar BD:", true).setVisible(true);
     }
 
     private void salir() {
         if (JOptionPane.showConfirmDialog(FormMain.getInstance(),
                 "¿Seguro que desea SALIR?",
-                "Atención:",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
-                System.exit(0);
+                "Atención:", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            System.exit(0);
     }
 
     @Override
@@ -412,7 +494,8 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         else if (e.getComponent().equals(miSalir))
             miBarraDeEstado.setInfo("Cierra la aplicación");
 
-        else miBarraDeEstado.setInfo(String.format("Infor: mArchivo: %b, miAbrir: %b, miAbrir: %b",mArchivo.isFocusable(),miAbrir.isFocusable(),miSalir.isFocusable()));
+        else
+            miBarraDeEstado.setInfo(String.format("Infor: mArchivo: %b, miAbrir: %b, miAbrir: %b", mArchivo.isFocusable(), miAbrir.isFocusable(), miSalir.isFocusable()));
     }
 
     @Override
@@ -454,35 +537,40 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     public void windowDeactivated(WindowEvent e) {
 
     }
+
     public static int posInterna() {
-        return FormMain.getInstance().getDesktopPane().getComponentCount()*25; // hasta que no se visualiza no se contabiliza
+        return FormMain.getInstance().getDesktopPane().getComponentCount() * 25; // hasta que no se visualiza no se contabiliza
     }
+
     public static void actualizaListaUsuarios() throws SQLException, CampoVacioExcepcion, IOException {
         List<Usuario> usuarios = Entidades.leerAllUsuarios();
-        for (int i=0;i< FormMain.getInstance().getDesktopPane().getComponentCount();i++)
-            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof  ListaUsuarios)
+        for (int i = 0; i < FormMain.getInstance().getDesktopPane().getComponentCount(); i++)
+            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof ListaUsuarios)
                 ((ListaUsuarios) FormMain.getInstance().getDesktopPane().getComponent(i)).setUsuarios(usuarios);
     }
+
     public static void actualizaListaCategorias() throws SQLException, CampoVacioExcepcion, IOException {
         List<Categoria> categorias = Entidades.leerAllCategorias();
-        for (int i=0;i< FormMain.getInstance().getDesktopPane().getComponentCount();i++)
-            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof  ListaCategorias)
+        for (int i = 0; i < FormMain.getInstance().getDesktopPane().getComponentCount(); i++)
+            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof ListaCategorias)
                 ((ListaCategorias) FormMain.getInstance().getDesktopPane().getComponent(i)).setCategorias(categorias);
     }
+
     public static void actualizaListaLibros() throws SQLException, CampoVacioExcepcion, IOException {
         List<Libro> libros = Entidades.leerAllLibros();
-        for (int i=0;i< FormMain.getInstance().getDesktopPane().getComponentCount();i++)
-            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof  ListaLibros)
+        for (int i = 0; i < FormMain.getInstance().getDesktopPane().getComponentCount(); i++)
+            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof ListaLibros)
                 ((ListaLibros) FormMain.getInstance().getDesktopPane().getComponent(i)).setLibros(libros);
     }
+
     public static void actualizaListaPrestamos() throws SQLException, CampoVacioExcepcion, IOException {
         List<Prestamo> prestamos = Entidades.leerAllPrestamos();
-        for (int i=0;i< FormMain.getInstance().getDesktopPane().getComponentCount();i++)
-            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof  ListaPrestamos)
+        for (int i = 0; i < FormMain.getInstance().getDesktopPane().getComponentCount(); i++)
+            if (FormMain.getInstance().getDesktopPane().getComponent(i) instanceof ListaPrestamos)
                 ((ListaPrestamos) FormMain.getInstance().getDesktopPane().getComponent(i)).setPrestamos(prestamos);
     }
 
-    public static void barraEstado(String mensaje){
+    public static void barraEstado(String mensaje) {
         FormMain.getInstance().miBarraDeEstado.setInfo(mensaje);
     }
 
@@ -493,7 +581,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ESCAPE)
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             salir();
     }
 
@@ -504,34 +592,39 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(miSalir) )
+        if (e.getSource().equals(miSalir))
             salir();
         else if (e.getSource().equals(miConexion))
             loginPassword();
-        else if (e.getSource()== miListaUsuarios)
+        else if (e.getSource() == miListaUsuarios)
             muestraUsuarios();
-        else if (e.getSource()== miNuevoUsuario)
+        else if (e.getSource() == miNuevoUsuario)
             nuevoUsuario();
-        else if (e.getSource()== miListaCategorias)
+        else if (e.getSource() == miListaCategorias)
             muestraCategorias();
-        else if (e.getSource()== miNuevaCategoria)
+        else if (e.getSource() == miNuevaCategoria)
             nuevaCategoria();
-        else if (e.getSource()== miListaLibros)
+        else if (e.getSource() == miListaLibros)
             muestraLibros();
-        else if (e.getSource()== miHistorialVer)
-            cargaHistorial();
-        else if(e.getSource()==miHistorialLogActual)
-            cargarlogSesion();
-        else if (e.getSource()== miNuevoLibro)
-            nuevoLibro();
-        else if (e.getSource()== miListaPrestamos)
-            muestraPrestamos();
-        else if (e.getSource()== miNuevoPrestamo)
-            nuevoPrestamo();
-        else if (e.getSource()==miGuardarLibro) {
+        else if (e.getSource() == miHistorialVer) {
             try {
-                SwgAuxiliar.grabarCSV("libro",',');
-            } catch (Exception ex){
+                cargaHistorial();
+            } catch (IOException ex) {
+                SwgAuxiliar.msgExcepcion(ex);
+            }
+        }
+        else if (e.getSource() == miHistorialLogActual)
+            SessionActualLog();
+        else if (e.getSource() == miNuevoLibro)
+            nuevoLibro();
+        else if (e.getSource() == miListaPrestamos)
+            muestraPrestamos();
+        else if (e.getSource() == miNuevoPrestamo)
+            nuevoPrestamo();
+        else if (e.getSource() == miGuardarLibro) {
+            try {
+                SwgAuxiliar.grabarCSV("libro", ',');
+            } catch (Exception ex) {
                 SwgAuxiliar.msgExcepcion(ex);
             }
         }
@@ -539,14 +632,16 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     @Override
     public void update(Subject sub) throws Exception {
-        if (sub instanceof PresentadorUsuario){
+        if (sub instanceof PresentadorUsuario) {
             actualizaListaUsuarios();
-        } else if (sub instanceof PresentadorCategoria){
+        } else if (sub instanceof PresentadorCategoria) {
             actualizaListaCategorias();
-        } else if (sub instanceof PresentadorLibro){
+        } else if (sub instanceof PresentadorLibro) {
             actualizaListaLibros();
-        } else if (sub instanceof PresentadorPrestamo){
+        } else if (sub instanceof PresentadorPrestamo) {
             actualizaListaPrestamos();
+        }else if(sub instanceof LogFile){
+            updateTextArea();
         }
     }
 }

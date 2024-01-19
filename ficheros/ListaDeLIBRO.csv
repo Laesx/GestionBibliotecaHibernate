@@ -1,4 +1,5 @@
 id,nombre,autor,editorial,categoria
+
 5,Programando Bots,Pepito,Editorial 3,2
 6,Terminator,Paquito,no lo se y tu??,8
 8,Santa Tecla Returns,Pepito,Editorial 1,8
@@ -48,3 +49,6 @@ id,nombre,autor,editorial,categoria
 16,Test,Test,Test,3
 18,ghdfhfgh,gdfgdfg,fdgfdgdf,2
 19,Hola,Xd,F,4
+1,Programando Bots,Pepito,Editorial 3,22
+4,Santa Tecla,Pepito,Editorial 1,22
+5,Programando Bots,Pepito,Editorial 3,15

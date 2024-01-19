@@ -60,21 +60,6 @@ public class HistoricoDAOImpl implements HistoricoDAO {
                 transaction.rollback();
         }
 
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, historico.getUser());
-            pstmt.setString(2, historico.getFecha().format(formatter));
-            pstmt.setString(3, historico.getInfo());
-            insertado = pstmt.executeUpdate()==1;
-            if (insertado) {
-                ResultSet rs = pstmt.getGeneratedKeys();
-                if (rs.next())
-                    historico.setIdHistorico(rs.getInt(1));
-            }
-        }
-
-         */
-        //grabaEnLogIns(sqlINSERT);
         return insertado;
     }
 
