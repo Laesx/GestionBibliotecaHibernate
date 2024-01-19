@@ -3,22 +3,15 @@ package org.example.presentador;
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.observer.Observer;
 import org.example.observer.Subject;
-import org.example.vista.FormMain;
-
-import javax.swing.*;
 
 
 public class PresentadorCategoria implements Subject {
     private CategoriaDAO categoriaDAO;
     private VistaCategoria vistaCategoria;
 
-    private FormMain formMain;
-
     public PresentadorCategoria(CategoriaDAO categoriaDAO, VistaCategoria vistaCategoria) {
         this.categoriaDAO = categoriaDAO;
         this.vistaCategoria = vistaCategoria;
-        formMain=FormMain.getInstance();
-        register(formMain);
     }
 
     public void borra() throws Exception {
@@ -39,23 +32,25 @@ public class PresentadorCategoria implements Subject {
     public void listaAllCategorias() throws Exception {
         VistaCategorias vistaCategorias = (VistaCategorias) vistaCategoria;
         vistaCategorias.setCategorias(categoriaDAO.leerAllCategorias());
-
     }
 
     private Observer observer;
 
     @Override
-    public void register(Observer observer){
-      this.observer=observer;
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
     }
 
     @Override
     public void unregister(Observer obj) {
-        this.observer=null;
+        observer=null;
     }
 
     @Override
     public void notifyObservers() throws Exception {
-        formMain.update(this);
+        if (observer!=null){
+            observer.update(this);
+        }
     }
 }
