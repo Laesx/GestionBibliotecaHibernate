@@ -15,6 +15,9 @@ import org.example.observer.Subject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -106,6 +109,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mUsuarios.add(miListaUsuarios);
 
     }
+
+
+
     private JMenuItem miNuevoUsuario;{
         miNuevoUsuario=new JMenuItem("Nuevo");
         miNuevoUsuario.setMnemonic('N');
@@ -128,7 +134,6 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miListaLibros.addActionListener(this);
         miListaLibros.addFocusListener(this);
         mLibros.add(miListaLibros);
-
     }
     private JMenuItem miNuevoLibro;{
         miNuevoLibro=new JMenuItem("Nuevo");
@@ -138,6 +143,8 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miNuevoLibro.addFocusListener(this);
         mLibros.add(miNuevoLibro);
     }
+
+
     private JMenu mPrestamos;{
         mPrestamos =new JMenu("Préstamos");
         mPrestamos.setMnemonic('P');
@@ -160,6 +167,34 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miNuevoPrestamo.addFocusListener(this);
         mPrestamos.add(miNuevoPrestamo);
     }
+
+    private JMenu miHistorial;{
+        miHistorial =new JMenu("Historial");
+        mPrestamos.setMnemonic('P');
+        mPrestamos.setFocusable(true);
+        mPrestamos.addFocusListener(this);
+    }
+
+    private JMenuItem miHistorialVer;{
+        miHistorialVer=new JMenuItem("Cargar Logs");
+        miHistorialVer.setMnemonic('L');
+        miHistorialVer.setFocusable(true);
+        miHistorialVer.addActionListener(this);
+        miHistorialVer.addFocusListener(this);
+        miHistorial.add(miHistorialVer);
+    }
+
+    private JMenuItem miHistorialLogActual;{
+        miHistorialLogActual=new JMenuItem("Log sesion");
+        miHistorialLogActual.setMnemonic('L');
+        miHistorialLogActual.setFocusable(true);
+        miHistorialLogActual.addActionListener(this);
+        miHistorialLogActual.addFocusListener(this);
+        miHistorial.add(miHistorialLogActual);
+    }
+
+
+
     private JMenuBar jMenuBar;{
         jMenuBar = new JMenuBar();
         jMenuBar.add(mArchivo);
@@ -167,6 +202,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         jMenuBar.add(mUsuarios);
         jMenuBar.add(mLibros);
         jMenuBar.add(mPrestamos);
+        jMenuBar.add(miHistorial);
         jMenuBar.addFocusListener(this);
     }
     private MiBarraDeEstado miBarraDeEstado;{
@@ -216,6 +252,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         mUsuarios.setEnabled(conectado);
         mLibros.setEnabled(conectado);
         mPrestamos.setEnabled(conectado);
+        miHistorial.setEnabled(conectado);
     }
     /**
      * Método para la implementación del Singleton del formulario principal
@@ -254,6 +291,68 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             SwgAuxiliar.msgExcepcion(e);
         }
     }
+
+    private void cargaHistorial(){
+        // Crear un JFileChooser
+        JFileChooser fileChooser = new JFileChooser();
+        // Establecer la carpeta inicial del JFileChooser
+        String rutaCarpeta = "C:\\Users\\Usuario\\IdeaProjects\\GestionBibliotecaHibernate\\ficheros"; // Ruta de la carpeta que deseas
+        File carpetaInicial = new File(rutaCarpeta);
+        fileChooser.setCurrentDirectory(carpetaInicial);
+        // Filtrar solo archivos de texto
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            public boolean accept(File file) {
+                return file.getName().toLowerCase().endsWith(".log") || file.isDirectory();
+            }
+            public String getDescription() {
+                return "Archivos de texto (*.log)";
+            }
+        });
+        // Mostrar el cuadro de diálogo para seleccionar un archivo
+        int seleccion = fileChooser.showOpenDialog(null);
+        String nombreArchivoLog;
+        // Si se selecciona un archivo
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            nombreArchivoLog=archivo.getName();
+            try {
+                // Leer el archivo de texto
+                BufferedReader br = new BufferedReader(new FileReader(archivo));
+                StringBuilder sb = new StringBuilder();
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    sb.append(linea);
+                    sb.append("\n");
+                }
+                br.close();
+
+                // Mostrar el texto en un componente con scroll
+                JTextArea textArea = new JTextArea(sb.toString());
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+                // Mostrar el componente en una ventana
+                JFrame frame = new JFrame("Historial archivo:"+nombreArchivoLog );
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setLocationRelativeTo(FormMain.getInstance());
+                frame.add(scrollPane);
+                frame.pack();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void cargarlogSesion(){
+
+
+
+
+    }
+
+
+
     private void nuevoUsuario() {
         try {
             desktopPane.add(Usuarios.fichaUsuario(new Usuario()));
@@ -270,6 +369,8 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             SwgAuxiliar.msgExcepcion(e);
         }
     }
+
+
     private void nuevoLibro() {
         try {
             desktopPane.add(Libros.fichaLibro(new Libro()));
@@ -417,6 +518,10 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             nuevaCategoria();
         else if (e.getSource()== miListaLibros)
             muestraLibros();
+        else if (e.getSource()== miHistorialVer)
+            cargaHistorial();
+        else if(e.getSource()==miHistorialLogActual)
+            cargarlogSesion();
         else if (e.getSource()== miNuevoLibro)
             nuevoLibro();
         else if (e.getSource()== miListaPrestamos)
