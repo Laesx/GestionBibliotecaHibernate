@@ -1,7 +1,6 @@
 package org.example.modelo.dao;
 
 import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
@@ -11,8 +10,8 @@ import org.example.singleton.HibernateUtilJPA;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -224,7 +223,7 @@ public class LibroDAOImpl implements LibroDAO {
     * */
     @Override
     public List<Libro> leerLibrosOR(int id, String nombre, String autor, String editorial, int categoria) throws Exception {
-        String sql="SELECT l.id, l.nombre, l.autor, l.editorial, l.categoria FROM Libro l";
+        String sql="SELECT l FROM Libro l";
         String where="";
         List<Libro> lista = null;
         EntityManager em = HibernateUtilJPA.getEntityManager();
@@ -249,17 +248,16 @@ public class LibroDAOImpl implements LibroDAO {
         }
 
         String wEditorial="";
-        if (!autor.trim().isEmpty()) {
+        if (!editorial.trim().isEmpty()) {
             wEditorial = "l.editorial LIKE :editorialLibro";
             where = Sql.rellenaWhereOR(where, wEditorial);
             //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
         }
 
         String wCategoria="";
-        if (!autor.trim().isEmpty()) {
+        if (categoria != 0) {
             wCategoria = "l.categoria = :categoriaLibro";
             where = Sql.rellenaWhereOR(where, wCategoria);
-            //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
         }
 
 
@@ -287,68 +285,6 @@ public class LibroDAOImpl implements LibroDAO {
 
         return lista;
 
-
-        /*String sql="SELECT id,nombre,autor,editorial,categoria FROM libro";
-        String where="";
-        String wId="";
-        if (id != 0) {
-            wId = "id = ?";
-            where = Sql.rellenaWhereOR(where, wId);
-        }
-        String wTitulo="";
-        if (!titulo.trim().equals("")) {
-            wTitulo = "nombre LIKE ?";
-            where = Sql.rellenaWhereOR(where, wTitulo);
-        }
-        String wAutor="";
-        if (!autor.trim().equals("")) {
-            wAutor = "autor LIKE ?";
-            where = Sql.rellenaWhereOR(where, wAutor);
-        }
-        String wEditorial="";
-        if (!editorial.trim().equals("")) {
-            wEditorial = "editorial LIKE ?";
-            where = Sql.rellenaWhereOR(where, wEditorial);
-        }
-        String wCategoria="";
-        if (categoria != 0) {
-            wCategoria = "categoria = ?";
-            where = Sql.rellenaWhereOR(where, wCategoria);
-        }
-        if (where.equals(""))
-            return leerAllLibros();
-        else {
-            List<Libro> lista = null;
-            sql = sql + " WHERE "+where;
-            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-                int i = 1;
-                if (!wId.equals(""))
-                    pstmt.setInt(i++, id);
-                if (!wTitulo.equals(""))
-                    pstmt.setString(i++, titulo);
-                if (!wAutor.equals(""))
-                    pstmt.setString(i++, autor);
-                if (!wEditorial.equals(""))
-                    pstmt.setString(i++, editorial);
-                if (!wCategoria.equals(""))
-                    pstmt.setInt(i++, categoria);
-                ResultSet rs = pstmt.executeQuery();
-                LogFile.saveLOG(sql);
-                lista=new ArrayList<>();
-                while (rs.next()){
-                    Libro libro=new Libro();
-                    libro.setId(rs.getInt("id"));
-                    libro.setNombre(rs.getString("nombre"));
-                    libro.setAutor(rs.getString("autor"));
-                    libro.setEditorial(rs.getString("editorial"));
-                    libro.setCategoria(rs.getInt("categoria"));
-                    lista.add(libro);
-                }
-            }
-            return lista;
-
-         */
-
     }
 
     /**
@@ -363,24 +299,5 @@ public class LibroDAOImpl implements LibroDAO {
     public Libro getLibro(int id) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         return em.find(Libro.class, id);
-        /*
-        Libro libro=null;
-        String sql="SELECT id,nombre,autor,editorial,categoria FROM libro WHERE id = ?";
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1,id);
-            ResultSet rs = pstmt.executeQuery();
-            LogFile.saveLOG(sql.replace("?",String.valueOf(id)));
-            if (rs.next()){
-                libro=new Libro();
-                libro.setId(rs.getInt("id"));
-                libro.setNombre(rs.getString("nombre"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setEditorial(rs.getString("editorial"));
-                libro.setCategoria(rs.getInt("categoria"));
-            }
-        }
-        return libro;
-
-         */
     }
 }

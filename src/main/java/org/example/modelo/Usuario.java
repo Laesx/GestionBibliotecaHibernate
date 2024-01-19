@@ -1,7 +1,6 @@
 package org.example.modelo;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name = "usuario", schema = "BIBLIOTECA")
@@ -16,8 +15,6 @@ public class Usuario {
     @Basic
     @Column(name = "apellidos", nullable = true, length = -1)
     private String apellidos;
-    @OneToMany(mappedBy = "usuario")
-    private Collection<Prestamo> prestamos;
 
     public int getId() {
         return id;
@@ -64,15 +61,6 @@ public class Usuario {
         result = 31 * result + (apellidos != null ? apellidos.hashCode() : 0);
         return result;
     }
-
-    public Collection<Prestamo> getPrestamos() {
-        return prestamos;
-    }
-
-    public void setPrestamos(Collection<Prestamo> prestamos) {
-        this.prestamos = prestamos;
-    }
-
     @Override
     public String toString(){
         return String.format("%d. %s %s",id,nombre,apellidos);

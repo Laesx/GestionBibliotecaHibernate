@@ -13,20 +13,14 @@ public class Prestamo extends Entidad{
     @Column(name = "idPrestamo", nullable = false)
     private int idPrestamo;
     @Basic
-    @Column(name = "idLibro", nullable = true, insertable = false, updatable = false)
+    @Column(name = "idLibro", nullable = true)
     private Integer idLibro;
     @Basic
-    @Column(name = "idUsuario", nullable = true, insertable = false, updatable = false)
+    @Column(name = "idUsuario", nullable = true)
     private Integer idUsuario;
     @Basic
     @Column(name = "fechaPrestamo", nullable = true)
     private LocalDateTime fechaPrestamo = LocalDateTime.now();
-    @ManyToOne
-    @JoinColumn(name = "idLibro", referencedColumnName = "id")
-    private Libro libro;
-    @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "id")
-    private Usuario usuario;
 
     public int getIdPrestamo() {
         return idPrestamo;
@@ -83,22 +77,6 @@ public class Prestamo extends Entidad{
         result = 31 * result + (idUsuario != null ? idUsuario.hashCode() : 0);
         result = 31 * result + (fechaPrestamo != null ? fechaPrestamo.hashCode() : 0);
         return result;
-    }
-
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @Override
