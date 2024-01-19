@@ -2,14 +2,12 @@ package org.example.modelo.dao;
 
 import org.example.modelo.Historico;
 import org.example.modelo.dao.helper.LogFile;
-import org.example.singleton.ConexionMySQL;
 import org.example.singleton.Configuracion;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
@@ -23,12 +21,9 @@ import java.time.format.DateTimeFormatter;
 public class HistoricoDAOImpl implements HistoricoDAO {
     private Historico historico;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-    private final Connection con;
     private static final String sqlINSERT="INSERT INTO historico (user,fecha,info) VALUES (?,?,?)";
     public HistoricoDAOImpl(Historico historico) throws Exception {
         this.historico = historico;
-        con = ConexionMySQL.getInstance().getConexion();
     }
 
 
@@ -38,42 +33,25 @@ public class HistoricoDAOImpl implements HistoricoDAO {
     }
 
     @Override
-    public boolean insertar() throws SQLException, IOException {
+    public boolean insertar() throws Exception {
         boolean insertado = false;
 
+        EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = null;
-
         try{
-            EntityManager em = HibernateUtilJPA.getEntityManager();
             transaction = em.getTransaction();
             transaction.begin();
-
             em.persist(historico);
-
             transaction.commit();
             insertado = true;
-
-        }catch (Exception e){
-            e.printStackTrace(System.err);
-
-            if(transaction!=null)
+        } catch (Exception e) {
+            if (transaction != null)
                 transaction.rollback();
+            throw e;
+        } finally {
+            em.close();
         }
 
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, historico.getUser());
-            pstmt.setString(2, historico.getFecha().format(formatter));
-            pstmt.setString(3, historico.getInfo());
-            insertado = pstmt.executeUpdate()==1;
-            if (insertado) {
-                ResultSet rs = pstmt.getGeneratedKeys();
-                if (rs.next())
-                    historico.setIdHistorico(rs.getInt(1));
-            }
-        }
-
-         */
         //grabaEnLogIns(sqlINSERT);
         return insertado;
     }
