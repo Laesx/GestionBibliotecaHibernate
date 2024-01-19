@@ -19,7 +19,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     private final Connection con;
     private static final String sqlINSERT="INSERT INTO usuario (nombre,apellidos) VALUES (?,?)";
     private static final String sqlUPDATE="UPDATE usuario SET nombre = ?, apellidos = ? WHERE id = ?";
-    private static final String sqlDELETE="DELETE usuario WHERE id = ?";
+    private static final String sqlDELETE="DELETE FROM usuario WHERE id = ?";
 
     public UsuarioDAOImpl() throws Exception {
         con = ConexionMySQL.getInstance().getConexion();

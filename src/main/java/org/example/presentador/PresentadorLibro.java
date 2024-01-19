@@ -4,16 +4,21 @@ import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.LibroDAO;
 import org.example.observer.Observer;
 import org.example.observer.Subject;
+import org.example.vista.FormMain;
 
 public class PresentadorLibro implements Subject {
     private LibroDAO libroDAO;
     private CategoriaDAO categoriaDAO;
     private VistaLibro vistaLibro;
 
+    private FormMain formMain;
+
     public PresentadorLibro(LibroDAO libroDAO, CategoriaDAO categoriaDAO,VistaLibro vistaLibro) {
         this.libroDAO = libroDAO;
         this.categoriaDAO = categoriaDAO;
         this.vistaLibro = vistaLibro;
+        formMain=FormMain.getInstance();
+        register(formMain);
     }
     public void borra() throws Exception {
         libroDAO.borrar(vistaLibro.getLibro().getId());
