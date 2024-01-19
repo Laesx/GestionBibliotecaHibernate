@@ -3,15 +3,21 @@ package org.example.presentador;
 import org.example.modelo.dao.UsuarioDAO;
 import org.example.observer.Observer;
 import org.example.observer.Subject;
+import org.example.vista.FichaPrestamo;
+import org.example.vista.FormMain;
 
 
 public class PresentadorUsuario implements Subject {
     private UsuarioDAO usuarioDAO;
     private VistaUsuario vistaUsuario;
 
+    private FormMain formMain;
+
     public PresentadorUsuario(UsuarioDAO usuarioDAO, VistaUsuario vistaUsuario) {
         this.usuarioDAO = usuarioDAO;
         this.vistaUsuario = vistaUsuario;
+        formMain=FormMain.getInstance();
+        register(formMain);
     }
 
     public void borra() throws Exception {
