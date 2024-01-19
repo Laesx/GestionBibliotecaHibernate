@@ -1,5 +1,7 @@
 package org.example.modelo.dao.helper;
 
+import org.example.modelo.dao.HistoricoDAOImpl;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -11,9 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Para registrar todas las operaciones realizadas en la base de datos
- * en ficheros logs locales
- * @author AGE
- * @version 2
+ * en ficheros logs locales y en la tabla historico de la BD
  */
 public class LogFile {
     private static String file="ficheros/historial"+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("_yyyyMMdd"))+".log";
@@ -25,8 +25,7 @@ public class LogFile {
      */
     public static void saveLOG(String msgLog) throws Exception {
         saveLOGsinBD(msgLog);
-        //TODO Arreglar esto
-        //HistoricoDAOImpl.mensaje(msgLog);
+        HistoricoDAOImpl.mensaje(msgLog);
 
     }
     /**

@@ -30,6 +30,7 @@ public class HibernateUtilJPA {
 
     }
     private static EntityManagerFactory entityManagerFactory=null;
+
     public static EntityManager getEntityManager() throws Exception {
         getEntityManagerFactory();
         EntityManager em=null;
@@ -41,6 +42,12 @@ public class HibernateUtilJPA {
         if (entityManagerFactory == null) {
             entityManagerFactory = createEntityManagerFactory();
             Runtime.getRuntime().addShutdownHook(new ThreadOff());
+
+            // Log de Conexión
+            Configuracion config=Configuracion.getInstance();
+            String msg=String.format("Usuario conectado desde HIBERNATE: %s a %s (%s)",config.getUser(),config.getUrl(),
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+            LogFile.saveLOG(msg);
         }
         return entityManagerFactory;
     }
@@ -57,10 +64,6 @@ public class HibernateUtilJPA {
         properties.put("hibernate.connection.url", config.getUrl());
         properties.put("hibernate.connection.username", config.getUser());
         properties.put("hibernate.connection.password", config.getPassword());
-
-        String msg=String.format("Usuario conectado: %s a %s (%s)",config.getUser(),config.getUrl(),
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-        LogFile.saveLOG(msg);
 
         // Puedes agregar más propiedades según tus necesidades
         return new HibernatePersistenceProvider()
