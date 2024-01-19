@@ -1,7 +1,5 @@
 package org.example.modelo.dao.helper;
 
-import org.example.modelo.dao.HistoricoDAOImpl;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -27,7 +25,8 @@ public class LogFile {
      */
     public static void saveLOG(String msgLog) throws Exception {
         saveLOGsinBD(msgLog);
-        HistoricoDAOImpl.mensaje(msgLog);
+        //TODO Arreglar esto
+        //HistoricoDAOImpl.mensaje(msgLog);
 
     }
     /**
