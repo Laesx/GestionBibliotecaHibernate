@@ -4,21 +4,16 @@ import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.PrestamoDAO;
 import org.example.observer.Observer;
 import org.example.observer.Subject;
-import org.example.vista.FormMain;
 
 public class PresentadorPrestamo implements Subject {
     private PrestamoDAO prestamoDAO;
     private CategoriaDAO categoriaDAO;
     private VistaPrestamo vistaPrestamo;
 
-    private FormMain formMain;
-
     public PresentadorPrestamo(PrestamoDAO prestamoDAO, CategoriaDAO categoriaDAO, VistaPrestamo vistaPrestamo) {
         this.prestamoDAO = prestamoDAO;
         this.categoriaDAO = categoriaDAO;
         this.vistaPrestamo = vistaPrestamo;
-        formMain=FormMain.getInstance();
-        register(formMain);
     }
 
     public void borra() throws Exception {
@@ -48,21 +43,23 @@ public class PresentadorPrestamo implements Subject {
             vistaPrestamo.setCategorias(null);
         }
     }
-
     private Observer observer;
 
     @Override
-    public void register(Observer observer){
-        this.observer=observer;
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
     }
 
     @Override
     public void unregister(Observer obj) {
-        this.observer=null;
+        observer=null;
     }
 
     @Override
     public void notifyObservers() throws Exception {
-        formMain.update(this);
+        if (observer!=null){
+            observer.update(this);
+        }
     }
 }
