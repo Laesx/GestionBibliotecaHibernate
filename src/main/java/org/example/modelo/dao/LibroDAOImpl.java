@@ -83,10 +83,8 @@ public class LibroDAOImpl implements LibroDAO {
     @Override
     public boolean modificar(Libro libro) throws Exception {
         boolean actualizado = false;
-
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
 
         try {
             transaction.begin();
@@ -110,17 +108,6 @@ public class LibroDAOImpl implements LibroDAO {
         } finally {
             em.close();
         }
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlUPDATE)){
-            pstmt.setString(1,libro.getNombre());
-            pstmt.setString(2,libro.getAutor());
-            pstmt.setString(3,libro.getEditorial());
-            pstmt.setInt(4, libro.getCategoria());
-            pstmt.setInt(5, libro.getId());
-            actualizado=pstmt.executeUpdate()==1;
-        }
-
-         */
         grabaEnLogUpd(libro,sqlUPDATE);
         return actualizado;
     }

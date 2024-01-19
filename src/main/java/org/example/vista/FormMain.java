@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Formulario principal de la aplicación, en el se implementarán las opciones
@@ -36,7 +37,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     private static final int WIDTH = 1024;
     private static final int HEIGHT = 756;
     private JDesktopPane desktopPane = new JDesktopPane();
-    private static JTextArea textArea;
+
+    private static JTextArea textArea=new JTextArea();
+    private  ArrayList<String> listaComandos;
 
     private JMenu mArchivo;
 
@@ -387,7 +390,6 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
                 sb.append("\n");
             }
             br.close();
-
             // Mostrar el texto en un componente con scroll
             JTextArea textArea = new JTextArea(sb.toString());
             JScrollPane scrollPane = new JScrollPane(textArea);
@@ -404,14 +406,12 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
     private void SessionActualLog() {
-        ArrayList<String> listaComandos = LogFile.getListaComandosLogs();
-        textArea = new JTextArea();
+        listaComandos = LogFile.getListaComandosLogs();
         for (String lineaComandos: listaComandos) {
             textArea.append(lineaComandos+"\n");
         }
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
         // Crear el JFrame y agregar el JScrollPane
         JFrame frame = new JFrame("Session Actual");
         frame.setSize(800, 600);
@@ -420,16 +420,15 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         frame.add(scrollPane);
         frame.pack();
         frame.setVisible(true);
-
-        // Actualizar el JTextArea con la información del log
-        //updateTextArea(listaComandos,textArea);
-
     }
 
-    public static void updateTextArea() {
-        String prueba1= " ajsjadkasjdkajsdkajs";
-       textArea.append(prueba1);
-
+    public static void actualizarLogSession( ArrayList<String> listaComandos){
+        textArea.setText("");
+        StringBuilder sb = new StringBuilder();
+        for (String linea : listaComandos) {
+            sb.append(linea).append("\n");
+        }
+        textArea.setText(sb.toString());
     }
 
     private void nuevoUsuario() {
@@ -640,8 +639,6 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             actualizaListaLibros();
         } else if (sub instanceof PresentadorPrestamo) {
             actualizaListaPrestamos();
-        }else if(sub instanceof LogFile){
-            updateTextArea();
         }
     }
 }
