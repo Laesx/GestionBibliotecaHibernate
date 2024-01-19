@@ -21,10 +21,8 @@ public class Libros {
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         ListaLibros listaLibros=new ListaLibros();
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,listaLibros);
-
         // PARTE DEL OBSERVER
         presentadorLibro.register(FormMain.getInstance());
-
         listaLibros.setPresentador(presentadorLibro);
         listaLibros.lanzar();
         return listaLibros;

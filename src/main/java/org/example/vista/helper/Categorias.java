@@ -5,6 +5,7 @@ import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.CategoriaDAOImpl;
 import org.example.presentador.PresentadorCategoria;
 import org.example.vista.FichaCategoria;
+import org.example.vista.FormMain;
 import org.example.vista.ListaCategorias;
 
 public class Categorias {
@@ -13,6 +14,8 @@ public class Categorias {
         ListaCategorias listaCategorias=new ListaCategorias();
         PresentadorCategoria presentadorCategoria=new PresentadorCategoria(categoriaDAO,listaCategorias);
         listaCategorias.setPresentador(presentadorCategoria);
+        // PARTE DEL OBSERVER
+        presentadorCategoria.register(FormMain.getInstance());
         listaCategorias.lanzar();
         return listaCategorias;
     }
@@ -22,6 +25,8 @@ public class Categorias {
         FichaCategoria fichaCategoria=new FichaCategoria(categoria);
         PresentadorCategoria presentadorCategoria=new PresentadorCategoria(categoriaDAO,fichaCategoria);
         fichaCategoria.setPresentador(presentadorCategoria);
+        // PARTE DEL OBSERVER
+        presentadorCategoria.register(FormMain.getInstance());
         fichaCategoria.lanzar();
         return fichaCategoria;
 

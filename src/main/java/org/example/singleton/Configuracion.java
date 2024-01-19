@@ -1,18 +1,7 @@
 package org.example.singleton;
 
 import org.example.helper.EncriptacionDesencriptacion;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,48 +37,6 @@ public class Configuracion {
         password = p.getProperty("password");
         //modificarConfigHibernate();
     }
-
-    /**
-     * para modificar las propiedades del fichero de configuración xml de JPA/Hibernate
-     * TODO Borrar, no sirve para nada al final xd
-     */
-    private void modificarConfigHibernate() throws Exception{
-        File inputFile = new File("src/main/resources/META-INF/persistence.xml");
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(inputFile);
-        doc.getDocumentElement().normalize();
-
-        NodeList nList = doc.getElementsByTagName("property");
-
-        for (int temp = 0; temp < nList.getLength(); temp++) {
-            Node nNode = nList.item(temp);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element elemento = (Element) nNode;
-                if (elemento.getAttribute("name").equals("hibernate.connection.url")){
-                    elemento.setAttribute("value", url);
-                }
-                if (elemento.getAttribute("name").equals("hibernate.connection.username")){
-                    elemento.setAttribute("value", user);
-                }
-                if (elemento.getAttribute("name").equals("hibernate.connection.password")){
-                    // Guarda la contraseña desencriptada para que hibernate pueda acceder a ella
-                    elemento.setAttribute("value", getPassword());
-                }
-                if (elemento.getAttribute("name").equals("hibernate.connection.driver_class")){
-                    elemento.setAttribute("value", driver);
-                }
-            }
-        }
-
-        // Escribir toda la configuracion al archivo XML
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource source = new DOMSource(doc);
-        StreamResult result = new StreamResult(new File("src/main/resources/META-INF/persistence.xml"));
-        transformer.transform(source, result);
-    }
-
     /**
      * para obtener el driver que necesita el contralador JDBC para la conexión
      * @return la clase del driver JDBC

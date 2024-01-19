@@ -52,4 +52,9 @@ public class Categoria {
         result = 31 * result + (categoria != null ? categoria.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d. %s",id,categoria);
+    }
 }
