@@ -25,7 +25,7 @@ public interface HistoricoDAO {
      * @throws SQLException
      * @throws IOException
      */
-    boolean insertar() throws SQLException, IOException;
+    boolean insertar() throws Exception;
 
     /**
      * Implementaremos las instrucciones necesarias para poder

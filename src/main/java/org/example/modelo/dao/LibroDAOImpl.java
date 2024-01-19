@@ -4,13 +4,11 @@ import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
-import org.example.singleton.ConexionMySQL;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,53 +19,30 @@ import java.util.List;
  * @version 3
  */
 public class LibroDAOImpl implements LibroDAO {
-    private final Connection con;
     private static final String sqlINSERT="INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (?,?,?,?)";
     private static final String sqlUPDATE="UPDATE libro SET nombre=?, autor=?, editorial=?, categoria=? WHERE id = ?";
-    public LibroDAOImpl() throws Exception {
-        con = ConexionMySQL.getInstance().getConexion();
+    public LibroDAOImpl() {
     }
 
     @Override
     public boolean insertar(Libro libro) throws Exception {
         boolean insertado = false;
-
+        EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = null;
-
         try{
-            EntityManager em = HibernateUtilJPA.getEntityManager();
             transaction = em.getTransaction();
             transaction.begin();
-
             em.persist(libro);
-
             transaction.commit();
             insertado = true;
-
-        }catch (Exception e){
-            e.printStackTrace(System.err);
-
-            if(transaction!=null)
+        }catch (Exception e) {
+            if (transaction != null)
                 transaction.rollback();
+            throw e;
+        } finally {
+            em.close();
         }
         grabaEnLogIns(libro,sqlINSERT);
-
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
-            pstmt.setString(1,libro.getNombre());
-            pstmt.setString(2,libro.getAutor());
-            pstmt.setString(3,libro.getEditorial());
-            pstmt.setInt(4,libro.getCategoria());
-            insertado=pstmt.executeUpdate()==1;
-            if (insertado) {
-                ResultSet rs = pstmt.getGeneratedKeys();
-                if (rs.next())
-                    libro.setId(rs.getInt(1));
-            }
-        }
-        grabaEnLogIns(libro,sqlINSERT);
-
-         */
         return insertado;
     }
 
@@ -86,7 +61,6 @@ public class LibroDAOImpl implements LibroDAO {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
-
         try {
             transaction.begin();
             Libro libro1 = em.find(Libro.class, libro.getId());
@@ -101,25 +75,13 @@ public class LibroDAOImpl implements LibroDAO {
             transaction.commit();
             actualizado = true;
 
-        }catch (Exception e){
-            if(transaction.isActive())
+        }catch (Exception e) {
+            if (transaction != null)
                 transaction.rollback();
-
             throw e;
         } finally {
             em.close();
         }
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlUPDATE)){
-            pstmt.setString(1,libro.getNombre());
-            pstmt.setString(2,libro.getAutor());
-            pstmt.setString(3,libro.getEditorial());
-            pstmt.setInt(4, libro.getCategoria());
-            pstmt.setInt(5, libro.getId());
-            actualizado=pstmt.executeUpdate()==1;
-        }
-
-         */
         grabaEnLogUpd(libro,sqlUPDATE);
         return actualizado;
     }
@@ -152,23 +114,14 @@ public class LibroDAOImpl implements LibroDAO {
                 borrado = true;
             }
         }catch (Exception e) {
-            e.printStackTrace(System.err);
-            if(transaction!= null){
+            if (transaction != null)
                 transaction.rollback();
-            }
+            throw e;
+        } finally {
+            em.close();
         }
-        /*
-        boolean borrado=false;
-        try (PreparedStatement pstmt = con.prepareStatement(sqlDELETE)){
-            pstmt.setInt(1, id);
-            borrado=pstmt.executeUpdate()==1;
-        }
-        grabaEnLogDel(id,sqlDELETE);
+
         return borrado;
-
-         */
-
-        return true;
     }
 
     /**
@@ -181,27 +134,6 @@ public class LibroDAOImpl implements LibroDAO {
      */
     @Override
     public List<Libro> leerAllLibros() throws Exception {
-        /*
-        List<Libro> lista = null;
-        String sql="SELECT id,nombre,autor,editorial,categoria FROM libro";
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            LogFile.saveLOG(sql);
-            lista=new ArrayList<>();
-            while (rs.next()){
-                Libro libro=new Libro();
-                libro.setId(rs.getInt("id"));
-                libro.setNombre(rs.getString("nombre"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setEditorial(rs.getString("editorial"));
-                libro.setCategoria(rs.getInt("categoria"));
-                lista.add(libro);
-            }
-        }
-        return lista;
-
-         */
-
         return (List<Libro>) MetodosGenerales.obtenerLista("FROM Libro");
 
     }
@@ -232,19 +164,16 @@ public class LibroDAOImpl implements LibroDAO {
         if (id != 0) {
             wId = "l.id = :idLibro";
             where = Sql.rellenaWhereOR(where, wId);
-            // where = "id = ?"
         }
         String wNombre="";
         if (!nombre.trim().isEmpty()) {
             wNombre = "l.nombre LIKE :nombreLibro";
             where = Sql.rellenaWhereOR(where, wNombre);
-            //where = id = ? OR nombre LIKE ?
         }
         String wAutor="";
         if (!autor.trim().isEmpty()) {
             wAutor = "l.autor LIKE :autorLibro";
             where = Sql.rellenaWhereOR(where, wAutor);
-            //where = id = ? OR nombre LIKE ? OR apellidos LIKE ?
         }
 
         String wEditorial="";
