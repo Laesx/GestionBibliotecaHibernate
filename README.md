@@ -35,6 +35,10 @@ Estos objetivos no solo mejoran la tecnología subyacente del proyecto, sino que
 
 
 
+## Funcionalidad Añadida 🚀
+
+
+
 ## Problemas Encontrados y Soluciones Aportadas 🚧
 
 
