@@ -257,6 +257,28 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miHistorial.add(miHistorialLogActual);
     }
 
+    /**
+     * Menú de ayuda donde estarán los créditos de la aplicación
+     */
+    private JMenu mAyuda;{
+        mAyuda = new JMenu("Ayuda");
+        mAyuda.setMnemonic('y');
+        mAyuda.setFocusable(true);
+        mAyuda.addFocusListener(this);
+    }
+
+    /**
+     * Créditos de la aplicación
+     */
+    private JMenuItem miCreditos;{
+        miCreditos = new JMenuItem("Créditos");
+        miCreditos.setMnemonic('C');
+        miCreditos.setFocusable(true);
+        miCreditos.addActionListener(this);
+        miCreditos.addFocusListener(this);
+        mAyuda.add(miCreditos);
+    }
+
 
     private JMenuBar jMenuBar;
 
@@ -268,6 +290,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         jMenuBar.add(mLibros);
         jMenuBar.add(mPrestamos);
         jMenuBar.add(miHistorial);
+        jMenuBar.add(mAyuda);  // Agregamos la nueva pestaña de Ayuda
         jMenuBar.addFocusListener(this);
     }
 
@@ -636,7 +659,21 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             } catch (Exception ex) {
                 SwgAuxiliar.msgExcepcion(ex);
             }
+        } else if (e.getSource() == miCreditos){
+            mostrarCreditos();
         }
+    }
+
+    private void mostrarCreditos() {
+        JOptionPane.showMessageDialog(FormMain.getInstance(),
+                "CEO/Manager:\n" +
+                        "- Antonio García Expósito\n" +
+                        "UMPALUMPAS:\n" +
+                        "- Eric de Almeida Terrón\n" +
+                        "- Sebastián Olea Castillo\n" +
+                        "- Juan Manuel Sújar González\n" +
+                        "- José María La Torre Ávila",
+                "Créditos", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
