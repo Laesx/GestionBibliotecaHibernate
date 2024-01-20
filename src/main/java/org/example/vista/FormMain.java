@@ -44,7 +44,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     private static final int HEIGHT = 756;
     private JDesktopPane desktopPane = new JDesktopPane();
 
-    private static JTextArea textArea=new JTextArea();
+    private static JTextArea textArea;
     private  ArrayList<String> listaComandos;
 
     private JMenu mArchivo;
@@ -395,7 +395,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         // Crear un JFileChooser
         JFileChooser fileChooser = new JFileChooser();
         // Establecer la carpeta inicial del JFileChooser
-        String rutaCarpeta = "GestionBibliotecaHibernate\\ficheros"; // Ruta de la carpeta que deseas
+        String rutaCarpeta = "ficheros"; // Ruta de la carpeta que deseas
         File carpetaInicial = new File(rutaCarpeta);
         fileChooser.setCurrentDirectory(carpetaInicial);
         // Filtrar solo archivos de texto
@@ -425,6 +425,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             br.close();
             // Mostrar el texto en un componente con scroll
             JTextArea textArea = new JTextArea(sb.toString());
+            textArea.setEditable(false);
             JScrollPane scrollPane = new JScrollPane(textArea);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -439,6 +440,8 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
     private void SessionActualLog() {
+        textArea=new JTextArea();
+        textArea.setEditable(false);
         textArea.setText("");
         listaComandos = LogFile.getListaComandosLogs();
         for (String lineaComandos: listaComandos) {
