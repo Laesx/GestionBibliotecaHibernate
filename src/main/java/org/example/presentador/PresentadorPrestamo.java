@@ -2,10 +2,8 @@ package org.example.presentador;
 
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.PrestamoDAO;
-import org.example.observer.Observer;
-import org.example.observer.Subject;
 
-public class PresentadorPrestamo implements Subject {
+public class PresentadorPrestamo {
     private PrestamoDAO prestamoDAO;
     private CategoriaDAO categoriaDAO;
     private VistaPrestamo vistaPrestamo;
@@ -18,17 +16,14 @@ public class PresentadorPrestamo implements Subject {
 
     public void borra() throws Exception {
         prestamoDAO.borrar(vistaPrestamo.getPrestamo().getId());
-        notifyObservers();
     }
 
     public void inserta() throws Exception {
         prestamoDAO.insertar(vistaPrestamo.getPrestamo());
-        notifyObservers();
     }
 
     public void modifica() throws Exception {
         prestamoDAO.modificar(vistaPrestamo.getPrestamo());
-        notifyObservers();
     }
 
     public void listaAllPrestamos() throws Exception {
@@ -43,23 +38,5 @@ public class PresentadorPrestamo implements Subject {
             vistaPrestamo.setCategorias(null);
         }
     }
-    private Observer observer;
 
-    @Override
-    public void register(Observer obj){
-        if (obj == null) throw new NullPointerException("Null Observer");
-        observer=obj;
-    }
-
-    @Override
-    public void unregister(Observer obj) {
-        observer=null;
-    }
-
-    @Override
-    public void notifyObservers() throws Exception {
-        if (observer!=null){
-            observer.update(this);
-        }
-    }
 }

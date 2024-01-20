@@ -40,6 +40,4 @@ public class PresentadorLibro {
         VistaLibros vistaLibros = (VistaLibros) vistaLibro;
         vistaLibros.setLibros(libroDAO.leerLibrosOR(id,titulo,autor,editorial,categoria));
     }
-
-
 }
