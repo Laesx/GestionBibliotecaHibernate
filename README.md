@@ -88,14 +88,13 @@ Este enfoque también mejora la mantenibilidad del código, ya que las clases ob
 
 
 
-## Recursos Utilizados 👥
-
-
 
 ## Problemas Encontrados y Soluciones Aportadas 🚧
 
 
 
+## Recursos Utilizados 👥
 
+https://www.digitalocean.com/community/tutorials/observer-design-pattern-in-java
 
 
