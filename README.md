@@ -2,10 +2,10 @@
 
 ## Integrantes del Grupo 👥
 
-- 👨‍💻 Juan Manuel Sújar González
-- 👨‍💻 Sebastián Olea Castillo
-- 👨‍💻 José María La Torre Ávila
-- 👨‍💻 Eric de ***REMOVED*** ***REMOVED***
+- 👨�?💻 Juan Manuel Sújar González
+- 👨�?💻 Sebastián Olea Castillo
+- 👨�?💻 José María La Torre �?vila
+- 👨�?💻 Eric de ***REMOVED*** Terrón
 
 ## Objetivo del Trabajo 🎯
 
@@ -17,14 +17,14 @@ Otro objetivo crucial es la implementación del patrón Observer en el contexto 
 
 Estos objetivos no solo mejoran la tecnología subyacente del proyecto, sino que también fortalecen los principios de diseño y la arquitectura general, contribuyendo así a un desarrollo más robusto y sostenible.
 
- ## Creación del Proyecto🛠️
+ ## Creación del Proyecto🛠�?
  
 Iniciamos nuestro proyecto creando un proyecto Maven desde cero. Maven proporciona una estructura organizada y facilita la gestión de dependencias, este lo conectamos con Hibernate, conectamos la base de datos y se mapea la misma. Esta mapeado de dicha manera debido a que las llaves foráneas en vez de ser objetos son sus primitivos, en prestamo id libro en vez de ser un objeto libro, es un integer que es la id del libro directamente.
  
-### Configuración Centralizada con Hibernate Util JPA ⚙️
+### Configuración Centralizada con Hibernate Util JPA ⚙�?
 Implementamos una configuración centralizada utilizando Hibernate Util JPA. El archivo hibernate.cfg.xml incluye información sensible, como la contraseña encriptada, el controlador de la base de datos, la URL y el puerto.
 
-### Seguridad y Experiencia del Usuario 🔐
+### Seguridad y Experiencia del Usuario �?
 Implementamos medidas de seguridad, como la encriptación de la contraseña en el archivo de configuración. Además, habilitamos la funcionalidad para recordar el último usuario que se conectó, mejorando la experiencia del usuario al iniciar la aplicación.
 Este proceso sienta las bases de nuestro proyecto, garantizando una gestión eficiente de dependencias y una configuración segura y centralizada para la interacción con la base de datos.
 
@@ -61,7 +61,7 @@ Hemos introducido una clase en la carpeta `dao` que contiene métodos generales 
 
 ## Implementación del Observer 🔄
 
-Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener una comunicación desacoplada y eficiente entre las diferentes capas. La implementación se encuentra en un paquete dedicado llamado `observer`, que contiene dos interfaces clave: `Observer` e `Subjet`.
+Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener una comunicación desacoplada y eficiente entre las diferentes capas. La implementación se encuentra en un paquete dedicado llamado `observer`, que contiene dos interfaces clave: `Observer` e `Subject`.
 
 ### Interfaces del Observer
 
@@ -69,9 +69,9 @@ Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener 
 
 La interfaz `Observer` define un método `update` que será implementado por todas las clases interesadas en recibir notificaciones cuando haya cambios en el sistema.
 
-#### `Subjet`
+#### `Subject`
 
-La interfaz `Subjet` actúa como un observador que detecta los cambios y notifica a los observadores registrados. Contiene métodos como `register` para añadir nuevos observadores y `notifyObserver` para informar a los observadores sobre los cambios.
+La interfaz `Subject` actúa como un observador que detecta los cambios y notifica a los observadores registrados. Contiene métodos como `register` para añadir nuevos observadores y `notifyObserver` para informar a los observadores sobre los cambios.
 
 ### Implementación en Clase Presentador
 
