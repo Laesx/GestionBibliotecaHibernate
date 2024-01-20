@@ -121,7 +121,8 @@ public class ListaLibros extends JInternalFrame implements VistaLibros, MouseLis
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getComponent().equals(jTable)){
-            if (e.getClickCount() == 2)
+            int posicionTabla=jTable.getSelectedRow();
+            if (e.getClickCount() == 2 && posicionTabla!=-1)
                 muestraFicha(getLibro());
             else if (e.getButton() == MouseEvent.BUTTON3)
                 jPopupMenu.show(this, e.getX(), e.getY());
