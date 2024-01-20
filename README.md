@@ -2,10 +2,10 @@
 
 ## Integrantes del Grupo 👥
 
-- 👨‍💻 Juan Manuel Sujar Gonzalez
+- 👨‍💻 Juan Manuel Sújar González
 - 👨‍💻 Sebastián Olea Castillo
 - 👨‍💻 José María La Torre Ávila
-- 👨‍💻 Eric de Almeida Terron
+- 👨‍💻 Eric de Almeida Terrón
 
 ## Objetivo del Trabajo 🎯
 
