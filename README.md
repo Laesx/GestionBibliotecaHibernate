@@ -90,15 +90,23 @@ La implementación del patrón Observer, la comunicación desacoplada entre las 
 Este enfoque también mejora la mantenibilidad del código, ya que las clases observadoras pueden ser modificadas o extendidas de manera independiente. La estructura organizada del patrón Observer contribuye a un diseño más limpio y sostenible, lo que es esencial para el éxito a largo plazo de nuestro proyecto.
 
 
-
-
-
 ## Funcionalidad Añadida 🚀
 
 
+### Pestaña Ayuda y Créditos
+
+Hemos añadido una pestaña de ayuda nueva, que dentro tiene una subpestaña de créditos donde podemos ver a los creadores del proyecto, más al CEO de este, ha sido una funcionalidad añadida divertida y que además da información sobre dichos creadores. 
+
+También hemos añadido otra pestaña llamada historial, que dentro tiene dos subpestañas: Una llamada cargar logs que lo que hace es cargar los logs de sesiones anteriores y la otra es logs de sesión actual, en la que visualizas en una nueva ventana las sentencias que se estan usando en esa sesión para gestionarla.
+
+### Skin
+
+Añadimos una nueva skin y cambiamos la que trae por defecto, añadiendo la dependencia 'flatlaf' , por último se ha seteado la skin antes de que se cree en el formMain. 
 
 
 ## Problemas Encontrados y Soluciones Aportadas 🚧
+
+UN MONTON DE PROBLEMAS ENCONTRADOS
 
 
 
