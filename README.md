@@ -74,9 +74,9 @@ La clase `Presentador` es la encargada de detectar cambios en el sistema, como i
 
 El `FormMain` actúa como un observador en nuestro sistema. Cuando recibe una notificación a través del método `update`, primero verifica el tipo de cambio (ya sea prestamo, categoria o usuario) y luego llama a la función correspondiente para actualizar la interfaz de usuario de manera apropiada.
 
-### Extensión y Beneficios para la Empresa
+### Extra
 
-La implementación del patrón Observer en nuestro proyecto proporciona varios beneficios significativos para la empresa. La comunicación desacoplada entre las diferentes capas permite una mayor modularidad y flexibilidad en el desarrollo. Además, la extensibilidad del sistema se ve favorecida, ya que nuevos observadores pueden ser fácilmente añadidos para responder a futuros cambios en el sistema sin afectar otras partes del código.
+La implementación del patrón Observer, la comunicación desacoplada entre las diferentes capas permite una mayor modularidad y flexibilidad en el desarrollo. Además, la extensibilidad del sistema se ve favorecida, ya que nuevos observadores pueden ser fácilmente añadidos para responder a futuros cambios en el sistema sin afectar otras partes del código.
 
 Este enfoque también mejora la mantenibilidad del código, ya que las clases observadoras pueden ser modificadas o extendidas de manera independiente. La estructura organizada del patrón Observer contribuye a un diseño más limpio y sostenible, lo que es esencial para el éxito a largo plazo de nuestro proyecto.
 
