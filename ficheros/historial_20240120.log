@@ -62,3 +62,4 @@ INSERT INTO usuario (nombre,apellidos) VALUES (rfoguyg,GOIJHRFBHGPI)
 SELECT * FROM usuario
 DELETE usuario WHERE id = 9
 SELECT * FROM usuario
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:41:29)

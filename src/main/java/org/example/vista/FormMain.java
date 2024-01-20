@@ -395,7 +395,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         // Crear un JFileChooser
         JFileChooser fileChooser = new JFileChooser();
         // Establecer la carpeta inicial del JFileChooser
-        String rutaCarpeta = "GestionBibliotecaHibernate\\ficheros"; // Ruta de la carpeta que deseas
+        String rutaCarpeta = "ficheros"; // Ruta de la carpeta que deseas
         File carpetaInicial = new File(rutaCarpeta);
         fileChooser.setCurrentDirectory(carpetaInicial);
         // Filtrar solo archivos de texto
