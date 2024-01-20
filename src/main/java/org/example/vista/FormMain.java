@@ -160,6 +160,21 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miNuevoPrestamo.addFocusListener(this);
         mPrestamos.add(miNuevoPrestamo);
     }
+    private JMenu mAyuda;{
+        mAyuda = new JMenu("Ayuda");
+        mAyuda.setMnemonic('y');
+        mAyuda.setFocusable(true);
+        mAyuda.addFocusListener(this);
+    }
+
+    private JMenuItem miCreditos;{
+        miCreditos = new JMenuItem("Créditos");
+        miCreditos.setMnemonic('C');
+        miCreditos.setFocusable(true);
+        miCreditos.addActionListener(this);
+        miCreditos.addFocusListener(this);
+        mAyuda.add(miCreditos);
+    }
     private JMenuBar jMenuBar;{
         jMenuBar = new JMenuBar();
         jMenuBar.add(mArchivo);
@@ -167,6 +182,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         jMenuBar.add(mUsuarios);
         jMenuBar.add(mLibros);
         jMenuBar.add(mPrestamos);
+        jMenuBar.add(mAyuda);  // Agregamos la nueva pestaña de Ayuda
         jMenuBar.addFocusListener(this);
     }
     private MiBarraDeEstado miBarraDeEstado;{
@@ -200,6 +216,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         setBounds(0,0,WIDTH,HEIGHT);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+
 
     public JDesktopPane getDesktopPane() {
         return desktopPane;
@@ -403,33 +420,47 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(miSalir) )
+        if (e.getSource().equals(miSalir))
             salir();
         else if (e.getSource().equals(miConexion))
             loginPassword();
-        else if (e.getSource()== miListaUsuarios)
+        else if (e.getSource() == miListaUsuarios)
             muestraUsuarios();
-        else if (e.getSource()== miNuevoUsuario)
+        else if (e.getSource() == miNuevoUsuario)
             nuevoUsuario();
-        else if (e.getSource()== miListaCategorias)
+        else if (e.getSource() == miListaCategorias)
             muestraCategorias();
-        else if (e.getSource()== miNuevaCategoria)
+        else if (e.getSource() == miNuevaCategoria)
             nuevaCategoria();
-        else if (e.getSource()== miListaLibros)
+        else if (e.getSource() == miListaLibros)
             muestraLibros();
-        else if (e.getSource()== miNuevoLibro)
+        else if (e.getSource() == miNuevoLibro)
             nuevoLibro();
-        else if (e.getSource()== miListaPrestamos)
+        else if (e.getSource() == miListaPrestamos)
             muestraPrestamos();
-        else if (e.getSource()== miNuevoPrestamo)
+        else if (e.getSource() == miNuevoPrestamo)
             nuevoPrestamo();
-        else if (e.getSource()==miGuardarLibro) {
+        else if (e.getSource() == miGuardarLibro) {
             try {
-                SwgAuxiliar.grabarCSV("libro",',');
-            } catch (Exception ex){
+                SwgAuxiliar.grabarCSV("libro", ',');
+            } catch (Exception ex) {
                 SwgAuxiliar.msgExcepcion(ex);
             }
-        }
+        } else if (e.getSource() == miCreditos){
+            mostrarCreditos();
+    }
+    }
+
+    private void mostrarCreditos() {
+        JOptionPane.showMessageDialog(FormMain.getInstance(),
+                "CEO/Manager:\n" +
+                        "- Antonio García Expósito\n" +
+                        "UMPALUMPAS:\n" +
+                        "- Eric de ***REMOVED*** ***REMOVED***\n" +
+                        "- Sebastián Olea Castillo\n" +
+                        "- Juan Manuel Sújar González\n" +
+                        "- José María La Torre Ávila",
+                "Créditos", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
