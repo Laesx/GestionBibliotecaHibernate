@@ -1,5 +1,6 @@
 package org.example.vista;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
@@ -230,6 +231,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
      */
     public static FormMain getInstance(){
         if (main==null) {
+            // Cambia la skin de la aplicación por FlatLaf
+            // Se hace aqui ya que tiene que ser antes de que se inicie la Ventana Principal
+            FlatDarculaLaf.setup();
             main = new FormMain();
             main.loginPassword();
         }
