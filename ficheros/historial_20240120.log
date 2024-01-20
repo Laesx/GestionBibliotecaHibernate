@@ -11,3 +11,17 @@ Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:38:24)
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:40:09)
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:44:02)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:07:20)
+SELECT * FROM prestamos
+SELECT * FROM categoria
+SELECT * FROM prestamos
+SELECT * FROM libro
+DELETE FROM libro WHERE id = 20
+SELECT * FROM libro
+DELETE FROM libro WHERE id = 16
+SELECT * FROM libro
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:12:53)
+SELECT * FROM libro
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:14:29)
+SELECT * FROM libro
+SELECT * FROM categoria
