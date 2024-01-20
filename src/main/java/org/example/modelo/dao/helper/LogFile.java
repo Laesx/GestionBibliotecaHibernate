@@ -41,9 +41,6 @@ public class LogFile {
 
     public static  ArrayList<String> agregaLineaListaLog(String msqLog){
        if(listaComandosLogs!=null){
-           for(String lineas: listaComandosLogs){
-               System.out.println(lineas);
-           }
            msqLog=LocalDateTime.now().format(DateTimeFormatter.ofPattern("(HH:mm:ss)"))+msqLog;
            listaComandosLogs.add(msqLog);
            FormMain.actualizarLogSession(listaComandosLogs);
