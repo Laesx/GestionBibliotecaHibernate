@@ -52,7 +52,35 @@ Hemos introducido una clase en la carpeta `dao` que contiene métodos generales 
 
 
 
-## Implementación del Patrón Observer en el MVC 🔄
+## Implementación del Observer 🔄
+
+Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener una comunicación desacoplada y eficiente entre las diferentes capas. La implementación se encuentra en un paquete dedicado llamado `observer`, que contiene dos interfaces clave: `Observer` e `Sujeto`.
+
+### Interfaces del Observer
+
+#### `Observer`
+
+La interfaz `Observer` define un método `update` que será implementado por todas las clases interesadas en recibir notificaciones cuando haya cambios en el sistema.
+
+#### `Sujeto`
+
+La interfaz `Sujeto` actúa como un observador que detecta los cambios y notifica a los observadores registrados. Contiene métodos como `register` para añadir nuevos observadores y `notifyObserver` para informar a los observadores sobre los cambios.
+
+### Implementación en Clase Presentador
+
+La clase `Presentador` es la encargada de detectar cambios en el sistema, como inserciones, modificaciones o eliminaciones. Cuando se produce uno de estos cambios, la clase `Presentador` utiliza el método `notifyObserver` para informar a los observadores registrados.
+
+### Observador en FormMain
+
+El `FormMain` actúa como un observador en nuestro sistema. Cuando recibe una notificación a través del método `update`, primero verifica el tipo de cambio (ya sea prestamo, categoria o usuario) y luego llama a la función correspondiente para actualizar la interfaz de usuario de manera apropiada.
+
+### Extensión y Beneficios para la Empresa
+
+La implementación del patrón Observer en nuestro proyecto proporciona varios beneficios significativos para la empresa. La comunicación desacoplada entre las diferentes capas permite una mayor modularidad y flexibilidad en el desarrollo. Además, la extensibilidad del sistema se ve favorecida, ya que nuevos observadores pueden ser fácilmente añadidos para responder a futuros cambios en el sistema sin afectar otras partes del código.
+
+Este enfoque también mejora la mantenibilidad del código, ya que las clases observadoras pueden ser modificadas o extendidas de manera independiente. La estructura organizada del patrón Observer contribuye a un diseño más limpio y sostenible, lo que es esencial para el éxito a largo plazo de nuestro proyecto.
+
+
 
 
 
