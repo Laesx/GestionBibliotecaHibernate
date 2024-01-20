@@ -2,6 +2,10 @@ package org.example.vista;
 
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.*;
+import org.example.modelo.dao.CategoriaDAOImpl;
+import org.example.modelo.dao.LibroDAOImpl;
+import org.example.modelo.dao.PrestamoDAOImpl;
+import org.example.modelo.dao.UsuarioDAOImpl;
 import org.example.modelo.dao.helper.Entidades;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.presentador.PresentadorCategoria;
@@ -631,13 +635,13 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     @Override
     public void update(Subject sub) throws Exception {
-        if (sub instanceof PresentadorUsuario) {
+        if (sub instanceof UsuarioDAOImpl) {
             actualizaListaUsuarios();
-        } else if (sub instanceof PresentadorCategoria) {
+        } else if (sub instanceof CategoriaDAOImpl) {
             actualizaListaCategorias();
-        } else if (sub instanceof PresentadorLibro) {
+        } else if (sub instanceof LibroDAOImpl) {
             actualizaListaLibros();
-        } else if (sub instanceof PresentadorPrestamo) {
+        } else if (sub instanceof PrestamoDAOImpl) {
             actualizaListaPrestamos();
         }
     }
