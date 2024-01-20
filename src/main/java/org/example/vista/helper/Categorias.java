@@ -10,23 +10,23 @@ import org.example.vista.ListaCategorias;
 
 public class Categorias {
     public static ListaCategorias listaCategorias() throws Exception {
-        CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
+        CategoriaDAOImpl categoriaDAO=new CategoriaDAOImpl();
         ListaCategorias listaCategorias=new ListaCategorias();
         PresentadorCategoria presentadorCategoria=new PresentadorCategoria(categoriaDAO,listaCategorias);
         listaCategorias.setPresentador(presentadorCategoria);
         // PARTE DEL OBSERVER
-        presentadorCategoria.register(FormMain.getInstance());
+        categoriaDAO.register(FormMain.getInstance());
         listaCategorias.lanzar();
         return listaCategorias;
     }
 
     public static FichaCategoria fichaCategoria(Categoria categoria) throws Exception {
-        CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
+        CategoriaDAOImpl categoriaDAO=new CategoriaDAOImpl();
         FichaCategoria fichaCategoria=new FichaCategoria(categoria);
         PresentadorCategoria presentadorCategoria=new PresentadorCategoria(categoriaDAO,fichaCategoria);
         fichaCategoria.setPresentador(presentadorCategoria);
         // PARTE DEL OBSERVER
-        presentadorCategoria.register(FormMain.getInstance());
+        categoriaDAO.register(FormMain.getInstance());
         fichaCategoria.lanzar();
         return fichaCategoria;
 

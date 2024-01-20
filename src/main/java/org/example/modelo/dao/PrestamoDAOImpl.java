@@ -2,6 +2,8 @@ package org.example.modelo.dao;
 
 import org.example.modelo.Prestamo;
 import org.example.modelo.dao.helper.LogFile;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
@@ -16,7 +18,7 @@ import java.util.List;
  * @author AGE
  * @version 2
  */
-public class PrestamoDAOImpl implements PrestamoDAO {
+public class PrestamoDAOImpl implements PrestamoDAO, Subject {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final String sqlINSERT="INSERT INTO prestamos (idLibro,idUsuario,fechaPrestamo) VALUES (?,?,?)";
@@ -28,7 +30,6 @@ public class PrestamoDAOImpl implements PrestamoDAO {
     public boolean insertar(Prestamo prestamo) throws Exception {
         boolean insertado=false;
         EntityTransaction transaction = null;
-
         try{
             EntityManager em = HibernateUtilJPA.getEntityManager();
             transaction = em.getTransaction();
@@ -45,6 +46,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             throw e;
         }
         grabaEnLogIns(prestamo,sqlINSERT);
+        notifyObservers();
         return insertado;
     }
     private void grabaEnLogIns(Prestamo prestamo, String sql) throws Exception {
@@ -77,7 +79,8 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         } finally {
             em.close();
         }
-        grabaEnLogUpd(prestamo,sqlUPDATE); //Nose si hay que tocarlos ?
+        grabaEnLogUpd(prestamo,sqlUPDATE);
+        notifyObservers();
         return actualizado;
     }
     private void grabaEnLogUpd(Prestamo prestamo, String sql) throws Exception {
@@ -112,6 +115,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             em.close();
         }
         grabaEnLog(id,sqlDELETE);
+        notifyObservers();
         return borrado;
     }
     private void grabaEnLog(int id,String sql) throws Exception {
@@ -142,4 +146,26 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         return em.find(Prestamo.class, id);
     }
+
+
+    private Observer observer;
+
+    @Override
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observer=null;
+    }
+
+    @Override
+    public void notifyObservers() throws Exception {
+        if (observer!=null){
+            observer.update(this);
+        }
+    }
+
 }

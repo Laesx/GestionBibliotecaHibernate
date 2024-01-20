@@ -3,6 +3,8 @@ package org.example.modelo.dao;
 import org.example.modelo.Usuario;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
@@ -15,7 +17,7 @@ import java.util.List;
  * en la interfaz para trabajar con usuario y
  * base de datos en MySQL
  */
-public class UsuarioDAOImpl implements UsuarioDAO{
+public class UsuarioDAOImpl implements UsuarioDAO, Subject {
     private static final String sqlINSERT="INSERT INTO usuario (nombre,apellidos) VALUES (?,?)";
     private static final String sqlUPDATE="UPDATE usuario SET nombre = ?, apellidos = ? WHERE id = ?";
     private static final String sqlDELETE="DELETE usuario WHERE id = ?";
@@ -42,6 +44,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             em.close();
         }
         grabaEnLogIns(usuario,sqlINSERT);
+        notifyObservers();
         return insertado;
     }
 
@@ -76,6 +79,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             em.close();
         }
         grabaEnLogUpd(usuario,sqlUPDATE);
+        notifyObservers();
         return modificado;
     }
     private void grabaEnLogUpd(Usuario usuario,String sql) throws Exception {
@@ -110,6 +114,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             em.close();
         }
         grabaEnLogDel(id,sqlDELETE);
+        notifyObservers();
         return borrado;
     }
     private void grabaEnLogDel(int id,String sql) throws Exception {
@@ -171,5 +176,26 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     public Usuario getUsuario(int id) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         return em.find(Usuario.class, id);
+    }
+
+
+    private Observer observer;
+
+    @Override
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observer=null;
+    }
+
+    @Override
+    public void notifyObservers() throws Exception {
+        if (observer!=null){
+            observer.update(this);
+        }
     }
 }

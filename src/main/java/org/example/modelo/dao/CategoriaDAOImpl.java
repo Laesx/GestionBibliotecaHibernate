@@ -3,6 +3,8 @@ package org.example.modelo.dao;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
 import org.example.modelo.dao.helper.LogFile;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
@@ -17,7 +19,7 @@ import java.util.List;
  * @author AGE
  * @version 2
  */
-public class CategoriaDAOImpl implements CategoriaDAO {
+public class CategoriaDAOImpl implements CategoriaDAO, Subject {
     private static final String sqlINSERT="INSERT INTO categoria (categoria) VALUES (?)";
     private static final String sqlUPDATE="UPDATE categoria SET categoria=? WHERE id=?";
 
@@ -45,6 +47,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             em.close();
         }
         LogFile.saveLOG(sqlINSERT.replace("?",categoria.getCategoria()));
+        notifyObservers();
         return insertado;
     }
 
@@ -70,6 +73,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             em.close();
         }
         grabaEnLogUpd(categoria,sqlUPDATE);
+        notifyObservers();
         return modificado;
     }
 
@@ -102,6 +106,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             em.close();
         }
         grabaEnLogDel(id,sqlDELETE);
+        notifyObservers();
         return borrado;
     }
 
@@ -179,6 +184,26 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         return (List<Categoria>) MetodosGenerales.obtenerLista("FROM Categoria");
     }
 
+
+    private Observer observer;
+
+    @Override
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observer=null;
+    }
+
+    @Override
+    public void notifyObservers() throws Exception {
+        if (observer!=null){
+            observer.update(this);
+        }
+    }
 
 
 }
