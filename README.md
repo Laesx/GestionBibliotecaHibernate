@@ -1,7 +1,5 @@
 # Proyecto GestionBibliotecaHibernate 🚀
 
-Breve descripción del proyecto.
-
 ## Integrantes del Grupo 👥
 
 - 👨‍💻 Juan Manuel Sujar Gonzalez
