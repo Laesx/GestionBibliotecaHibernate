@@ -9,6 +9,8 @@ import org.example.modelo.dao.PrestamoDAOImpl;
 import org.example.modelo.dao.UsuarioDAOImpl;
 import org.example.modelo.dao.helper.Entidades;
 import org.example.modelo.dao.helper.LogFile;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 import org.example.presentador.PresentadorCategoria;
 import org.example.presentador.PresentadorPrestamo;
 import org.example.presentador.PresentadorUsuario;
