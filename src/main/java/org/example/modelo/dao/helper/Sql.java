@@ -1,11 +1,16 @@
 package org.example.modelo.dao.helper;
 
-import org.example.singleton.ConexionMySQL;
+import org.example.singleton.HibernateUtilJPA;
+
+import javax.persistence.EntityManager;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.EntityType;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.sql.*;
+import java.util.List;
 
 /**
  * Clase auxiliar con distintas funcionalidades a la hora de trabajar con SQL
@@ -41,13 +46,7 @@ public class Sql {
         }
         return where;
     }
-    /**
-     * Permitirá grabar el contenido de una tabla en un fichero csv
-     * dentro del path
-     * @param path fichero donde se grabará el contenido de la tabla
-     * @param tabla nombre de la tabla a importar
-     * @param delimiter caracter delimitador
-     */
+    /*
     public static void importCSV(Path path, String tabla,char delimiter) throws Exception {
         String sql = "SELECT * FROM "+tabla;
         Connection con = ConexionMySQL.getInstance().getConexion();
@@ -74,6 +73,33 @@ public class Sql {
                     else fila+='\n';
                 }
                 Files.writeString(path,fila, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            }
+        }
+    }*/
+
+    public static <T> void importCSV(Class<T> entityClass, String tabla, char delimiter) throws Exception {
+        EntityManager em = HibernateUtilJPA.getEntityManager();
+        String sql = "SELECT e FROM " + tabla + " e";
+        EntityType<T> entityType = em.getMetamodel().entity(entityClass);
+
+        List<T> results = em.createQuery(sql, entityClass).getResultList();
+        Path path = Paths.get(tabla + ".csv");
+        if (!results.isEmpty()) {
+            StringBuilder cabecera = new StringBuilder();
+            for (Attribute<?, ?> attribute : entityType.getAttributes()) {
+                cabecera.append(attribute.getJavaMember().getName());
+                cabecera.append(delimiter);
+            }
+            cabecera.append('\n');
+            Files.writeString(path, cabecera.toString(), StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+            for (T row : results) {
+                StringBuilder fila = new StringBuilder();
+                for (Attribute<?, ?> attribute : entityType.getAttributes()) {
+                    fila.append(entityType.getJavaType().getMethod("get" + attribute.getName().substring(0, 1).toUpperCase() + attribute.getName().substring(1)).invoke(row));
+                    fila.append(delimiter);
+                }
+                fila.append('\n');
+                Files.writeString(path, fila.toString(), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             }
         }
     }

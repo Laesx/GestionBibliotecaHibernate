@@ -2,12 +2,10 @@ package org.example.modelo.dao;
 
 import org.example.modelo.Prestamo;
 import org.example.modelo.dao.helper.LogFile;
-import org.example.singleton.ConexionMySQL;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -21,12 +19,10 @@ import java.util.List;
 public class PrestamoDAOImpl implements PrestamoDAO {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private final Connection con;
     private static final String sqlINSERT="INSERT INTO prestamos (idLibro,idUsuario,fechaPrestamo) VALUES (?,?,?)";
     private static final String sqlUPDATE="UPDATE prestamos SET idLibro=?, idUsuario=?, fechaPrestamo=? WHERE idPrestamo = ?";
     private static final String sqlDELETE="DELETE FROM prestamos WHERE idPrestamo = ?";
-    public PrestamoDAOImpl() throws Exception {
-        con = ConexionMySQL.getInstance().getConexion();
+    public PrestamoDAOImpl() {
     }
     @Override
     public boolean insertar(Prestamo prestamo) throws Exception {
@@ -44,25 +40,10 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             insertado = true;
 
         }catch (Exception e){
-            e.printStackTrace(System.err);
-
             if(transaction!=null)
                 transaction.rollback();
+            throw e;
         }
-        /*
-        try(PreparedStatement pstmt =con.prepareStatement(sqlINSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
-            pstmt.setInt(1, prestamo.getIdLibro());
-            pstmt.setInt(2, prestamo.getIdUsuario());
-            pstmt.setString(3, prestamo.getFechaPrestamo().format(formatter));
-            insertado=(pstmt.executeUpdate()==1);
-            if (insertado) {
-                ResultSet rs = pstmt.getGeneratedKeys();
-                if (rs.next())
-                    prestamo.setIdPrestamo(rs.getInt(1));
-            }
-        }
-
-         */
         grabaEnLogIns(prestamo,sqlINSERT);
         return insertado;
     }
@@ -75,7 +56,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
     @Override
     public boolean modificar(Prestamo prestamo) throws Exception {
-        boolean actualizado;
+        boolean actualizado = false;
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
@@ -92,25 +73,13 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             transaction.commit();
             actualizado = true;
 
-        }catch (Exception e){
-            if(transaction.isActive())
+        }catch (Exception e) {
+            if (transaction != null)
                 transaction.rollback();
-
             throw e;
         } finally {
             em.close();
         }
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlUPDATE)){
-            pstmt.setInt(1, prestamo.getIdLibro());
-            pstmt.setInt(2, prestamo.getIdUsuario());
-            pstmt.setString(3, prestamo.getFechaPrestamo().format(formatter));
-            pstmt.setInt(4, prestamo.getIdPrestamo());
-            actualizado=pstmt.executeUpdate()==1;
-            grabaEnLogUpd(prestamo,sqlUPDATE);
-        }
-
-         */
         grabaEnLogUpd(prestamo,sqlUPDATE); //Nose si hay que tocarlos ?
         return actualizado;
     }
@@ -139,18 +108,12 @@ public class PrestamoDAOImpl implements PrestamoDAO {
                 borrado = true;
             }
         }catch (Exception e) {
-            e.printStackTrace(System.err);
-            if(transaction!= null){
+            if (transaction != null)
                 transaction.rollback();
-            }
+            throw e;
+        } finally {
+            em.close();
         }
-        /*
-        try (PreparedStatement pstmt = con.prepareStatement(sqlDELETE)){
-            pstmt.setInt(1, id);
-            borrado=pstmt.executeUpdate()==1;
-        }
-
-         */
         grabaEnLog(id,sqlDELETE);
         return borrado;
     }
@@ -169,25 +132,6 @@ public class PrestamoDAOImpl implements PrestamoDAO {
     @Override
     public List<Prestamo> leerAllPrestamos() throws Exception {
         return MetodosGenerales.obtenerLista("FROM Prestamo");
-        /*
-        List<Prestamo> lista = null;
-        String sql="SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos";
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            LogFile.saveLOG(sql);
-            lista=new ArrayList<>();
-            while (rs.next()){
-                Prestamo prestamo =new Prestamo();
-                prestamo.setIdPrestamo(rs.getInt("idPrestamo"));
-                prestamo.setIdLibro(rs.getInt("idLibro"));
-                prestamo.setIdUsuario(rs.getInt("idUsuario"));
-                prestamo.setFechaPrestamo(LocalDateTime.parse(rs.getString("fechaPrestamo"), formatter));
-                lista.add(prestamo);
-            }
-        }
-        return lista;
-
-         */
     }
 
     /**
@@ -200,22 +144,5 @@ public class PrestamoDAOImpl implements PrestamoDAO {
     public Prestamo getPrestamo(int id) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         return em.find(Prestamo.class, id);
-        /*
-        Prestamo prestamo =null;
-        String sql="SELECT idPrestamo,idLibro,idUsuario,fechaPrestamo FROM prestamos WHERE idPrestamo = ?";
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1,id);
-            ResultSet rs = pstmt.executeQuery();
-            LogFile.saveLOG(sql.replace("?",String.valueOf(id)));
-            if (rs.next()){
-                prestamo =new Prestamo();
-                prestamo.setIdPrestamo(rs.getInt("idPrestamo"));
-                prestamo.setIdLibro(rs.getInt("idLibro"));
-                prestamo.setIdUsuario(rs.getInt("idUsuario"));
-                prestamo.setFechaPrestamo(LocalDateTime.parse(rs.getString("fechaPrestamo"), formatter));
-            }
-        }
-
-         */
     }
 }

@@ -1,4 +1,4 @@
 /**
- * Clases auxiliares entre otras: encriptar y desencriptar
+ * Clases auxiliares para el proyecto.
  */
 package org.example.helper;

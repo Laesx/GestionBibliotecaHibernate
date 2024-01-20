@@ -25,10 +25,6 @@ public class Categoria {
         return categoria;
     }
 
-    public Categoria devolverCategoria(){
-        return this;
-    }
-
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
