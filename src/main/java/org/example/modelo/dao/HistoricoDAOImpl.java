@@ -2,6 +2,8 @@ package org.example.modelo.dao;
 
 import org.example.modelo.Historico;
 import org.example.modelo.dao.helper.LogFile;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 import org.example.singleton.Configuracion;
 import org.example.singleton.HibernateUtilJPA;
 
@@ -18,10 +20,11 @@ import java.time.format.DateTimeFormatter;
  * @author AGE
  * @version 2
  */
-public class HistoricoDAOImpl implements HistoricoDAO {
+public class HistoricoDAOImpl implements HistoricoDAO, Subject {
     private Historico historico;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final String sqlINSERT="INSERT INTO historico (user,fecha,info) VALUES (?,?,?)";
+
     public HistoricoDAOImpl(Historico historico) throws Exception {
         this.historico = historico;
     }
@@ -35,7 +38,6 @@ public class HistoricoDAOImpl implements HistoricoDAO {
     @Override
     public boolean insertar() throws Exception {
         boolean insertado = false;
-
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = null;
         try{
@@ -51,8 +53,8 @@ public class HistoricoDAOImpl implements HistoricoDAO {
         } finally {
             em.close();
         }
-
-        //grabaEnLogIns(sqlINSERT);
+        grabaEnLogIns(sqlINSERT);
+        notifyObservers();
         return insertado;
     }
 
@@ -75,6 +77,27 @@ public class HistoricoDAOImpl implements HistoricoDAO {
         historico.setUser(Configuracion.getInstance().getUser());
         historico.setInfo(msgLog);
         new HistoricoDAOImpl(historico).insertar();
+    }
+
+
+    private Observer observer;
+
+    @Override
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observer=null;
+    }
+
+    @Override
+    public void notifyObservers() throws Exception {
+        if (observer!=null){
+            observer.update(this);
+        }
     }
 
 }

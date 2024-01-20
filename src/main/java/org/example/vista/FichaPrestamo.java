@@ -239,6 +239,7 @@ public class FichaPrestamo extends JInternalFrame implements VistaPrestamo, Acti
         setContenedores();
         actualizaformulario();
         addInternalFrameListener(this);
+        setVisible(true);
 
     }
 

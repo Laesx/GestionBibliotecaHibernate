@@ -9,20 +9,21 @@ import org.example.vista.FormMain;
 import org.example.vista.ListaPrestamos;
 
 public class Prestamos {
-    public static ListaPrestamos listaPrestamos() throws Exception {
-        PrestamoDAO prestamoDAO=new PrestamoDAOImpl();
+    public static ListaPrestamos
+    listaPrestamos() throws Exception {
+        PrestamoDAOImpl prestamoDAO=new PrestamoDAOImpl();
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         ListaPrestamos listaPrestamos=new ListaPrestamos();
         PresentadorPrestamo presentadorPrestamo=new PresentadorPrestamo(prestamoDAO,categoriaDAO,listaPrestamos);
         listaPrestamos.setPresentador(presentadorPrestamo);
         // PARTE DEL OBSERVER
-        presentadorPrestamo.register(FormMain.getInstance());
+        prestamoDAO.register(FormMain.getInstance());
         listaPrestamos.lanzar();
         return listaPrestamos;
     }
 
     public static FichaPrestamo fichaPrestamo(Prestamo prestamo) throws Exception {
-        PrestamoDAO prestamoDAO=new PrestamoDAOImpl();
+        PrestamoDAOImpl prestamoDAO=new PrestamoDAOImpl();
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         UsuarioDAO usuarioDAO= new UsuarioDAOImpl();
         LibroDAO libroDAO=new LibroDAOImpl();
@@ -30,7 +31,7 @@ public class Prestamos {
         PresentadorPrestamo presentadorPrestamo=new PresentadorPrestamo(prestamoDAO,categoriaDAO,fichaPrestamo);
         fichaPrestamo.setPresentador(presentadorPrestamo);
         // PARTE DEL OBSERVER
-        presentadorPrestamo.register(FormMain.getInstance());
+        prestamoDAO.register(FormMain.getInstance());
         fichaPrestamo.lanzar();
         return fichaPrestamo;
 

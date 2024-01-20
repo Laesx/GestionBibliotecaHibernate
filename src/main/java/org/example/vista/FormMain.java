@@ -406,6 +406,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
     private void SessionActualLog() {
+        textArea.setText("");
         listaComandos = LogFile.getListaComandosLogs();
         for (String lineaComandos: listaComandos) {
             textArea.append(lineaComandos+"\n");
@@ -423,7 +424,6 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     }
 
     public static void actualizarLogSession( ArrayList<String> listaComandos){
-        textArea.setText("");
         StringBuilder sb = new StringBuilder();
         for (String linea : listaComandos) {
             sb.append(linea).append("\n");
