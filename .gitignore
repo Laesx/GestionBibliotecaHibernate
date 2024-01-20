@@ -1,3 +1,10 @@
+###  ###
+ficheros/*
+!ficheros/BIBLIOTECA.sql
+!ficheros/categoria.sql
+!ficheros/datos.sql
+!ficheros/biblioteca_sample.config
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
