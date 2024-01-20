@@ -127,7 +127,8 @@ public class ListaPrestamos extends JInternalFrame implements VistaPrestamos, Mo
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getComponent().equals(jTable)) {
-            if (e.getClickCount() == 2)
+            int posicionTabla= jTable.getSelectedRow();
+            if (e.getClickCount() == 2 && posicionTabla!=-1)
                 muestraFicha(getPrestamo());
             else if (e.getButton() == MouseEvent.BUTTON3)
                 jPopupMenu.show(jTable, e.getX(), e.getY());
