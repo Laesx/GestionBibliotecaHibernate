@@ -1,6 +1,5 @@
 package org.example.vista;
 
-import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Categoria;
 import org.example.modelo.Libro;
 import org.example.presentador.PresentadorLibro;
@@ -209,7 +208,7 @@ public class FichaLibro extends JInternalFrame implements VistaLibro, ActionList
             getLibro().setEditorial(eEditorial.getText());
             Categoria categoria=(Categoria) cbCategoria.getSelectedItem();
             if (categoria!=null)
-                getLibro().setCategoria(categoria.devolverCategoria());
+                getLibro().setCategoria(categoria.getId());
             if (getLibro().getId()==0) {
                 presentador.inserta();
                 actualizaformulario();

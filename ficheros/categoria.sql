@@ -1,0 +1,10 @@
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (1, 'Base de Datos');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (2, 'Programacion');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (3, 'Redes');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (4, 'Ofimatica');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (5, 'Hardware');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (6, 'Seguridad');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (7, 'Aplicaciones Web');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (8, 'Sistemas Operativos');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (9, 'Miscelaneo');
+INSERT INTO BIBLIOTECA.categoria (id, categoria) VALUES (10, 'Singleton');

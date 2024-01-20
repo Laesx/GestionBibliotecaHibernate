@@ -18,9 +18,9 @@ public class Libro {
     @Basic
     @Column(name = "editorial", nullable = true, length = -1)
     private String editorial;
-    @ManyToOne
+    @Basic
     @JoinColumn(name = "categoria", referencedColumnName = "id")
-    private Categoria categoria;
+    private int categoria;
 
     public int getId() {
         return id;
@@ -78,11 +78,13 @@ public class Libro {
         return result;
     }
 
-    public Categoria getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+
+
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 

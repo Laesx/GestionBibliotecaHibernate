@@ -13,20 +13,14 @@ public class Prestamo extends Entidad{
     @Column(name = "idPrestamo", nullable = false)
     private int idPrestamo;
     @Basic
-    @Column(name = "idLibro", nullable = true, insertable = false, updatable = false)
-    private Integer idLibro;
+    @Column(name = "idLibro", nullable = false)
+    private int idLibro;
     @Basic
-    @Column(name = "idUsuario", nullable = true, insertable = false, updatable = false)
-    private Integer idUsuario;
+    @Column(name = "idUsuario", nullable = false)
+    private int idUsuario;
     @Basic
     @Column(name = "fechaPrestamo", nullable = true)
     private LocalDateTime fechaPrestamo = LocalDateTime.now();
-    @ManyToOne
-    @JoinColumn(name = "idLibro", referencedColumnName = "id")
-    private Libro libro;
-    @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "id")
-    private Usuario usuario;
 
     public int getIdPrestamo() {
         return idPrestamo;
@@ -36,19 +30,19 @@ public class Prestamo extends Entidad{
         this.idPrestamo = idPrestamo;
     }
 
-    public Integer getIdLibro() {
+    public int getIdLibro() {
         return idLibro;
     }
 
-    public void setIdLibro(Integer idLibro) {
+    public void setIdLibro(int idLibro) {
         this.idLibro = idLibro;
     }
 
-    public Integer getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
     //TODO revisar formateo de las fechas en los DAO
@@ -68,8 +62,6 @@ public class Prestamo extends Entidad{
         Prestamo prestamo = (Prestamo) o;
 
         if (idPrestamo != prestamo.idPrestamo) return false;
-        if (idLibro != null ? !idLibro.equals(prestamo.idLibro) : prestamo.idLibro != null) return false;
-        if (idUsuario != null ? !idUsuario.equals(prestamo.idUsuario) : prestamo.idUsuario != null) return false;
         if (fechaPrestamo != null ? !fechaPrestamo.equals(prestamo.fechaPrestamo) : prestamo.fechaPrestamo != null)
             return false;
 
@@ -79,26 +71,8 @@ public class Prestamo extends Entidad{
     @Override
     public int hashCode() {
         int result = idPrestamo;
-        result = 31 * result + (idLibro != null ? idLibro.hashCode() : 0);
-        result = 31 * result + (idUsuario != null ? idUsuario.hashCode() : 0);
         result = 31 * result + (fechaPrestamo != null ? fechaPrestamo.hashCode() : 0);
         return result;
-    }
-
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @Override
