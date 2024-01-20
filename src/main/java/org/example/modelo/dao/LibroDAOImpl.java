@@ -21,6 +21,7 @@ import java.util.List;
 public class LibroDAOImpl implements LibroDAO {
     private static final String sqlINSERT="INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (?,?,?,?)";
     private static final String sqlUPDATE="UPDATE libro SET nombre=?, autor=?, editorial=?, categoria=? WHERE id = ?";
+    private static final String sqlDELETE="DELETE FROM libro WHERE id = ?";
     public LibroDAOImpl() {
     }
 
@@ -120,7 +121,7 @@ public class LibroDAOImpl implements LibroDAO {
         } finally {
             em.close();
         }
-
+        grabaEnLogDel(id,sqlDELETE);
         return borrado;
     }
 
