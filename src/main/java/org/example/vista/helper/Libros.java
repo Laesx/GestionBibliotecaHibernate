@@ -5,7 +5,6 @@ import org.example.modelo.BusquedaLibro;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.CategoriaDAOImpl;
-import org.example.modelo.dao.LibroDAO;
 import org.example.modelo.dao.LibroDAOImpl;
 import org.example.presentador.PresentadorLibro;
 import org.example.vista.FichaLibro;
@@ -17,36 +16,36 @@ import java.awt.*;
 
 public class Libros {
     public static ListaLibros listaLibros() throws Exception {
-        LibroDAO libroDAO=new LibroDAOImpl();
+        LibroDAOImpl libroDAO=new LibroDAOImpl();
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         ListaLibros listaLibros=new ListaLibros();
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,listaLibros);
         // PARTE DEL OBSERVER
-        presentadorLibro.register(FormMain.getInstance());
+        libroDAO.register(FormMain.getInstance());
         listaLibros.setPresentador(presentadorLibro);
         listaLibros.lanzar();
         return listaLibros;
     }
 
     public static SeleccionaLibro seleccionaLibro(Frame owner, String title, boolean modal, BusquedaLibro busquedaLibro) throws Exception {
-        LibroDAO libroDAO=new LibroDAOImpl();
+        LibroDAOImpl libroDAO=new LibroDAOImpl();
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         SeleccionaLibro seleccionaLibro=new SeleccionaLibro(owner,title,modal,busquedaLibro);
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,seleccionaLibro);
         // PARTE DEL OBSERVER
-        presentadorLibro.register(FormMain.getInstance());
+        libroDAO.register(FormMain.getInstance());
         seleccionaLibro.setPresentador(presentadorLibro);
         seleccionaLibro.lanzar();
         return seleccionaLibro;
     }
 
     public static FichaLibro fichaLibro(Libro libro) throws Exception {
-        LibroDAO libroDAO=new LibroDAOImpl();
+        LibroDAOImpl libroDAO=new LibroDAOImpl();
         CategoriaDAO categoriaDAO=new CategoriaDAOImpl();
         FichaLibro fichaLibro=new FichaLibro(libro);
         PresentadorLibro presentadorLibro=new PresentadorLibro(libroDAO,categoriaDAO,fichaLibro);
         // PARTE DEL OBSERVER
-        presentadorLibro.register(FormMain.getInstance());
+        libroDAO.register(FormMain.getInstance());
         fichaLibro.setPresentador(presentadorLibro);
         fichaLibro.lanzar();
         return fichaLibro;

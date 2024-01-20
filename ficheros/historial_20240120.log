@@ -1,1 +1,6 @@
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (12:11:17)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:02:53)
+DELETE FROM libro WHERE id = 19
+INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (gtdfgh,gflih,gg,2)
+DELETE FROM libro WHERE id = 17
+UPDATE libro SET nombre=gtdfgh, autor=gflihdfgdfhfghfgh, editorial=gg, categoria=1 WHERE id = 20
