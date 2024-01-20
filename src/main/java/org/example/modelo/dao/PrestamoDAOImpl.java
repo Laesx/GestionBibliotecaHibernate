@@ -59,8 +59,6 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         boolean actualizado = false;
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
-
         try {
             transaction.begin();
             Prestamo prestamo1 = em.find(Prestamo.class, prestamo.getId());
@@ -68,7 +66,6 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             prestamo1.setIdLibro(prestamo.getIdLibro());
             prestamo1.setIdUsuario(prestamo.getIdUsuario());
             prestamo1.setIdPrestamo(prestamo.getIdPrestamo());
-
             em.merge(prestamo1);
             transaction.commit();
             actualizado = true;

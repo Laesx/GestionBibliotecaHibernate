@@ -60,11 +60,9 @@ public class LibroDAOImpl implements LibroDAO {
         boolean actualizado = false;
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
         try {
             transaction.begin();
             Libro libro1 = em.find(Libro.class, libro.getId());
-
             libro1.setId(libro.getId());
             libro1.setCategoria(libro.getCategoria());
             libro1.setNombre(libro.getNombre());
@@ -100,10 +98,8 @@ public class LibroDAOImpl implements LibroDAO {
     @Override
     public boolean borrar(int id) throws Exception {
         boolean borrado = false;
-
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
         try{
             transaction.begin();
             Libro libro = em.find(Libro.class, id);
@@ -189,8 +185,6 @@ public class LibroDAOImpl implements LibroDAO {
             where = Sql.rellenaWhereOR(where, wCategoria);
         }
 
-
-
         if (where.isEmpty())
             return leerAllLibros();
         else {
@@ -211,9 +205,7 @@ public class LibroDAOImpl implements LibroDAO {
 
             lista = typedQuery.getResultList();
         }
-
         return lista;
-
     }
 
     /**
