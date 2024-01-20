@@ -1,5 +1,6 @@
 package org.example.vista;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.*;
 import org.example.modelo.dao.CategoriaDAOImpl;
@@ -9,13 +10,13 @@ import org.example.modelo.dao.UsuarioDAOImpl;
 import org.example.modelo.dao.helper.Entidades;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.presentador.PresentadorCategoria;
-import org.example.presentador.PresentadorLibro;
 import org.example.presentador.PresentadorPrestamo;
 import org.example.presentador.PresentadorUsuario;
 import org.example.vista.componentes.MiBarraDeEstado;
-import org.example.vista.helper.*;
-import org.example.observer.Observer;
-import org.example.observer.Subject;
+import org.example.vista.helper.Categorias;
+import org.example.vista.helper.Libros;
+import org.example.vista.helper.SwgAuxiliar;
+import org.example.vista.helper.Usuarios;
 
 import javax.swing.*;
 import java.awt.*;
@@ -302,6 +303,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setBounds(0, 0, WIDTH, HEIGHT);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
     }
 
     public JDesktopPane getDesktopPane() {
@@ -327,8 +329,11 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
      *
      * @return el objeto global donde se instancia el formulario de la aplicación
      */
-    public static FormMain getInstance() {
-        if (main == null) {
+    public static FormMain getInstance(){
+        if (main==null) {
+            // Cambia la skin de la aplicación por FlatLaf
+            // Se hace aqui ya que tiene que ser antes de que se inicie la Ventana Principal
+            FlatDarculaLaf.setup();
             main = new FormMain();
             main.loginPassword();
         }
@@ -639,7 +644,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             actualizaListaUsuarios();
         } else if (sub instanceof CategoriaDAOImpl) {
             actualizaListaCategorias();
-        } else if (sub instanceof LibroDAOImpl) {
+        } else if (sub instanceof LibroDAOImpl){
             actualizaListaLibros();
         } else if (sub instanceof PrestamoDAOImpl) {
             actualizaListaPrestamos();

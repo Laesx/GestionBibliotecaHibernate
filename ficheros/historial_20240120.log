@@ -1,1 +1,13 @@
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (12:11:17)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:02:53)
+DELETE FROM libro WHERE id = 19
+INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (gtdfgh,gflih,gg,2)
+DELETE FROM libro WHERE id = 17
+UPDATE libro SET nombre=gtdfgh, autor=gflihdfgdfhfghfgh, editorial=gg, categoria=1 WHERE id = 20
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:15:59)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:24:47)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:31:28)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:34:54)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:38:24)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:40:09)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:44:02)

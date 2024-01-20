@@ -5,7 +5,6 @@ import org.example.modelo.BusquedaLibro;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.CategoriaDAOImpl;
-import org.example.modelo.dao.LibroDAO;
 import org.example.modelo.dao.LibroDAOImpl;
 import org.example.presentador.PresentadorLibro;
 import org.example.vista.FichaLibro;

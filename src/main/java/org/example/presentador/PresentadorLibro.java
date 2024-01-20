@@ -3,8 +3,7 @@ package org.example.presentador;
 import org.example.modelo.dao.CategoriaDAO;
 import org.example.modelo.dao.LibroDAO;
 
-
-public class PresentadorLibro{
+public class PresentadorLibro {
     private LibroDAO libroDAO;
     private CategoriaDAO categoriaDAO;
     private VistaLibro vistaLibro;
@@ -41,5 +40,4 @@ public class PresentadorLibro{
         VistaLibros vistaLibros = (VistaLibros) vistaLibro;
         vistaLibros.setLibros(libroDAO.leerLibrosOR(id,titulo,autor,editorial,categoria));
     }
-
 }
