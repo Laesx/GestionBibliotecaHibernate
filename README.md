@@ -47,14 +47,6 @@ Durante la migración de SQL a JPA Hibernate, los DAO han experimentado cambios 
 
 Hemos introducido una clase en la carpeta `dao` que contiene métodos generales para recuperar listas de objetos comunes. Estos métodos ofrecen una interfaz uniforme y reutilizable para acceder a datos comunes en toda la aplicación. Por ejemplo, métodos que devuelven listas de autores, categorías, etc. Esta abstracción simplifica y unifica el acceso a datos, mejorando la modularidad y la mantenibilidad del código.
 
-### Nueva Funcionalidad Añadida
-
-Como parte de esta implementación, hemos incorporado una nueva funcionalidad que refuerza la eficacia de nuestra aplicación. La nueva funcionalidad se centra en [describir brevemente la funcionalidad añadida y cómo mejora la experiencia del usuario o amplía las capacidades del sistema].
-
-Esta estructura organizada y las modificaciones implementadas no solo reflejan nuestra atención a la calidad del diseño, sino que también garantizan una interacción robusta y escalable con la base de datos, contribuyendo así al éxito general de nuestro proyecto.
-
-
-
 
 ## Conexión y Mapeado de la Base de Datos 📊
 
