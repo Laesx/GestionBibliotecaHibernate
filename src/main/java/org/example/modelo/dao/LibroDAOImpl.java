@@ -45,6 +45,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         } finally {
             em.close();
         }
+        notifyObservers();
         grabaEnLogIns(libro,sqlINSERT);
         notifyObservers();
         return insertado;
@@ -83,6 +84,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         } finally {
             em.close();
         }
+        notifyObservers();
         grabaEnLogUpd(libro,sqlUPDATE);
         notifyObservers();
         return actualizado;
@@ -120,6 +122,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         } finally {
             em.close();
         }
+        notifyObservers();
         grabaEnLogDel(id,sqlDELETE);
         notifyObservers();
         return borrado;
@@ -139,7 +142,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
 
     }
 
-    //TODO cambiar a Hibernate
+    //TODO cambiar documentación a Hibernate
     /**
     * Este método estático devuelve todos los libros de la BD,
     * que cumplan la condición según los parametros
@@ -246,5 +249,4 @@ public class LibroDAOImpl implements LibroDAO, Subject {
             observer.update(this);
         }
     }
-
 }
