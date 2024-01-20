@@ -2,7 +2,10 @@ package org.example.vista;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import org.example.excepciones.CampoVacioExcepcion;
-import org.example.modelo.*;
+import org.example.modelo.Categoria;
+import org.example.modelo.Libro;
+import org.example.modelo.Prestamo;
+import org.example.modelo.Usuario;
 import org.example.modelo.dao.CategoriaDAOImpl;
 import org.example.modelo.dao.LibroDAOImpl;
 import org.example.modelo.dao.PrestamoDAOImpl;
@@ -11,9 +14,6 @@ import org.example.modelo.dao.helper.Entidades;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.observer.Observer;
 import org.example.observer.Subject;
-import org.example.presentador.PresentadorCategoria;
-import org.example.presentador.PresentadorPrestamo;
-import org.example.presentador.PresentadorUsuario;
 import org.example.vista.componentes.MiBarraDeEstado;
 import org.example.vista.helper.Categorias;
 import org.example.vista.helper.Libros;
@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Formulario principal de la aplicación, en el se implementarán las opciones
@@ -258,6 +257,28 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         miHistorial.add(miHistorialLogActual);
     }
 
+    /**
+     * Menú de ayuda donde estarán los créditos de la aplicación
+     */
+    private JMenu mAyuda;{
+        mAyuda = new JMenu("Ayuda");
+        mAyuda.setMnemonic('y');
+        mAyuda.setFocusable(true);
+        mAyuda.addFocusListener(this);
+    }
+
+    /**
+     * Créditos de la aplicación
+     */
+    private JMenuItem miCreditos;{
+        miCreditos = new JMenuItem("Créditos");
+        miCreditos.setMnemonic('C');
+        miCreditos.setFocusable(true);
+        miCreditos.addActionListener(this);
+        miCreditos.addFocusListener(this);
+        mAyuda.add(miCreditos);
+    }
+
 
     private JMenuBar jMenuBar;
 
@@ -269,6 +290,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
         jMenuBar.add(mLibros);
         jMenuBar.add(mPrestamos);
         jMenuBar.add(miHistorial);
+        jMenuBar.add(mAyuda);  // Agregamos la nueva pestaña de Ayuda
         jMenuBar.addFocusListener(this);
     }
 
@@ -637,7 +659,21 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             } catch (Exception ex) {
                 SwgAuxiliar.msgExcepcion(ex);
             }
+        } else if (e.getSource() == miCreditos){
+            mostrarCreditos();
         }
+    }
+
+    private void mostrarCreditos() {
+        JOptionPane.showMessageDialog(FormMain.getInstance(),
+                "CEO/Manager:\n" +
+                        "- Antonio García Expósito\n" +
+                        "UMPALUMPAS:\n" +
+                        "- Eric de ***REMOVED*** ***REMOVED***\n" +
+                        "- Sebastián Olea Castillo\n" +
+                        "- Juan Manuel Sújar González\n" +
+                        "- José María La Torre Ávila",
+                "Créditos", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

@@ -166,7 +166,7 @@ public class UsuarioDAOImpl implements UsuarioDAO, Subject {
 
             lista = typedQuery.getResultList();
         }
-
+        LogFile.saveLOG(sql);
         return lista;
     }
 

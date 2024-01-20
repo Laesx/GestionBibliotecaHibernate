@@ -11,3 +11,54 @@ Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:38:24)
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:40:09)
 Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (14:44:02)
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:07:20)
+SELECT * FROM prestamos
+SELECT * FROM categoria
+SELECT * FROM prestamos
+SELECT * FROM libro
+DELETE FROM libro WHERE id = 20
+SELECT * FROM libro
+DELETE FROM libro WHERE id = 16
+SELECT * FROM libro
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:12:53)
+SELECT * FROM libro
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:14:29)
+SELECT * FROM libro
+SELECT * FROM categoria
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:20:07)
+SELECT * FROM libro
+SELECT * FROM categoria
+SELECT * FROM usuario
+SELECT * FROM prestamos
+SELECT * FROM categoria
+SELECT * FROM libro
+Usuario conectado desde HIBERNATE: root a jdbc:mysql://localhost:6033/BIBLIOTECA (16:23:47)
+SELECT * FROM usuario
+SELECT * FROM categoria
+SELECT * FROM usuario
+SELECT * FROM libro
+SELECT * FROM prestamos
+SELECT * FROM categoria
+SELECT l FROM Libro l WHERE l.nombre LIKE :nombreLibro OR l.autor LIKE :autorLibro
+SELECT * FROM usuario
+SELECT * FROM categoria
+SELECT * FROM libro
+SELECT * FROM usuario
+INSERT INTO prestamos (idLibro,idUsuario,fechaPrestamo) VALUES (7,4,2024-01-20 16:25:24)
+SELECT * FROM prestamos
+SELECT * FROM categoria
+SELECT * FROM libro
+INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (getdrfg,ohgbfo,oijhgdfb,10)
+SELECT * FROM libro
+DELETE FROM libro WHERE id = 21
+SELECT * FROM libro
+DELETE FROM prestamos WHERE idPrestamo = 11
+SELECT * FROM prestamos
+INSERT INTO categoria (categoria) VALUES (PGDEUJbh)
+SELECT * FROM categoria
+DELETE FROM categoria WHERE id=11
+SELECT * FROM categoria
+INSERT INTO usuario (nombre,apellidos) VALUES (rfoguyg,GOIJHRFBHGPI)
+SELECT * FROM usuario
+DELETE usuario WHERE id = 9
+SELECT * FROM usuario
