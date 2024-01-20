@@ -4,6 +4,8 @@ import org.example.excepciones.CampoVacioExcepcion;
 import org.example.modelo.Libro;
 import org.example.modelo.dao.helper.LogFile;
 import org.example.modelo.dao.helper.Sql;
+import org.example.observer.Observer;
+import org.example.observer.Subject;
 import org.example.singleton.HibernateUtilJPA;
 
 import javax.persistence.EntityManager;
@@ -18,7 +20,7 @@ import java.util.List;
  * @author AGE
  * @version 3
  */
-public class LibroDAOImpl implements LibroDAO {
+public class LibroDAOImpl implements LibroDAO, Subject {
     private static final String sqlINSERT="INSERT INTO libro (nombre,autor,editorial,categoria) VALUES (?,?,?,?)";
     private static final String sqlUPDATE="UPDATE libro SET nombre=?, autor=?, editorial=?, categoria=? WHERE id = ?";
     private static final String sqlDELETE="DELETE FROM libro WHERE id = ?";
@@ -43,6 +45,7 @@ public class LibroDAOImpl implements LibroDAO {
         } finally {
             em.close();
         }
+        notifyObservers();
         grabaEnLogIns(libro,sqlINSERT);
         return insertado;
     }
@@ -83,6 +86,7 @@ public class LibroDAOImpl implements LibroDAO {
         } finally {
             em.close();
         }
+        notifyObservers();
         grabaEnLogUpd(libro,sqlUPDATE);
         return actualizado;
     }
@@ -121,6 +125,7 @@ public class LibroDAOImpl implements LibroDAO {
         } finally {
             em.close();
         }
+        notifyObservers();
         grabaEnLogDel(id,sqlDELETE);
         return borrado;
     }
@@ -139,7 +144,7 @@ public class LibroDAOImpl implements LibroDAO {
 
     }
 
-    //TODO cambiar a Hibernate
+    //TODO cambiar documentación a Hibernate
     /**
     * Este método estático devuelve todos los libros de la BD,
     * que cumplan la condición según los parametros
@@ -229,5 +234,25 @@ public class LibroDAOImpl implements LibroDAO {
     public Libro getLibro(int id) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         return em.find(Libro.class, id);
+    }
+
+    private Observer observer;
+
+    @Override
+    public void register(Observer obj){
+        if (obj == null) throw new NullPointerException("Null Observer");
+        observer=obj;
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observer=null;
+    }
+
+    @Override
+    public void notifyObservers() throws Exception {
+        if (observer!=null){
+            observer.update(this);
+        }
     }
 }
