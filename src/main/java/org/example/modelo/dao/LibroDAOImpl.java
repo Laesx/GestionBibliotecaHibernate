@@ -212,6 +212,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
 
             lista = typedQuery.getResultList();
         }
+        LogFile.saveLOG(sql);
         return lista;
     }
 
