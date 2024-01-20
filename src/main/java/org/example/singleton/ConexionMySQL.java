@@ -45,7 +45,7 @@ public class ConexionMySQL {
             Connection conexion = DriverManager.getConnection(myConf.getUrl(),myConf.getUser(),myConf.getPassword());
             conexion.setAutoCommit(true); // por defecto se hace autocommit;
             conexionMySQL=new ConexionMySQL(conexion);
-            String msg=String.format("Usuario conectado: %s a %s (%s)",myConf.getUser(),myConf.getUrl(),
+            String msg=String.format("Usuario conectado:  User:%s Url:%s (%s)",myConf.getUser(),myConf.getUrl(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
             LogFile.saveLOG(msg);
             Runtime.getRuntime().addShutdownHook(new MiApagado());

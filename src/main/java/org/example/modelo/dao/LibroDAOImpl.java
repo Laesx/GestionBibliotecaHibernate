@@ -47,6 +47,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         }
         notifyObservers();
         grabaEnLogIns(libro,sqlINSERT);
+        notifyObservers();
         return insertado;
     }
 
@@ -61,14 +62,11 @@ public class LibroDAOImpl implements LibroDAO, Subject {
     @Override
     public boolean modificar(Libro libro) throws Exception {
         boolean actualizado = false;
-
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
         try {
             transaction.begin();
             Libro libro1 = em.find(Libro.class, libro.getId());
-
             libro1.setId(libro.getId());
             libro1.setCategoria(libro.getCategoria());
             libro1.setNombre(libro.getNombre());
@@ -88,6 +86,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         }
         notifyObservers();
         grabaEnLogUpd(libro,sqlUPDATE);
+        notifyObservers();
         return actualizado;
     }
     private void grabaEnLogUpd(Libro libro,String sql) throws Exception {
@@ -105,10 +104,8 @@ public class LibroDAOImpl implements LibroDAO, Subject {
     @Override
     public boolean borrar(int id) throws Exception {
         boolean borrado = false;
-
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
         try{
             transaction.begin();
             Libro libro = em.find(Libro.class, id);
@@ -127,6 +124,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         }
         notifyObservers();
         grabaEnLogDel(id,sqlDELETE);
+        notifyObservers();
         return borrado;
     }
 
@@ -195,8 +193,6 @@ public class LibroDAOImpl implements LibroDAO, Subject {
             where = Sql.rellenaWhereOR(where, wCategoria);
         }
 
-
-
         if (where.isEmpty())
             return leerAllLibros();
         else {
@@ -217,9 +213,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
 
             lista = typedQuery.getResultList();
         }
-
         return lista;
-
     }
 
     /**
