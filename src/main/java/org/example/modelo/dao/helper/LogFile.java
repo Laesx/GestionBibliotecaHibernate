@@ -1,7 +1,5 @@
 package org.example.modelo.dao.helper;
 
-import org.example.observer.Observer;
-import org.example.observer.Subject;
 import org.example.vista.FormMain;
 
 import javax.swing.*;
@@ -14,8 +12,6 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Para registrar todas las operaciones realizadas en la base de datos

@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class CategoriaDAOImpl implements CategoriaDAO {
     private static final String sqlINSERT="INSERT INTO categoria (categoria) VALUES (?)";
+    private static final String sqlUPDATE="UPDATE categoria SET categoria=? WHERE id=?";
+
+    private static final String sqlDELETE="DELETE FROM categoria WHERE id=?";
+
     public CategoriaDAOImpl(){
     }
 
@@ -65,21 +69,26 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         } finally {
             em.close();
         }
-
+        grabaEnLogUpd(categoria,sqlUPDATE);
         return modificado;
     }
+
+
+    private void grabaEnLogUpd(Categoria categoria, String sql) throws Exception {
+            sql=sql.replaceFirst("\\?",categoria.getCategoria());
+            sql=sql.replaceFirst("\\?",String.valueOf(categoria.getId()));
+            LogFile.saveLOG(sql);
+    }
+
 
     @Override
     public boolean borrar(int id) throws Exception {
         boolean borrado = false;
-
         EntityManager em = HibernateUtilJPA.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-
         try{
             transaction.begin();
             Categoria categoria = em.find(Categoria.class, id);
-
             if(categoria != null){
                 em.remove(categoria);
                 transaction.commit();
@@ -92,19 +101,23 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         } finally {
             em.close();
         }
-
+        grabaEnLogDel(id,sqlDELETE);
         return borrado;
     }
+
+    private void grabaEnLogDel(int id, String sql) throws Exception {
+        sql=sql.replaceFirst("\\?",String.valueOf(id));
+        LogFile.saveLOG(sql);
+    }
+
     /**
      * el valor máximo del campo id de la tabla categorías
      * @return valor máximo del campo id
      * @throws Exception cualquier error asociado a la consulta sql
      */
     public static int maximaId() throws Exception {
-
         int maximo = 0;
         EntityManager em = HibernateUtilJPA.getEntityManager();
-
         try{
             String sql = "SELECT MAX(id) FROM Categoria ";
             Query query = em.createQuery(sql);
@@ -117,10 +130,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         } finally {
             em.close();
         }
-
         return maximo;
-
-
     }
 
     /**
