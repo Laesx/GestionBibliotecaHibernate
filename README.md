@@ -54,7 +54,7 @@ Hemos introducido una clase en la carpeta `dao` que contiene métodos generales 
 
 ## Implementación del Observer 🔄
 
-Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener una comunicación desacoplada y eficiente entre las diferentes capas. La implementación se encuentra en un paquete dedicado llamado `observer`, que contiene dos interfaces clave: `Observer` e `Sujeto`.
+Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener una comunicación desacoplada y eficiente entre las diferentes capas. La implementación se encuentra en un paquete dedicado llamado `observer`, que contiene dos interfaces clave: `Observer` e `Subjet`.
 
 ### Interfaces del Observer
 
@@ -62,9 +62,9 @@ Dentro de nuestro proyecto, hemos incorporado el patrón Observer para mantener 
 
 La interfaz `Observer` define un método `update` que será implementado por todas las clases interesadas en recibir notificaciones cuando haya cambios en el sistema.
 
-#### `Sujeto`
+#### `Subjet`
 
-La interfaz `Sujeto` actúa como un observador que detecta los cambios y notifica a los observadores registrados. Contiene métodos como `register` para añadir nuevos observadores y `notifyObserver` para informar a los observadores sobre los cambios.
+La interfaz `Subjet` actúa como un observador que detecta los cambios y notifica a los observadores registrados. Contiene métodos como `register` para añadir nuevos observadores y `notifyObserver` para informar a los observadores sobre los cambios.
 
 ### Implementación en Clase Presentador
 
