@@ -53,4 +53,9 @@ public class PresentadorCategoria implements Subject {
             observer.update(this);
         }
     }
+
+    @Override
+    public Object getUpdate(Observer obj) {
+        return null;
+    }
 }

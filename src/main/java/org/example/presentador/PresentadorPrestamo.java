@@ -62,4 +62,9 @@ public class PresentadorPrestamo implements Subject {
             observer.update(this);
         }
     }
+
+    @Override
+    public Object getUpdate(Observer obj) {
+        return null;
+    }
 }

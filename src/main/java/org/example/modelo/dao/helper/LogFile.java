@@ -84,4 +84,9 @@ public class LogFile implements Subject {
             observer.update(this);
         }
     }
+
+    @Override
+    public Object getUpdate(Observer obj) {
+        return null;
+    }
 }

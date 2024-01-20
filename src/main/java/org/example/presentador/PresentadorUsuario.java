@@ -61,4 +61,9 @@ public class PresentadorUsuario implements Subject {
         }
     }
 
+    @Override
+    public Object getUpdate(Observer obj) {
+        return null;
+    }
+
 }
