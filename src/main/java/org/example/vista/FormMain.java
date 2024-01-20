@@ -60,6 +60,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miAbrir = new JMenuItem("Abrir..");
+        miAbrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
         miAbrir.setMnemonic('A');
         miAbrir.setFocusable(true);
         miAbrir.addActionListener(this);
@@ -71,6 +72,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miGuardarLibro = new JMenuItem("Guardar libros..");
+        miGuardarLibro.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/xlsx.png");
+        miGuardarLibro.setIcon(icono);
         miGuardarLibro.setMnemonic('G');
         miGuardarLibro.setFocusable(true);
         miGuardarLibro.addActionListener(this);
@@ -82,6 +86,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miConexion = new JMenuItem("Conectar");
+        miConexion.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/conexion.png");
+        miConexion.setIcon(icono);
         miConexion.setMnemonic('C');
         miConexion.addActionListener(this);
         mArchivo.addSeparator();
@@ -92,6 +99,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miSalir = new JMenuItem("Salir");
+        miSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/salida.png");
+        miSalir.setIcon(icono);
         miSalir.setMnemonic('S');
         miSalir.setFocusable(true);
         miSalir.addActionListener(this);
@@ -113,6 +123,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miListaCategorias = new JMenuItem("Lista");
+        miListaCategorias.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/lista.png");
+        miListaCategorias.setIcon(icono);
         miListaCategorias.setMnemonic('L');
         miListaCategorias.setFocusable(true);
         miListaCategorias.addActionListener(this);
@@ -125,6 +138,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miNuevaCategoria = new JMenuItem("Nuevo");
+        miNuevaCategoria.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/nuevo.png");
+        miNuevaCategoria.setIcon(icono);
         miNuevaCategoria.setMnemonic('N');
         miNuevaCategoria.setFocusable(true);
         miNuevaCategoria.addActionListener(this);
@@ -145,6 +161,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miListaUsuarios = new JMenuItem("Lista");
+        miListaUsuarios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/lista.png");
+        miListaUsuarios.setIcon(icono);
         miListaUsuarios.setMnemonic('L');
         miListaUsuarios.setFocusable(true);
         miListaUsuarios.addActionListener(this);
@@ -158,6 +177,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miNuevoUsuario = new JMenuItem("Nuevo");
+        miNuevoUsuario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_6, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/nuevo.png");
+        miNuevoUsuario.setIcon(icono);
         miNuevoUsuario.setMnemonic('N');
         miNuevoUsuario.setFocusable(true);
         miNuevoUsuario.addActionListener(this);
@@ -179,6 +201,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miListaLibros = new JMenuItem("Lista");
+        miListaLibros.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/lista.png");
+        miListaLibros.setIcon(icono);
         miListaLibros.setMnemonic('L');
         miListaLibros.setFocusable(true);
         miListaLibros.addActionListener(this);
@@ -190,6 +215,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miNuevoLibro = new JMenuItem("Nuevo");
+        miNuevoLibro.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_7, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/nuevo.png");
+        miNuevoLibro.setIcon(icono);
         miNuevoLibro.setMnemonic('N');
         miNuevoLibro.setFocusable(true);
         miNuevoLibro.addActionListener(this);
@@ -211,6 +239,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miListaPrestamos = new JMenuItem("Lista");
+        miListaPrestamos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/lista.png");
+        miListaPrestamos.setIcon(icono);
         miListaPrestamos.setMnemonic('L');
         miListaPrestamos.setFocusable(true);
         miListaPrestamos.addActionListener(this);
@@ -222,10 +253,14 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miNuevoPrestamo = new JMenuItem("Nuevo");
+        miNuevoPrestamo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_8, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/nuevo.png");
+        miNuevoPrestamo.setIcon(icono);
         miNuevoPrestamo.setMnemonic('N');
         miNuevoPrestamo.setFocusable(true);
         miNuevoPrestamo.addActionListener(this);
         miNuevoPrestamo.addFocusListener(this);
+        miNuevoPrestamo.setEnabled(false);
         mPrestamos.add(miNuevoPrestamo);
     }
 
@@ -233,14 +268,17 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
 
     {
         miHistorial = new JMenu("Historial");
-        mPrestamos.setMnemonic('P');
-        mPrestamos.setFocusable(true);
-        mPrestamos.addFocusListener(this);
+        miHistorial.setMnemonic('P');
+        miHistorial.setFocusable(true);
+        miHistorial.addFocusListener(this);
     }
 
     private JMenuItem miHistorialVer;
     {
         miHistorialVer = new JMenuItem("Cargar Logs");
+        miHistorialVer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/log.png");
+        miHistorialVer.setIcon(icono);
         miHistorialVer.setMnemonic('L');
         miHistorialVer.setFocusable(true);
         miHistorialVer.addActionListener(this);
@@ -251,7 +289,10 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
     private JMenuItem miHistorialLogActual;
 
     {
-        miHistorialLogActual = new JMenuItem("Log sesion Actual");
+        miHistorialLogActual = new JMenuItem("Log InSesion");
+        miHistorialLogActual.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/logDin.png");
+        miHistorialLogActual.setIcon(icono);
         miHistorialLogActual.setMnemonic('L');
         miHistorialLogActual.setFocusable(true);
         miHistorialLogActual.addActionListener(this);
@@ -274,6 +315,9 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
      */
     private JMenuItem miCreditos;{
         miCreditos = new JMenuItem("Créditos");
+        miCreditos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK));
+        ImageIcon icono = new ImageIcon("imagenes/creditos.png");
+        miCreditos.setIcon(icono);
         miCreditos.setMnemonic('C');
         miCreditos.setFocusable(true);
         miCreditos.addActionListener(this);
@@ -361,6 +405,8 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             // Se hace aqui ya que tiene que ser antes de que se inicie la Ventana Principal
             FlatDarculaLaf.setup();
             main = new FormMain();
+            ImageIcon icono = new ImageIcon("biblioteca.png");
+            main.setIconImage(icono.getImage());
             main.loginPassword();
         }
         return main;
