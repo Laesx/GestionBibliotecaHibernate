@@ -203,8 +203,8 @@ durante su uso.
  las líneas leídas en el archivo.log a un StringBuilder que será el encargado de mostrarlo por pantalla en un JTextArea.
 
  <div style="float: right;margin-right: 7px;margin-top: 20px;">
-   <img src="imagenes/CargarHistorial1.jpg" alt="CargarHistorial" width:"400"/>
-   <img src="imagenes/CargarHistorial2.jpg" alt="CargarHistorial" width:"400"/>
+   <img src="imagenes/CargarHistorial1.jpg" alt="CargarHistorial" width="400"/>
+   <img src="imagenes/CargarHistorial2.jpg" alt="CargarHistorial" width="400"/>
  </div>
 
   Funcionalidad Log InSesion: Esta funcionalidad ha sido algo más elaborada y hemos aprovechado una función existente en la clase `LogFle`,
@@ -214,9 +214,9 @@ durante su uso.
   Ademas implementamos un método nuevo llamado `actualizarLogSession()` para crear la actualización de la visualización de la session.
   
  <div style="float: right;margin-right: 7px;margin-top: 20px;">
-   <img src="imagenes/sesionActualLog.jpg" alt="SessionActualLog" width:"250"/>
-   <img src="imagenes/agregaLineaListaLog.jpg" alt="agregaLineaListaLog" width:"250"/>
-   <img src="imagenes/actualizarLogSesion.jpg" alt="actualizarLogSesion" width:"250"/>
+   <img src="imagenes/sesionActualLog.jpg" alt="SessionActualLog" width="250"/>
+   <img src="imagenes/agregaLineaListaLog.jpg" alt="agregaLineaListaLog" width="250"/>
+   <img src="imagenes/actualizarLogSesion.jpg" alt="actualizarLogSesion" width="250"/>
  </div>
   
 
