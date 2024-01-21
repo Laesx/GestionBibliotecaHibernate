@@ -730,7 +730,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
                 "CEO/Manager:\n" +
                         "- Antonio García Expósito\n" +
                         "UMPALUMPAS:\n" +
-                        "- Eric de ***REMOVED*** ***REMOVED***\n" +
+                        "- Eric\n" +
                         "- Sebastián Olea Castillo\n" +
                         "- Juan Manuel Sújar González\n" +
                         "- José María La Torre Ávila",
