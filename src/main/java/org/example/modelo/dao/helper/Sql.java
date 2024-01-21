@@ -46,36 +46,6 @@ public class Sql {
         }
         return where;
     }
-    /*
-    public static void importCSV(Path path, String tabla,char delimiter) throws Exception {
-        String sql = "SELECT * FROM "+tabla;
-        Connection con = ConexionMySQL.getInstance().getConexion();
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            LogFile.saveLOG(sql);
-            // escribimos la linea de la cabecera
-            ResultSetMetaData resultSetMetaData = rs.getMetaData();
-            String cabecera="";
-            int numColumn=resultSetMetaData.getColumnCount();
-            for (int i=1;i<=numColumn;i++) {
-                cabecera+=resultSetMetaData.getColumnName(i);
-                if (i!=numColumn)
-                    cabecera+=delimiter;
-                else cabecera+='\n';
-            }
-            Files.writeString(path,cabecera, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-            while (rs.next()){
-                String fila="";
-                for (int i=1; i<=numColumn;i++) {
-                    fila+=rs.getObject(i).toString();
-                    if (i!=numColumn)
-                        fila+=delimiter;
-                    else fila+='\n';
-                }
-                Files.writeString(path,fila, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            }
-        }
-    }*/
 
     public static <T> void importCSV(Class<T> entityClass, String tabla, char delimiter) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();

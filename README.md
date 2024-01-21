@@ -192,13 +192,9 @@ hemos tenido que aplicar antes de que se cree ningún panel de la GUI.
 [//]: # (Sebas)
 ### Log de Sesión y Logs de Sesiones Anteriores dentro de la Aplicación
 
-#### Subseccion
-
 También hemos añadido otra pestaña llamada historial, que dentro tiene dos subpestañas: Una llamada cargar logs
 que lo que hace es cargar los logs de sesiones anteriores y la otra es logs de sesión actual, en la que visualizas en
 una nueva ventana las sentencias que se estan usando en esa sesión para gestionarla.
-
-### Iconos en la Aplicación
 
 
 [//]: # (Chema)
