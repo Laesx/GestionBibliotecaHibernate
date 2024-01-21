@@ -123,6 +123,7 @@ public class LibroDAOImpl implements LibroDAO, Subject {
             em.close();
         }
         grabaEnLogDel(id,sqlDELETE);
+        // Al final de la operación, notificamos a los observadores
         notifyObservers();
         return borrado;
     }
