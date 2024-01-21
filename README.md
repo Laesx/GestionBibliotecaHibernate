@@ -190,12 +190,35 @@ Añadimos una nueva skin y cambiamos la que trae por defecto, añadiendo la depe
 hemos tenido que aplicar antes de que se cree ningún panel de la GUI.
 
 [//]: # (Sebas)
-### Log de Sesión y Logs de Sesiones Anteriores dentro de la Aplicación
+### Cargar logs y log sesion dentro de la Aplicación
 
-También hemos añadido otra pestaña llamada historial, que dentro tiene dos subpestañas: Una llamada cargar logs
-que lo que hace es cargar los logs de sesiones anteriores y la otra es logs de sesión actual, en la que visualizas en
-una nueva ventana las sentencias que se estan usando en esa sesión para gestionarla.
+Para ello, en ambos casos, lo primero fue la implementación de la parte gráfica. Creamos un `JMenu`, `JMenuItem` y posteriormente
+se agregaron al `JMenuBar`. Así hemos agregado la pestaña Historial y los dos ítems que tienen dentro "Cargar Logs" y "Log InSesión".
+Cabe mencionar que estas opciones generan un nuevo JFrame fuera del propio JDesktopPane por comodidad en el manejo de la aplicación 
+durante su uso.
 
+ Funcionalidad Cargar Logs: Esta funcionalidad la hemos implementado de la siguiente manera. Una vez que se ejecuta el método 
+ `actionPerformed` de la clase Formain, se ejecuta el método `cargaHistorial()` en el cual creamos un `JFileChooser`, el cual tiene 
+ un filtro para que solo permita cargar archivos con extensión ".log". A continuación, mediante un Buffer de lectura, añadimos 
+ las líneas leídas en el archivo.log a un StringBuilder que será el encargado de mostrarlo por pantalla en un JTextArea.
+
+ <div style="float: right;margin-right: 7px;margin-top: 20px;">
+   <img src="CargarHistorial1.jpg" alt="CargarHistorial" width:"400"/>
+   <img src="CargarHistorial2.jpg" alt="CargarHistorial" width:"400"/>
+ </div>
+
+  Funcionalidad Log InSesion: Esta funcionalidad ha sido algo más elaborada y hemos aprovechado una función existente en la clase `LogFle`,
+  en ella hemos creado un método llamado `agregaLineaListaLog(String msqLog)` el cual devuelve una lista de String, lo que hace es 
+  rellenar la lista con cada sentencia que se genera en la interfaz cuando los métodos de las operaciones con la base datos se realizan.
+  Esto es gracias a las funciones existentes `saveLog()` y `saveLOGsinBD()` que son llamados en cada método que ejecuta sentencias en las clases DAOImpl.
+  Ademas implementamos un método nuevo llamado `actualizarLogSession()` para crear la actualización de la visualización de la session.
+  
+ <div style="float: right;margin-right: 7px;margin-top: 20px;">
+   <img src="sesionActualLog.jpg" alt="SessionActualLog" width:"250"/>
+   <img src="agregaLineaListaLog.jpg" alt="agregaLineaListaLog" width:"250"/>
+   <img src="actualizarLogSesion.jpg" alt="actualizarLogSesion" width:"250"/>
+ </div>
+  
 
 [//]: # (Chema)
 ### Pestaña Ayuda y Créditos
