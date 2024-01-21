@@ -8,7 +8,7 @@
 - 👨‍💻 Juan Manuel Sújar González
 - 👨‍💻 Sebastián Olea Castillo
 - 👨‍💻 José María La Torre Ávila
-- 👨‍💻 Eric de ***REMOVED***
+- 👨‍💻 Eric
 
 ## Objetivo del Trabajo 🎯
 **1. Cambiar la integración de la base de datos de SQL a JPA Hibernate.** 
