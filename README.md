@@ -30,7 +30,7 @@ Estos objetivos no solo mejoran la tecnología subyacente del proyecto, sino que
  
 Iniciamos nuestro proyecto creando un proyecto Maven desde cero. El cual conectamos con Hibernate, conectamos con
 la base de datos y mapeamos la misma.
-<img src="imagenes/loginScreen.jpg" alt="Mapa Entidades" style="float: right;margin-right: 7px;margin-top: 20px;" width="400"/>
+
 ### Login y Experiencia del Usuario 🔐
 Uno de los primeros pasos fue adaptar el panel de login para que se conecte a la base de datos a través de 
 Hibernate y compruebe si el usuario y la contraseña son correctos.
@@ -39,7 +39,7 @@ A su vez se ha mantenido toda la funcionalidad que ya existía como la encriptac
 O la funcionalidad que recuerda el último usuario que se conectó a la aplicación, para no tener que volver a 
 introducir sus credenciales cada vez que inicie sesión. 
 
-
+<img src="imagenes/loginScreen.jpg" alt="Login" width="334"/>
 
 ## Conexión y Mapeado de la Base de Datos 📊
 
