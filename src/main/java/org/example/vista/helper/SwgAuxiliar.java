@@ -1,5 +1,7 @@
 package org.example.vista.helper;
 
+import org.example.modelo.Libro;
+import org.example.modelo.dao.helper.Sql;
 import org.example.vista.FormMain;
 
 import javax.swing.*;
@@ -53,12 +55,11 @@ public class SwgAuxiliar {
     /**
      * Permitirá grabar el contenido de una tabla en un fichero csv
      * dentro de la carpeta ficheros/ListaDeTABLA.csv
-     * @param tabla nombre de la tabla a grabar todo el contenido
+     * @param tabla nombre de la tabla a grabar el contenido
      * @param delimiter caracter delimitador de campos
      */
     public static void grabarCSV(String tabla,char delimiter) throws Exception {
         Path path = Paths.get("ficheros/ListaDe"+tabla.toUpperCase()+".csv");
-        //TODO mirar esto a ver que coño pasa
-        //Sql.importCSV(path,tabla,delimiter);
+        Sql.importCSV(Libro.class,tabla,delimiter, path);
     }
 }

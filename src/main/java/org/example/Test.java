@@ -17,7 +17,7 @@ public class Test {
             List<Libro> libros = lib.leerAllLibros();
             System.out.println(libros);*/
 
-            Sql.importCSV(Libro.class,"Libro",',');
+            //Sql.importCSV(Libro.class,"Libro",',');
 
             //System.out.println(EncriptacionDesencriptacion.desencriptar("jL9QzuscGoBRMiEjVD0vHserm2Vm9F+3be04HP9Q7aZiYE1HRHXnKd8wMje+KXvX","asdf234fsdva%l9asdnklfa@f4f_adfafaAAaad;"));
 

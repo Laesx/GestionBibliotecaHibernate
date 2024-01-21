@@ -47,13 +47,13 @@ public class Sql {
         return where;
     }
 
-    public static <T> void importCSV(Class<T> entityClass, String tabla, char delimiter) throws Exception {
+    public static <T> void importCSV(Class<T> entityClass, String tabla, char delimiter, Path path) throws Exception {
         EntityManager em = HibernateUtilJPA.getEntityManager();
         String sql = "SELECT e FROM " + tabla + " e";
         EntityType<T> entityType = em.getMetamodel().entity(entityClass);
 
         List<T> results = em.createQuery(sql, entityClass).getResultList();
-        Path path = Paths.get(tabla + ".csv");
+        //Path path = Paths.get(tabla + ".csv");
         if (!results.isEmpty()) {
             StringBuilder cabecera = new StringBuilder();
             for (Attribute<?, ?> attribute : entityType.getAttributes()) {

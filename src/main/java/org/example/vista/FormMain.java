@@ -716,7 +716,7 @@ public class FormMain extends JFrame implements Observer, ActionListener, FocusL
             nuevoPrestamo();
         else if (e.getSource() == miGuardarLibro) {
             try {
-                SwgAuxiliar.grabarCSV("libro", ',');
+                SwgAuxiliar.grabarCSV("Libro", ',');
             } catch (Exception ex) {
                 SwgAuxiliar.msgExcepcion(ex);
             }
