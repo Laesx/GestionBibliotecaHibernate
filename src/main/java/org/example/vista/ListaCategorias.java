@@ -117,7 +117,8 @@ public class ListaCategorias extends JInternalFrame implements VistaCategorias,M
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getComponent().equals(jTable)){
-            if (e.getClickCount()==2)
+            int posicionTabla= jTable.getSelectedRow();
+            if (e.getClickCount()==2 && posicionTabla!=-1)
                 muestraFicha(getCategoria());
             else if (e.getButton()==MouseEvent.BUTTON3)
                 jPopupMenu.show (jTable, e.getX (), e.getY ());

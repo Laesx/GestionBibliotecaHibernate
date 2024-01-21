@@ -14,41 +14,59 @@ import java.util.List;
 
 /**
  * Formulario que muestra lista todos los registros asociados a una consulta relacionada con la tabla usuario
+ *
  * @author AGE
  * @version 2
  */
 
-public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, MouseListener, FocusListener, KeyListener,ActionListener {
+public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, MouseListener, FocusListener, KeyListener, ActionListener {
     private static final int WIDTH = 625;
     private static final int HEIGHT = 500;
     private List<Usuario> usuarios;
     private PresentadorUsuario presentador;
 
-    private TablaUsuarios jTable;{
-        jTable=new TablaUsuarios();
+    private TablaUsuarios jTable;
+
+    {
+        jTable = new TablaUsuarios();
         jTable.addMouseListener(this);
         jTable.addFocusListener(this);
         jTable.addKeyListener(this);
     }
-    private JScrollPane scrollPane;{
-        scrollPane=new JScrollPane(jTable);
+
+    private JScrollPane scrollPane;
+
+    {
+        scrollPane = new JScrollPane(jTable);
     }
-    private JMenuItem miFicha;{
-        miFicha=new JMenuItem("Ficha");
+
+    private JMenuItem miFicha;
+
+    {
+        miFicha = new JMenuItem("Ficha");
         miFicha.setMnemonic('F');
         miFicha.addActionListener(this);
     }
-    private JMenuItem miNuevo;{
-        miNuevo=new JMenuItem("Nuevo");
+
+    private JMenuItem miNuevo;
+
+    {
+        miNuevo = new JMenuItem("Nuevo");
         miNuevo.setMnemonic('N');
         miNuevo.addActionListener(this);
     }
-    private JMenuItem miBorra;{
-        miBorra=new JMenuItem("Borra");
+
+    private JMenuItem miBorra;
+
+    {
+        miBorra = new JMenuItem("Borra");
         miBorra.setMnemonic('B');
         miBorra.addActionListener(this);
     }
-    private JPopupMenu jPopupMenu;{
+
+    private JPopupMenu jPopupMenu;
+
+    {
         jPopupMenu = new JPopupMenu();
         jPopupMenu.add(miFicha);
         jPopupMenu.add(miNuevo);
@@ -62,7 +80,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
 
     @Override
     public void setPresentador(PresentadorUsuario presentador) throws Exception {
-        this.presentador=presentador;
+        this.presentador = presentador;
         presentador.listaAllUsuarios();
     }
 
@@ -73,7 +91,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
 
     @Override
     public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios=usuarios;
+        this.usuarios = usuarios;
         jTable.muestraTabla(usuarios);
     }
 
@@ -88,7 +106,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
         setTitle("Listado de usuarios:");
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         Dimension dime = new Dimension(WIDTH, HEIGHT);
-        setBounds(FormMain.posInterna(),FormMain.posInterna(), WIDTH, HEIGHT);
+        setBounds(FormMain.posInterna(), FormMain.posInterna(), WIDTH, HEIGHT);
         setMinimumSize(dime);
         setSize(dime);
         setResizable(true);
@@ -104,13 +122,15 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getComponent().equals(jTable)){
-            if (e.getClickCount()==2)
+        if (e.getComponent().equals(jTable)) {
+            int posicionTabla = jTable.getSelectedRow();
+            if (e.getClickCount() == 2 && posicionTabla != -1) {
                 muestraFicha(getUsuario());
-            else if (e.getButton()==MouseEvent.BUTTON3)
-                jPopupMenu.show (jTable, e.getX (), e.getY ());
+            } else if (e.getButton() == MouseEvent.BUTTON3)
+                jPopupMenu.show(jTable, e.getX(), e.getY());
         }
     }
+
 
     private void muestraFicha(Usuario usuario) {
         try {
@@ -121,11 +141,12 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
         }
 
     }
+
     private void borrar(Usuario usuario) {
         if (JOptionPane.showConfirmDialog(this,
-                String.format("¿Desea BORRAR el usuario: %s %s?",usuario.getNombre(),usuario.getApellidos()),
+                String.format("¿Desea BORRAR el usuario: %s %s?", usuario.getNombre(), usuario.getApellidos()),
                 "Atención:",
-                JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
                 presentador.borra();
                 //FormMain.actualizaListaUsuarios();
@@ -134,6 +155,7 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
             }
         }
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
 
@@ -172,11 +194,11 @@ public class ListaUsuarios extends JInternalFrame implements VistaUsuarios, Mous
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ESCAPE)
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             dispose();
-        else if (e.getKeyCode()==KeyEvent.VK_SPACE)
+        else if (e.getKeyCode() == KeyEvent.VK_SPACE)
             muestraFicha(usuarios.get(jTable.getSelectedRow()));
-        else if (e.getKeyCode()==KeyEvent.VK_DELETE)
+        else if (e.getKeyCode() == KeyEvent.VK_DELETE)
             borrar(getUsuario());
     }
 
