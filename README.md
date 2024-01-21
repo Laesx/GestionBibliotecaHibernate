@@ -190,7 +190,7 @@ Añadimos una nueva skin y cambiamos la que trae por defecto, añadiendo la depe
 hemos tenido que aplicar antes de que se cree ningún panel de la GUI.
 
 [//]: # (Sebas)
-### Log de Sesión y Logs de Sesiones Anteriores dentro de la Apliación
+### Log de Sesión y Logs de Sesiones Anteriores dentro de la Aplicación
 
 #### Subseccion
 
