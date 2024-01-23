@@ -47,7 +47,6 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         }
         notifyObservers();
         grabaEnLogIns(libro,sqlINSERT);
-        notifyObservers();
         return insertado;
     }
 
@@ -86,7 +85,6 @@ public class LibroDAOImpl implements LibroDAO, Subject {
         }
         notifyObservers();
         grabaEnLogUpd(libro,sqlUPDATE);
-        notifyObservers();
         return actualizado;
     }
     private void grabaEnLogUpd(Libro libro,String sql) throws Exception {
